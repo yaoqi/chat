@@ -39,4 +39,14 @@ public final class Message implements IMessage{
 		this.body = object;
 		return this;
 	}
+
+	@Override
+	public String getFrom() {
+		return (String) header.getAttachment().get("from");
+	}
+
+	@Override
+	public String getTo() {
+		return (String) header.getAttachment().get("to");
+	}
 }
