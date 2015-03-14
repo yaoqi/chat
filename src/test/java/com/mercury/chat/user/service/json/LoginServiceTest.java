@@ -10,7 +10,7 @@ import redis.clients.jedis.Jedis;
 
 import com.mercury.chat.user.service.UserService;
 import com.mercury.chat.user.service.UserServiceImpl;
-import com.mercury.chat.user.service.storer.JedisPoolUtils;
+import com.mercury.chat.user.service.storer.redis.JedisPoolUtils;
 
 public class LoginServiceTest {
 	

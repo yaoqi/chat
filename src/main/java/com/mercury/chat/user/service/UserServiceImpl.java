@@ -13,7 +13,7 @@ import com.mercury.chat.common.struct.IHeader;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.json.JsonMessage;
 import com.mercury.chat.user.User;
-import com.mercury.chat.user.service.storer.JedisPoolUtils;
+import com.mercury.chat.user.service.storer.redis.JedisPoolUtils;
 
 public class UserServiceImpl implements UserService {
 
