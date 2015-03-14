@@ -18,7 +18,7 @@ import com.mercury.chat.common.MessageStoreCallable;
 import com.mercury.chat.common.TaskExecutor;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.matcher.UserMatcher;
-import com.mercury.chat.common.struct.json.JsonHeader;
+import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
@@ -48,7 +48,7 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 		
 		//submit store message to thread pool.
 		ExecutorService taskExecutor = TaskExecutor.getInstance().taskExecutor;
-		taskExecutor.submit(new MessageStoreCallable(Lists.newArrayList(msg)));
+		taskExecutor.submit(new MessageStoreCallable(Lists.<IMessage>newArrayList(msg)));
     }
     
 	@Override

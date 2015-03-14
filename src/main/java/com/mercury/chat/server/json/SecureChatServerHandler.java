@@ -13,9 +13,10 @@ import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageStoreCallable;
 import com.mercury.chat.common.TaskExecutor;
 import com.mercury.chat.common.constant.Constant;
+import com.mercury.chat.common.matcher.UserMatcher;
+import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.json.JsonHeader;
 import com.mercury.chat.common.struct.json.JsonMessage;
-import com.mercury.chat.common.matcher.UserMatcher;
 
 /**
  * Handles a server-side channel.
@@ -41,7 +42,7 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<JsonMes
 		
 		//submit store message to thread pool.
 		ExecutorService taskExecutor = TaskExecutor.getInstance().taskExecutor;
-		taskExecutor.submit(new MessageStoreCallable(Lists.newArrayList(msg)));
+		taskExecutor.submit(new MessageStoreCallable(Lists.<IMessage>newArrayList(msg)));
     }
     
 	@Override

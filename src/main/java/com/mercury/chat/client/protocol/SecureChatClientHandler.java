@@ -24,7 +24,7 @@ public class SecureChatClientHandler extends SimpleChannelInboundHandler<Message
     @Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
     	Attribute<Collection<MessageListener>> listeners = ctx.channel().attr(Constant.listeners);
-    	listeners.setIfAbsent(Lists.newArrayList());
+    	listeners.setIfAbsent(Lists.<MessageListener>newArrayList());
 	}
 
 	@Override
