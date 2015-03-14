@@ -58,4 +58,14 @@ public final class JsonMessage implements IMessage{
     public String toString() {
     	return "Message [header=" + header + "]";
     }
+
+	@Override
+	public String getFrom() {
+		return header.getFrom();
+	}
+
+	@Override
+	public String getTo() {
+		return header.getTo();
+	}
 }

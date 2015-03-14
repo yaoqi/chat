@@ -6,4 +6,8 @@ public interface IMessage {
 	
 	Object getBody();
 	
+	String getFrom();
+	
+	String getTo();
+	
 }
