@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 			if(body instanceof String){
 				jedis.lpush("chat:from:"+header.getFrom()+":to:"+header.getTo(), (String)body);
 			}else{
-				//FIXME need to implement this logic via storing byte array to redis.
+				//FIXME need to implement this logic via string byte array to redis.
 			}
 		}
 		return messages.size();
