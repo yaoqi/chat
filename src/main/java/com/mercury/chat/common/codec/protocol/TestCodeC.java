@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.User;
 
 public class TestCodeC {
 
@@ -35,6 +36,23 @@ public class TestCodeC {
 		header.setAttachment(attachment);
 		message.setHeader(header);
 		message.setBody("abcdefg-----------------------AAAAAA");
+		return message;
+    }
+    
+    public Message getUserMessage() {
+		Message message = new Message();
+		Header header = new Header();
+		header.setLength(123);
+		header.setSessionID(99999);
+		header.setStatusCode(121);
+		header.setType((byte) 1);
+		header.setPriority((byte) 7);
+		Map<String, Object> attachment = new HashMap<String, Object>();
+		attachment.put("from", "god");
+		attachment.put("to", "bigboy");
+		header.setAttachment(attachment);
+		message.setHeader(header);
+		message.setBody(new User("bigboy","pwd"));
 		return message;
     }
 
@@ -119,8 +137,18 @@ public class TestCodeC {
 		    Message decodeMsg = testC.decode(buf);
 		    System.out.println(decodeMsg + "[body ] " + decodeMsg.getBody());
 		    System.out.println("-------------------------------------------------");
-	
 		}
+		
+		 message = testC.getUserMessage();
+		 System.out.println(message + "[body ] " + message.getBody());
+		
+		for (int i = 0; i < 5; i++) {
+		    ByteBuf buf = testC.encode(message);
+		    Message decodeMsg = testC.decode(buf);
+		    System.out.println(decodeMsg + "[body ] " + decodeMsg.getBody());
+		    System.out.println("-------------------------------------------------");
+		}
+		
     }
 
 }

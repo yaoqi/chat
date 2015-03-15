@@ -96,18 +96,14 @@ public final class Header implements IHeader{
 	public String getFrom() {
 		return (String) attachment.get("from");
 	}
-	
-	/*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-		return "Header [version=" + version + ", length=" + length
-			+ ", sessionID=" + sessionID + ", type=" + type + ", priority="
-			+ priority + ", attachment=" + attachment + "]";
-    }
 
+	@Override
+	public String toString() {
+		return "Header [version=" + version + ", length=" + length
+				+ ", sessionID=" + sessionID + ", statusCode=" + statusCode
+				+ ", type=" + type + ", priority=" + priority + ", attachment="
+				+ attachment + ", getTo()=" + getTo() + ", getFrom()="
+				+ getFrom() + "]";
+	}
 
 }
