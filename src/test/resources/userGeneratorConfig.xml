@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="C:\Users\b2c017\.m2\repository\com\h2database\h2\1.4.185\h2-1.4.185.jar" />
+	<context id="context1" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />  
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />  
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" /> 
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+            <property name="searchString" value="Example$" />  
+            <property name="replaceString" value="Template" />  
+        </plugin> 
+        
+        <commentGenerator >  
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->  
+            <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->  
+        </commentGenerator>
+        
+		<jdbcConnection driverClass="org.h2.Driver" connectionURL="jdbc:h2:tcp://localhost/~/chat" userId="sa" password="" />
+		<javaModelGenerator targetPackage="com.shuixing.emall.customer.entity" targetProject="ChatService" />
+		<sqlMapGenerator targetPackage="com.shuixing.emall.customer" targetProject="ChatService" />
+		<javaClientGenerator targetPackage="com.shuixing.emall.customer.dao" targetProject="ChatService" type="ANNOTATEDMAPPER" />
+		
+		<table  tableName="USER" domainObjectName="User" ></table>
+		<table  tableName="MESSAGE" domainObjectName="Message" ></table>
+
+	</context>
+</generatorConfiguration>

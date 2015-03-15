@@ -6,6 +6,14 @@
   <artifactId>Chat</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0</version>
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.batch.version>3.0.2.RELEASE</spring.batch.version>
+		<springframework.core.version></springframework.core.version>
+		<org.aspectj.version>1.7.2</org.aspectj.version>
+	</properties>
 
   <name>Chat</name>
 	<build>
@@ -107,6 +115,11 @@
 		<artifactId>perf4j</artifactId>
 		<version>0.9.16</version>
 	 </dependency>
+	 <dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>1.2.2</version>
+	  </dependency>
 	 <dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
