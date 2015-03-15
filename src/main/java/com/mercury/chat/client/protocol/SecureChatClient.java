@@ -11,10 +11,17 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 
 import javax.net.ssl.SSLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mercury.chat.client.protocol.impl.ConnectionImpl;
 
 public final class SecureChatClient extends Thread{
     
+	static final Logger logger = LogManager.getLogger(SecureChatClient.class);
+	
+	private EventLoopGroup group = new NioEventLoopGroup();
+	
 	//default value for client side.
 	static final String HOST = System.getProperty("host", "127.0.0.1");
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
@@ -51,6 +58,18 @@ public final class SecureChatClient extends Thread{
 		} catch (SSLException | InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+
+			@Override
+			public void run() {
+				logger.info("cilent exit!");
+				channel.close();
+				group.shutdownGracefully();
+			}
+			
+		});
+		
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -67,7 +86,6 @@ public final class SecureChatClient extends Thread{
 		// Configure SSL.
         final SslContext sslCtx = SslContext.newClientContext(InsecureTrustManagerFactory.INSTANCE);
 
-        EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
