@@ -30,7 +30,8 @@ public class ConnectionImpl implements Connection{
 			Message message = new Message().header(new Header().type(LOGIN.value())).body(new User(userId,password));
 			channel.writeAndFlush(message).sync();//send login request to chat service
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
-			loginMessageBox.get();//wait until receive the login response.
+			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
+			
 		} catch (InterruptedException e) {
 			return null;
 		}

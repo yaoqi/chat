@@ -38,8 +38,12 @@ public enum LoginFlag {
 		return this == SUCCESS;
 	}
 	
-	public boolean isThisType(String type){
-		return StringUtils.equals(this.value, type);
+	public boolean isThisType(String value){
+		return StringUtils.equals(this.value, value);
+	}
+	
+	public boolean isThisType(byte key){
+		return ObjectUtils.equals(this.key, key);
 	}
 	
 	public static LoginFlag valOf(String value){
