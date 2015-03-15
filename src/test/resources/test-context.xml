@@ -29,12 +29,12 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis.xml" />
-		<property name="typeAliasesPackage" value="com.shuixing.emall.*.entity;com.shuixing.emall.common.service.entity;com.shuixing.emall.common.reference.entity"></property>
-		<property name="mapperLocations" value="classpath:com/shuixing/emall/*/dao/*Mapper.xml;classpath:com/shuixing/emall/common/sensitive/dao/*Mapper.xml;classpath:com/shuixing/emall/common/reference/dao/*Mapper.xml"></property>
+		<property name="typeAliasesPackage" value="com.mercury.chat.user.entity"></property>
+		<property name="mapperLocations" value="classpath:com/mercury/chat/user/dao/*Mapper.class"></property>
     </bean>
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.shuixing.emall.*.dao;com.shuixing.emall.common.service.dao;com.shuixing.emall.common.reference.dao"></property>
+		<property name="basePackage" value="com.mercury.chat.user.dao"></property>
 	</bean>
 
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
