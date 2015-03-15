@@ -18,7 +18,9 @@ import com.mercury.chat.user.entity.User;
 public class ConnectionImpl implements Connection{
 	
 	static final Logger logger = LogManager.getLogger(ConnectionImpl.class);
-
+	
+	private volatile boolean closed;
+	
 	private Channel channel;
 	
 	public ConnectionImpl() {
@@ -47,14 +49,18 @@ public class ConnectionImpl implements Connection{
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+		try {
+			channel.close().sync();
+			closed = true;
+		} catch (InterruptedException e) {
+			//ignore
+		}
 		
 	}
 
 	@Override
 	public boolean isClosed() {
-		// TODO Auto-generated method stub
-		return false;
+		return closed;
 	}
 	
 }
