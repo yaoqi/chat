@@ -24,6 +24,7 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
 		sendBuf.writeInt((msg.getHeader().getVersion()));
 		sendBuf.writeInt((msg.getHeader().getLength()));
 		sendBuf.writeLong((msg.getHeader().getSessionID()));
+		sendBuf.writeInt((msg.getHeader().getStatusCode()));
 		sendBuf.writeByte((msg.getHeader().getType()));
 		sendBuf.writeByte((msg.getHeader().getPriority()));
 		sendBuf.writeInt((msg.getHeader().getAttachment().size()));

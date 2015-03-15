@@ -21,10 +21,11 @@ public class TestCodeC {
     }
 
     public Message getMessage() {
-		Message nettyMessage = new Message();
+		Message message = new Message();
 		Header header = new Header();
 		header.setLength(123);
 		header.setSessionID(99999);
+		header.setStatusCode(121);
 		header.setType((byte) 1);
 		header.setPriority((byte) 7);
 		Map<String, Object> attachment = new HashMap<String, Object>();
@@ -32,9 +33,9 @@ public class TestCodeC {
 		    attachment.put("ciyt --> " + i, "123456 " + i);
 		}
 		header.setAttachment(attachment);
-		nettyMessage.setHeader(header);
-		nettyMessage.setBody("abcdefg-----------------------AAAAAA");
-		return nettyMessage;
+		message.setHeader(header);
+		message.setBody("abcdefg-----------------------AAAAAA");
+		return message;
     }
 
     public ByteBuf encode(Message msg) throws Exception {
@@ -42,6 +43,7 @@ public class TestCodeC {
 		sendBuf.writeInt((msg.getHeader().getVersion()));
 		sendBuf.writeInt((msg.getHeader().getLength()));
 		sendBuf.writeLong((msg.getHeader().getSessionID()));
+		sendBuf.writeInt((msg.getHeader().getStatusCode()));
 		sendBuf.writeByte((msg.getHeader().getType()));
 		sendBuf.writeByte((msg.getHeader().getPriority()));
 		sendBuf.writeInt((msg.getHeader().getAttachment().size()));
@@ -75,6 +77,7 @@ public class TestCodeC {
 		header.setVersion(in.readInt());
 		header.setLength(in.readInt());
 		header.setSessionID(in.readLong());
+		header.setStatusCode(in.readInt());
 		header.setType(in.readByte());
 		header.setPriority(in.readByte());
 	

@@ -32,6 +32,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 		header.setVersion(frame.readInt());
 		header.setLength(frame.readInt());
 		header.setSessionID(frame.readLong());
+		header.setStatusCode(frame.readInt());
 		header.setType(frame.readByte());
 		header.setPriority(frame.readByte());
 	
