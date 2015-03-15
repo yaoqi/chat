@@ -53,22 +53,27 @@ public final class SecureChatClient extends Thread{
 
 	@Override
 	public void run() {
-		try {
-			connectInner(host, port);
-		} catch (SSLException | InterruptedException e) {
-			throw new RuntimeException(e);
-		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 
 			@Override
 			public void run() {
 				logger.info("cilent exit!");
-				channel.close();
+				try {
+					channel.closeFuture().sync();
+				} catch (InterruptedException e) {
+					logger.info(e);
+				}
 				group.shutdownGracefully();
 			}
 			
 		});
+		
+		try {
+			connectInner(host, port);
+		} catch (SSLException | InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 
