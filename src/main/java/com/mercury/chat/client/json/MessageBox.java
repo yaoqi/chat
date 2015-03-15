@@ -17,7 +17,7 @@ public class MessageBox {
 	public Message get(){
 		Message msg = null;
 		try {
-			msg = box.poll(100, TimeUnit.MILLISECONDS);
+			msg = box.poll(1000, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			//ignore
 		}

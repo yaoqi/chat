@@ -1,6 +1,10 @@
 package com.mercury.chat.client.protocol.impl;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.netty.channel.Channel;
 
 import com.mercury.chat.client.json.MessageBox;
@@ -12,6 +16,8 @@ import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 
 public class ConnectionImpl implements Connection{
+	
+	static final Logger logger = LogManager.getLogger(ConnectionImpl.class);
 
 	private Channel channel;
 	
@@ -31,7 +37,7 @@ public class ConnectionImpl implements Connection{
 			channel.writeAndFlush(message).sync();//send login request to chat service
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
-			
+			logger.info(responseMsg);
 		} catch (InterruptedException e) {
 			return null;
 		}

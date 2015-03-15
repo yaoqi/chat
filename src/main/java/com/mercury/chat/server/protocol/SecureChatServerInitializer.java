@@ -10,8 +10,8 @@ import io.netty.util.concurrent.EventExecutorGroup;
 
 import java.util.concurrent.Executors;
 
-import com.mercury.chat.client.protocol.HeartBeatHandler;
-import com.mercury.chat.client.protocol.LoginAuthHandler;
+import com.mercury.chat.server.protocol.HeartBeatHandler;
+import com.mercury.chat.server.protocol.LoginAuthHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
 
