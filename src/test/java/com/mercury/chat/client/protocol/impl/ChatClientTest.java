@@ -14,6 +14,12 @@ public class ChatClientTest{
 	public void testConnect() {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);
+	}
+	
+	@Test
+	public void testLogin() {
+		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection);
 		Session session = connection.login("google@google.com", "welcome1");
 		assertNotNull(session);
 	}

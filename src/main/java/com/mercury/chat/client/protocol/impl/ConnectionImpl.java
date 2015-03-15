@@ -39,6 +39,7 @@ public class ConnectionImpl implements Connection{
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
 			logger.info(responseMsg);
 		} catch (InterruptedException e) {
+			logger.error(e);
 			return null;
 		}
 		return new SessionImpl(channel);
