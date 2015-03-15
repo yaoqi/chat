@@ -19,9 +19,13 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 
 	static final Logger logger = LogManager.getLogger(LoginAuthHandler.class);
 	
-	private MessageBox loginMessageBox = new MessageBox();
+	private volatile MessageBox loginMessageBox = new MessageBox();
 	
-    /**
+    public MessageBox getLoginMessageBox() {
+		return loginMessageBox;
+	}
+
+	/**
      * Calls {@link ChannelHandlerContext#fireChannelRead(Object)} to forward to
      * the next {@link ChannelHandler} in the {@link ChannelPipeline}.
      * 

@@ -5,6 +5,7 @@ import io.netty.channel.Channel;
 
 import com.mercury.chat.client.json.MessageBox;
 import com.mercury.chat.client.protocol.Connection;
+import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.client.protocol.Session;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
@@ -13,8 +14,6 @@ import com.mercury.chat.user.User;
 public class ConnectionImpl implements Connection{
 
 	private Channel channel;
-	
-	private MessageBox messageBox;
 	
 	public ConnectionImpl() {
 		super();
@@ -25,17 +24,13 @@ public class ConnectionImpl implements Connection{
 		return this;
 	}
 	
-	public ConnectionImpl messageBox(MessageBox messageBox){
-		this.messageBox = messageBox;
-		return this;
-	}
-	
 	@Override
 	public Session login(String userId, String password) {
 		try {
 			Message message = new Message().header(new Header().type(LOGIN.value())).body(new User(userId,password));
 			channel.writeAndFlush(message).sync();//send login request to chat service
-			messageBox.get();
+			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
+			loginMessageBox.get();
 		} catch (InterruptedException e) {
 			return null;
 		}
