@@ -79,14 +79,12 @@ public final class Header implements IHeader{
 	
 	@Override
 	public String getTo() {
-		//FIXME
-		return null;
+		return (String) attachment.get("to");
 	}
 
 	@Override
 	public String getFrom() {
-		//FIXME
-		return null;
+		return (String) attachment.get("from");
 	}
 	
 	/*
