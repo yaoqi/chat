@@ -96,6 +96,14 @@ public final class Header implements IHeader{
 	public String getFrom() {
 		return (String) attachment.get("from");
 	}
+	
+	public void setTo(String to){
+		attachment.put("to", to);
+	}
+	
+	public void setFrom(String from){
+		attachment.put("from", from);
+	}
 
 	@Override
 	public String toString() {

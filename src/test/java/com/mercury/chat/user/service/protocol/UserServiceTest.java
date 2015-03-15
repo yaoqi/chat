@@ -2,17 +2,19 @@ package com.mercury.chat.user.service.protocol;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
+import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.common.struct.json.JsonHeader;
-import com.mercury.chat.common.struct.json.JsonMessage;
+import com.mercury.chat.common.struct.protocol.Header;
+import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.UserServiceImpl;
+import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
 public class UserServiceTest {
 	
@@ -20,14 +22,14 @@ public class UserServiceTest {
 	@Test
 	public void testLoginSuccessfully(){
 		UserService userService = UserServiceImpl.getInstance();
-		boolean login = userService.login("god", "pwd");
+		boolean login = userService.login("google@google.com", "welcome1");
 		assertTrue(login);
 	}
 	
 	@Test
 	public void testLoginFailed(){
 		UserService userService = UserServiceImpl.getInstance();
-		boolean login = userService.login("god", "XXX");
+		boolean login = userService.login("baidu@baidu.com", "pwd");
 		assertFalse(login);
 	}
 	
@@ -36,14 +38,16 @@ public class UserServiceTest {
 	public void testStoreMessage(){
 		UserService userService = UserServiceImpl.getInstance();
 		List<IMessage> messages = Lists.newArrayList();
-		JsonMessage msg = new JsonMessage();
-		JsonHeader header = new JsonHeader();
-		header.setFrom("god");
-		header.setTo("bigboy");
+		Message msg = new Message();
+		Header header = new Header();
+		header.setType(MessageType.CHAT.value());
+		header.setFrom("google@google.com");
+		header.setTo("baidu@baidu.com");
 		msg.setHeader(header);
-		msg.setBody("Hello, Boy");
+		msg.setBody("Hello, baidu");
 		messages.add(msg);
-		userService.store(messages);
+		int count = userService.store(messages);
+		assertEquals(1, count);
 	}
 	
 	@Test

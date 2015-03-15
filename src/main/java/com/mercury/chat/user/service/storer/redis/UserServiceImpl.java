@@ -1,5 +1,6 @@
-package com.mercury.chat.user.service;
+package com.mercury.chat.user.service.storer.redis;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import com.mercury.chat.common.struct.IHeader;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.json.JsonMessage;
 import com.mercury.chat.user.User;
-import com.mercury.chat.user.service.storer.redis.JedisPoolUtils;
+import com.mercury.chat.user.service.UserService;
 
 public class UserServiceImpl implements UserService {
 
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<IMessage> find(String userId) {
+	public List<IMessage> find(String userId, Date from, Date to) {
 		Jedis jedis = JedisPoolUtils.getJedis();
 		Set<String> keys = jedis.keys("chat:from:*:to:"+userId);
 		List<IMessage> messages = Lists.newArrayList();

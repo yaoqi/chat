@@ -9,8 +9,8 @@ import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.UserServiceImpl;
 import com.mercury.chat.user.service.storer.redis.JedisPoolUtils;
+import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
 public class LoginServiceTest {
 	

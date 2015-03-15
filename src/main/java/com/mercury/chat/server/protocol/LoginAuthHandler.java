@@ -31,7 +31,7 @@ import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.User;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.UserServiceImpl;
+import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
 public class LoginAuthHandler extends ChannelHandlerAdapter {
 

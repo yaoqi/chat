@@ -9,7 +9,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.json.JsonHeader;
 import com.mercury.chat.common.struct.json.JsonMessage;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.UserServiceImpl;
+import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
 public class UserServiceTest {
 	
@@ -30,7 +30,7 @@ public class UserServiceTest {
 	@Test
 	public void testFindMessage(){
 		UserService userService = UserServiceImpl.getInstance();
-		List<IMessage> messages = userService.find("god");
+		List<IMessage> messages = userService.find("god", null, null);
 		System.out.println(messages.size());
 	}
 }
