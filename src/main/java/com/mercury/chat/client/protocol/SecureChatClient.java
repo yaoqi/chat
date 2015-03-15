@@ -2,6 +2,7 @@ package com.mercury.chat.client.protocol;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -99,14 +100,16 @@ public final class SecureChatClient extends Thread{
              .handler(new SecureChatClientInitializer(sslCtx));
 
             // Start the connection attempt.
-            Channel ch = b.connect(host, port).sync().channel();
+            ChannelFuture sync = b.connect(host, port).sync();
+			Channel ch = sync.channel();
             channel = ch;
             synchronized(lock){
     			lock.notify();
         	}
             ch.closeFuture().sync();
-            
-        } finally {
+        } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
             // The connection is closed automatically on shutdown.
             group.shutdownGracefully();
         }
