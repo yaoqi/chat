@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 
 public class TestCodeC {
 

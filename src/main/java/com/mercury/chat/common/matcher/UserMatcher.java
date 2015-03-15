@@ -7,7 +7,7 @@ import io.netty.util.Attribute;
 import org.apache.commons.lang.StringUtils;
 
 import com.mercury.chat.common.constant.Constant;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 
 /**
  * Chat channel matcher

@@ -29,7 +29,7 @@ import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
@@ -83,7 +83,7 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			UserService userService = UserServiceImpl.getInstance();
 			User user = (User) message.getBody();
 			byte respMsgKey;
-			if(userService.login(user.getUserId(), user.getPassWord())){
+			if(userService.login(user.getUserId(), user.getPassword())){
 	          	Attribute<User> userAttr = ctx.channel().attr(Constant.userInfo);
 	          	userAttr.setIfAbsent(user);
 	          	respMsgKey = SUCCESS.key();

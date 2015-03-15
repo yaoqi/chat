@@ -10,8 +10,14 @@ public class User implements Serializable {
     private String password;
 
     private static final long serialVersionUID = 1L;
-
-    public Long getUuid() {
+    
+    public User(String userId, String password) {
+		super();
+		this.userId = userId;
+		this.password = password;
+	}
+    
+	public Long getUuid() {
         return uuid;
     }
 

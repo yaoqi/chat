@@ -5,7 +5,7 @@ import io.netty.util.AttributeKey;
 import java.util.Collection;
 
 import com.mercury.chat.client.protocol.MessageListener;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 
 
 public interface Constant {

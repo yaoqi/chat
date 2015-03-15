@@ -25,7 +25,7 @@ import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.struct.json.JsonHeader;
 import com.mercury.chat.common.struct.json.JsonMessage;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 

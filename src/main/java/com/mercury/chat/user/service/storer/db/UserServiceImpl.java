@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.user.User;
+import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
 public class UserServiceImpl implements UserService {
