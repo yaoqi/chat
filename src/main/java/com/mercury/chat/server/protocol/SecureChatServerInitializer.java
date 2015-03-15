@@ -39,8 +39,6 @@ public class SecureChatServerInitializer extends ChannelInitializer<SocketChanne
         // and server in the real world.
         pipeline.addLast(sslCtx.newHandler(ch.alloc()));
 
-        pipeline.addLast(businessGroup, "login",new LoginAuthHandler());
-        
         pipeline.addLast("MessageDecoder", new MessageDecoder(1024 * 1024, 4, 4));
 		pipeline.addLast("MessageEncoder", new MessageEncoder());
 		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(50));
