@@ -4,18 +4,18 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.mercury.chat.common.struct.json.JsonMessage;
+import com.mercury.chat.common.struct.protocol.Message;
 
 public class MessageBox {
 
-	private BlockingQueue<JsonMessage> box = new LinkedBlockingQueue<JsonMessage>(1);
+	private BlockingQueue<Message> box = new LinkedBlockingQueue<Message>(1);
 	
-	public void put(JsonMessage msg){
+	public void put(Message msg){
 		box.offer(msg);
 	}
 	
-	public JsonMessage get(){
-		JsonMessage msg = null;
+	public Message get(){
+		Message msg = null;
 		try {
 			msg = box.poll(100, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {

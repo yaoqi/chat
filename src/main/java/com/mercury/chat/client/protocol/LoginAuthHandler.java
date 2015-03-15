@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mercury.chat.client.json.MessageBox;
 import com.mercury.chat.common.constant.LoginFlag;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
@@ -17,6 +18,8 @@ import com.mercury.chat.common.struct.protocol.Message;
 public class LoginAuthHandler extends ChannelHandlerAdapter {
 
 	static final Logger logger = LogManager.getLogger(LoginAuthHandler.class);
+	
+	private MessageBox loginMessageBox = new MessageBox();
 	
     /**
      * Calls {@link ChannelHandlerContext#fireChannelRead(Object)} to forward to
@@ -34,6 +37,8 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 		    if(result.isSuccess()){
 		    	ctx.fireChannelRead(msg);
 		    }
+		    
+		    loginMessageBox.put(message);//put the login result to message box.
 		   
 		    logger.log(Level.INFO, result.message());
 		} else
