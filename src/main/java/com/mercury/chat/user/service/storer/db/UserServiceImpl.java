@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean login(String userId, String passWord) {
-		return false;
+		return userMapper.select(userId, passWord) != null;
 	}
 
 	@Override
