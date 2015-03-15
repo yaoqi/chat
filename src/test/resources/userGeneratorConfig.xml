@@ -16,10 +16,10 @@
             <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->  
         </commentGenerator>
         
-		<jdbcConnection driverClass="org.h2.Driver" connectionURL="jdbc:h2:tcp://localhost/~/chat" userId="sa" password="" />
-		<javaModelGenerator targetPackage="com.shuixing.emall.customer.entity" targetProject="ChatService" />
-		<sqlMapGenerator targetPackage="com.shuixing.emall.customer" targetProject="ChatService" />
-		<javaClientGenerator targetPackage="com.shuixing.emall.customer.dao" targetProject="ChatService" type="ANNOTATEDMAPPER" />
+		<jdbcConnection driverClass="org.h2.Driver" connectionURL="jdbc:h2:~/chat" userId="sa" password="" />
+		<javaModelGenerator targetPackage="com.mercury.chat.user.entity" targetProject="ChatService" />
+		<sqlMapGenerator targetPackage="com.mercury.chat.user" targetProject="ChatService" />
+		<javaClientGenerator targetPackage="com.mercury.chat.user.dao" targetProject="ChatService" type="ANNOTATEDMAPPER" />
 		
 		<table  tableName="USER" domainObjectName="User" ></table>
 		<table  tableName="MESSAGE" domainObjectName="Message" ></table>

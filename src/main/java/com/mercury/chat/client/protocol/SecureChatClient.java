@@ -18,13 +18,23 @@ public final class SecureChatClient extends Thread{
 	//default value for client side.
 	static final String HOST = System.getProperty("host", "127.0.0.1");
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
-
     private volatile Channel channel;
     private String host;
     private int port;
     
+    private Object lock = new Object();
+    
     public Channel getChannel(){
-    	return channel;
+    	synchronized(lock){
+    		while(channel==null){
+    			try {
+					lock.wait();
+				} catch (InterruptedException e) {
+					//ignore
+				}
+    		}
+    		return channel;
+    	}
     }
     
     public SecureChatClient(String host, int port) {
@@ -68,6 +78,9 @@ public final class SecureChatClient extends Thread{
             // Start the connection attempt.
             Channel ch = b.connect(host, port).sync().channel();
             channel = ch;
+            synchronized(lock){
+    			lock.notify();
+        	}
             ch.closeFuture().sync();
             
         } finally {
