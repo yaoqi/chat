@@ -4,9 +4,9 @@
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss,SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="File" fileName="logs/chat.log">
-			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss,SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</File>
+<!-- 		<File name="File" fileName="logs/chat.log"> -->
+<!-- 			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss,SSS} [%t] %-5level %logger{36} - %msg%n" /> -->
+<!-- 		</File> -->
 		<RollingFile name="RollingFile" fileName="logs/chat.log" filePattern="logs/$${date:yyyy-MM}/chat-%d{yyyy-MM-dd-HH}-%i.log.gz">
 			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss,SSS} [%t] %-5level %logger{36} - %msg%n" />
 			<Policies>
