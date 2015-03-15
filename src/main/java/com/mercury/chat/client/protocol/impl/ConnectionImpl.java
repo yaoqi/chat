@@ -44,5 +44,17 @@ public class ConnectionImpl implements Connection{
 		}
 		return new SessionImpl(channel);
 	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isClosed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
