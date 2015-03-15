@@ -2,6 +2,7 @@ package com.mercury.chat.client.protocol;
 
 import static com.mercury.chat.common.MessageType.HEARTBEAT;
 import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.constant.LoginFlag.SUCCESS;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -29,7 +30,9 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
     	Header header = message.getHeader();
 		
 		if (LOGIN.isThisType(header)) {
-		    heartBeat = ctx.executor().scheduleAtFixedRate(new HeartBeatHandler.HeartBeatTask(ctx), 0, 5000,TimeUnit.MILLISECONDS);
+			if(SUCCESS.isThisType((byte)message.getBody())){
+				heartBeat = ctx.executor().scheduleAtFixedRate(new HeartBeatHandler.HeartBeatTask(ctx), 0, 5000,TimeUnit.MILLISECONDS);
+			}
 		} else if (HEARTBEAT.isThisType(header)) {
 		    logger.log(Level.INFO, "Client receive server heart beat message : ---> "+ message);
 		} else
