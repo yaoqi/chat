@@ -17,6 +17,20 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface UserMapper {
+	
+    @Select({
+        "select",
+        "UUID, USER_ID, PASSWORD",
+        "from USER",
+        "where USER_ID = #{{userId,jdbcType=VARCHAR} and PASSWORD = #{password,jdbcType=VARCHAR}"
+    })
+    @Results({
+        @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="USER_ID", property="userId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
+    })
+    User select(String userId, String password);
+	
     @SelectProvider(type=UserSqlProvider.class, method="countByExample")
     int countByExample(UserTemplate example);
 
@@ -60,7 +74,7 @@ public interface UserMapper {
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
     })
     User selectByPrimaryKey(Long uuid);
-
+    
     @UpdateProvider(type=UserSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserTemplate example);
 
