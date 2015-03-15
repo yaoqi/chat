@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Message implements Serializable {
-    private Long id;
+
+	private static final long serialVersionUID = -4210188452972019812L;
+
+	private Long id;
 
     private String chatFrom;
 
@@ -13,8 +16,6 @@ public class Message implements Serializable {
     private Date createTs;
 
     private String message;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
