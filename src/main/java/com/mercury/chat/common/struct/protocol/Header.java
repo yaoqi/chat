@@ -12,6 +12,8 @@ public final class Header implements IHeader{
     private int length;// message length
 
     private long sessionID;// session id
+    
+    private int statusCode;//status code
 
     private byte type;// message type
 
@@ -77,6 +79,14 @@ public final class Header implements IHeader{
 		return type;
 	}
 	
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
 	@Override
 	public String getTo() {
 		return (String) attachment.get("to");
