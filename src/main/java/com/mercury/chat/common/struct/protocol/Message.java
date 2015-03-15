@@ -25,10 +25,10 @@ public final class Message implements IMessage{
 		this.body = body;
 	}
 
-    @Override
-    public String toString() {
-    	return "Message [header=" + header + "]";
-    }
+	@Override
+	public String toString() {
+		return "Message [header=" + header + ", body=" + body + "]";
+	}
 
 	public Message header(Header header) {
 		this.header = header;
