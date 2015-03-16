@@ -1,10 +1,13 @@
 package com.mercury.chat.common.constant;
 
 public enum StatusCode {
-	SUCCESS(0, "Operate Success"), 
-	FAIL(1, "Operate Failure"), 
-	NOT_LOGIN(2, "Invalid operation:not logged in!"),
-	LOGGED_IN(3, "Invalid operation:already logged in!");
+	OK(200, "Operate Success"), 
+	FAIL(400, "Operate Failure"),
+	UNAUTHORIZED(401, "Unauthorized"), 
+	INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+	SERVICE_UNAVAILABLE(503, "Service Unavailable"),
+	NOT_LOGIN(600, "Invalid operation:not logged in"),
+	LOGGED_IN(601, "Invalid operation:already logged in");
 	
 	private int key;
 	
