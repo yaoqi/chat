@@ -28,7 +28,6 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
 			
 		    Message heatBeat = new Message().header(new Header().type(HEARTBEAT.value()));
 		    
-		    logger.log(Level.INFO, "Send heart beat response message to client : ---> "+ heatBeat);
 			ctx.writeAndFlush(heatBeat);
 		} else
 		    ctx.fireChannelRead(msg);
