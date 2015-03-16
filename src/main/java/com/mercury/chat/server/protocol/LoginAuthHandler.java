@@ -9,6 +9,7 @@ import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
+import static com.mercury.chat.common.constant.StatusCode.USER_LOGIN;
 import static com.mercury.chat.common.util.MessageUtil.buildMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -117,6 +118,10 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			}
 			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value()).statusCode(statusCode.getKey()));
 		    ctx.writeAndFlush(respMsg);
+		    
+		    Message userListMsg = new Message().header(new Header().type(MessageType.USER_LIST.value()).statusCode(USER_LOGIN.getKey())).body(user);
+		    ctx.writeAndFlush(userListMsg);
+		    
 		}else if(LOGOFF.isThisType(header)){
 	        ctx.close();
 		}else {
