@@ -24,6 +24,8 @@ public class ConnectionImpl implements Connection{
 	
 	private volatile boolean closed;
 	
+	private volatile User currentUser;
+	
 	private Channel channel;
 	
 	public ConnectionImpl() {
@@ -48,7 +50,8 @@ public class ConnectionImpl implements Connection{
 			throw new ChatException();
 		}
 		try {
-			Message message = new Message().header(new Header().type(LOGIN.value())).body(new User(userId,password));
+			User user = new User(userId,password);
+			Message message = new Message().header(new Header().type(LOGIN.value())).body(user);
 			channel.writeAndFlush(message).sync();//send login request to chat service
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
@@ -57,12 +60,14 @@ public class ConnectionImpl implements Connection{
 				throw new ChatException();
 			}
 			
+			currentUser = user;
+			
 			logger.info(responseMsg);
 		} catch (InterruptedException e) {
 			logger.error(e);
 			return null;
 		}
-		return new SessionImpl(channel);
+		return new SessionImpl(channel).user(currentUser);
 	}
 
 	@Override

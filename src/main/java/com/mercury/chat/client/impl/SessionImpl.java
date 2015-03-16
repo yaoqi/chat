@@ -15,20 +15,28 @@ import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.entity.User;
 
 public class SessionImpl implements Session {
 
 	private Channel channel;
 	
+	private volatile User currentUser;
+	
 	public SessionImpl(Channel channel) {
 		super();
 		this.channel = channel;
+	}
+	
+	public SessionImpl user(User user){
+		currentUser = user;
+		return this;
 	}
 
 	@Override
 	public boolean sendMessage(Message message) {
 		try {
-			message.getHeader().setFrom(from);
+			message.getHeader().from(currentUser.getUserId());
 			channel.writeAndFlush(message).sync();
 		} catch (InterruptedException e) {
 			return false;
