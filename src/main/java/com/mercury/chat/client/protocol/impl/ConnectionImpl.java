@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.client.protocol.Connection;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
-import com.mercury.chat.client.protocol.MessageBox;
 import com.mercury.chat.client.protocol.Session;
+import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;

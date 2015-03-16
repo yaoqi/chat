@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 

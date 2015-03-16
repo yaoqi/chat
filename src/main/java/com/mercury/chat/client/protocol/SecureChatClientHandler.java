@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Lists;
+import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.struct.protocol.Message;
 
 /**

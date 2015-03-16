@@ -1,4 +1,4 @@
-package com.mercury.chat.client.protocol;
+package com.mercury.chat.common;
 
 import com.mercury.chat.common.struct.protocol.Message;
 

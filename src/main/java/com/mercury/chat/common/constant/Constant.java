@@ -4,7 +4,7 @@ import io.netty.util.AttributeKey;
 
 import java.util.Collection;
 
-import com.mercury.chat.client.protocol.MessageListener;
+import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.user.entity.User;
 
 
