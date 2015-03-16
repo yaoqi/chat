@@ -1,6 +1,7 @@
 package com.mercury.chat.client.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.constant.StatusCode.OK;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,15 +36,13 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 		Message message = (Message) msg;
 		Header header = message.getHeader();
 		if (LOGIN.isThisType(header)) {
-		    byte loginResult = (byte) message.getBody();
-		    LoginFlag result = LoginFlag.valOf(loginResult);
-		    if(result.isSuccess()){
+		    if(OK.isThisType(header)){
 		    	ctx.fireChannelRead(msg);
 		    }
 		    
 		    loginMessageBox.put(message);//put the login result to message box.
 		   
-		    logger.log(Level.INFO, result.message());
+		    logger.log(Level.INFO, message);
 		} else
 		    ctx.fireChannelRead(msg);
     }
