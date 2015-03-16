@@ -6,6 +6,7 @@ import static com.mercury.chat.common.constant.LoginFlag.SUCCESS;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
+import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.collect.Lists;
+import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
@@ -21,6 +24,12 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
 	static final Logger logger = LogManager.getLogger(HeartBeatHandler.class);
 	
     private volatile ScheduledFuture<?> heartBeat;
+    
+    private volatile Collection<MessageListener> listeners = Lists.newArrayList();
+	
+	public void addMessageListener(MessageListener listener){
+		listeners.add(listener);
+	}
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

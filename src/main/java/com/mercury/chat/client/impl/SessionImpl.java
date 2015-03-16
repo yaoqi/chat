@@ -7,7 +7,10 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.client.Session;
+import com.mercury.chat.client.protocol.HeartBeatHandler;
+import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.client.protocol.SecureChatClientHandler;
+import com.mercury.chat.client.protocol.UserListHandler;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Header;
@@ -50,7 +53,25 @@ public class SessionImpl implements Session {
 	}
 	
 	public void addMessageListener(MessageType messageType, MessageListener messageListener){
-		channel.pipeline().get(SecureChatClientHandler.class).addMessageListener(messageListener);
+		switch(messageType){
+			case LOGIN:
+				channel.pipeline().get(LoginAuthHandler.class).addMessageListener(messageListener);
+				break;
+			case LOGOFF:
+				break;
+			case CHAT:
+				channel.pipeline().get(SecureChatClientHandler.class).addMessageListener(messageListener);
+				break;
+			case USER_LIST:
+				channel.pipeline().get(UserListHandler.class).addMessageListener(messageListener);
+				break;
+			case HEARTBEAT:
+				channel.pipeline().get(HeartBeatHandler.class).addMessageListener(messageListener);
+				break;
+			default:
+				break;
+		}
+		
 	}
 
 }
