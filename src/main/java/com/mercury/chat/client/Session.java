@@ -9,7 +9,7 @@ import com.mercury.chat.common.struct.protocol.Message;
 
 public interface Session {
 	
-	boolean sendMessage(Message message);
+	boolean sendMessage(String to, Message message);
 	
 	boolean logoff();
 	

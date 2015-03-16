@@ -34,9 +34,9 @@ public class SessionImpl implements Session {
 	}
 
 	@Override
-	public boolean sendMessage(Message message) {
+	public boolean sendMessage(String to, Message message) {
 		try {
-			message.getHeader().from(currentUser.getUserId());
+			message.getHeader().from(currentUser.getUserId()).to(to);
 			channel.writeAndFlush(message).sync();
 		} catch (InterruptedException e) {
 			return false;
