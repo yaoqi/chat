@@ -28,6 +28,7 @@ public class SessionImpl implements Session {
 	@Override
 	public boolean sendMessage(Message message) {
 		try {
+			message.getHeader().setFrom(from);
 			channel.writeAndFlush(message).sync();
 		} catch (InterruptedException e) {
 			return false;
