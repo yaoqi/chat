@@ -74,6 +74,11 @@ public final class Header implements IHeader{
 		return this;
 	}
 	
+	public Header statusCode(int statusCode){
+		this.statusCode = statusCode;
+		return this;
+	}
+	
 	@Override
 	public byte getMessageType() {
 		return type;

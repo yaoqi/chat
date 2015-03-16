@@ -3,9 +3,9 @@ package com.mercury.chat.server.protocol;
 import static com.mercury.chat.common.MessageType.HANDSHAKE;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
-import static com.mercury.chat.common.constant.LoginFlag.FAIL;
-import static com.mercury.chat.common.constant.LoginFlag.LOGGED_IN;
-import static com.mercury.chat.common.constant.LoginFlag.SUCCESS;
+import static com.mercury.chat.common.constant.StatusCode.OK;
+import static com.mercury.chat.common.constant.StatusCode.FAIL;
+import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.constant.Constant;
+import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
@@ -82,21 +83,21 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			
 			UserService userService = UserServiceImpl.getInstance();
 			User user = (User) message.getBody();
-			byte respMsgKey;
+			StatusCode statusCode = null;
 			boolean loginResult = false;;
 			try {
 				loginResult = userService.login(user.getUserId(), user.getPassword());
 				if(loginResult){
 		          	Attribute<User> userAttr = ctx.channel().attr(Constant.userInfo);
 		          	userAttr.setIfAbsent(user);
-		          	respMsgKey = SUCCESS.key();
+		          	statusCode = OK;
 				}else{
-					respMsgKey = FAIL.key();
+					statusCode = FAIL;
 				}
 			} catch (Exception e) {
-				
+				statusCode = INTERNAL_SERVER_ERROR;
 			}
-			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value())).body(respMsgKey);
+			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value()).s);
 		    ctx.writeAndFlush(respMsg);
 		}else if(LOGOFF.isThisType(header)){
 	        ctx.close();
