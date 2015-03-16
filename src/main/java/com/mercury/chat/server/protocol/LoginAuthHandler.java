@@ -5,6 +5,7 @@ import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.constant.StatusCode.FAIL;
+import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -76,7 +77,7 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			//validate
 			boolean hasAttr = ctx.channel().hasAttr(Constant.userInfo);
 	    	if(hasAttr){
-	    		Message errorMsg = new Message().header(new Header().type(LOGIN.value())).body(LOGGED_IN.key());
+	    		Message errorMsg = new Message().header(new Header().type(LOGIN.value()).statusCode(LOGGED_IN.getKey()));
 	    		ctx.writeAndFlush(errorMsg);
 	    		return;
 	    	}
@@ -97,7 +98,7 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			} catch (Exception e) {
 				statusCode = INTERNAL_SERVER_ERROR;
 			}
-			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value()).s);
+			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value()).statusCode(statusCode.getKey()));
 		    ctx.writeAndFlush(respMsg);
 		}else if(LOGOFF.isThisType(header)){
 	        ctx.close();
