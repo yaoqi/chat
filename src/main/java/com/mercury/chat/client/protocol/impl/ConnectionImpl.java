@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import io.netty.channel.Channel;
 
-import com.mercury.chat.client.json.MessageBox;
 import com.mercury.chat.client.protocol.Connection;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
+import com.mercury.chat.client.protocol.MessageBox;
 import com.mercury.chat.client.protocol.Session;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;

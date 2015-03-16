@@ -1,4 +1,4 @@
-package com.mercury.chat.client.json;
+package com.mercury.chat.client.protocol;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
