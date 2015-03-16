@@ -125,8 +125,7 @@ public final class Header implements IHeader{
 		return "Header [version=" + version + ", length=" + length
 				+ ", sessionID=" + sessionID + ", statusCode=" + statusCode
 				+ ", type=" + type + ", priority=" + priority + ", attachment="
-				+ attachment + ", getTo()=" + getTo() + ", getFrom()="
-				+ getFrom() + "]";
+				+ attachment+ "]";
 	}
 
 }
