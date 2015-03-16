@@ -7,6 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelMatcher;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.logging.log4j.Level;
@@ -54,6 +55,8 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         logger.log(Level.ERROR, cause);
-        ctx.close();
+        if(cause instanceof IOException){
+        	ctx.close();
+        }
     }
 }
