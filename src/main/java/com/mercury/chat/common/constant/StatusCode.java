@@ -1,5 +1,9 @@
 package com.mercury.chat.common.constant;
 
+import org.apache.commons.lang.ObjectUtils;
+
+import com.mercury.chat.common.struct.protocol.Header;
+
 public enum StatusCode {
 	OK(200, "Operate Success"), 
 	FAIL(400, "Operate Failure"),
@@ -24,6 +28,10 @@ public enum StatusCode {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public boolean isThisType(Header header) {
+		return ObjectUtils.equals(getKey(), header.getStatusCode());
 	}
 
 }

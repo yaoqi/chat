@@ -12,7 +12,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.struct.IHeader;
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.common.struct.json.JsonMessage;
+import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -36,10 +36,10 @@ public class UserServiceImpl implements UserService {
 		List<IMessage> messages = Lists.newArrayList();
 		for(String key : keys){
 			List<String> msgs = jedis.lrange(key, 0, -1);
-			messages.addAll(Lists.transform(msgs, new Function<String, JsonMessage>(){
+			messages.addAll(Lists.transform(msgs, new Function<String, Message>(){
 				@Override
-				public JsonMessage apply(String input) {
-					return new JsonMessage().body(input);
+				public Message apply(String input) {
+					return new Message().body(input);
 				}
 			}));
 		}
