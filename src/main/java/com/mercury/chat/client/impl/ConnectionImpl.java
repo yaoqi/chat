@@ -53,6 +53,7 @@ public class ConnectionImpl implements Connection{
 			User user = new User(userId,password);
 			Message message = new Message().header(new Header().type(LOGIN.value())).body(user);
 			channel.writeAndFlush(message).sync();//send login request to chat service
+			
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
 			
@@ -65,7 +66,7 @@ public class ConnectionImpl implements Connection{
 			logger.info(responseMsg);
 		} catch (InterruptedException e) {
 			logger.error(e);
-			return null;
+			throw new ChatException();
 		}
 		return new SessionImpl(channel).user(currentUser);
 	}
@@ -76,7 +77,8 @@ public class ConnectionImpl implements Connection{
 			channel.close().sync();
 			closed = true;
 		} catch (InterruptedException e) {
-			//ignore
+			logger.error(e);
+			throw new ChatException();
 		}
 		
 	}
