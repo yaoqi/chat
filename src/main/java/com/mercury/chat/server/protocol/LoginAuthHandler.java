@@ -83,7 +83,14 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 			UserService userService = UserServiceImpl.getInstance();
 			User user = (User) message.getBody();
 			byte respMsgKey;
-			if(userService.login(user.getUserId(), user.getPassword())){
+			boolean loginResult = false;;
+			try {
+				loginResult = userService.login(user.getUserId(), user.getPassword());
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			if(loginResult){
 	          	Attribute<User> userAttr = ctx.channel().attr(Constant.userInfo);
 	          	userAttr.setIfAbsent(user);
 	          	respMsgKey = SUCCESS.key();
