@@ -10,6 +10,7 @@ import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.SecureChatClientHandler;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class SessionImpl implements Session {
@@ -33,7 +34,12 @@ public class SessionImpl implements Session {
 	
 	@Override
 	public boolean logoff() {
-		//TODO
+		try {
+			Message message = new Message().header(new Header().type(MessageType.LOGOFF.value()));
+			channel.writeAndFlush(message).sync();
+		} catch (InterruptedException e) {
+			return false;
+		}
 		return true;
 	}
 
