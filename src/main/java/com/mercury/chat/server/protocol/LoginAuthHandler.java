@@ -3,10 +3,13 @@ package com.mercury.chat.server.protocol;
 import static com.mercury.chat.common.MessageType.HANDSHAKE;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
+import static com.mercury.chat.common.MessageType.USER_LIST;
 import static com.mercury.chat.common.constant.StatusCode.FAIL;
 import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
+import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
+import static com.mercury.chat.common.util.MessageUtil.buildMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -64,9 +67,11 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
         			public void operationComplete(ChannelFuture future) throws Exception {
         				User user = ctx.channel().attr(Constant.userInfo).get();
         				if(user != null){
-        					channels.writeAndFlush(message, new AntiUserMatcher(user.getUserId()));
+        					Message message = buildMessage(USER_LIST, USER_LOGOFF, user);
+							channels.writeAndFlush(message , new AntiUserMatcher(user.getUserId()));
         				}
         			}
+
         		});
             }
         });
