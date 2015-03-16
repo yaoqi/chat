@@ -1,10 +1,7 @@
 package com.mercury.chat.client.protocol;
 
-import java.net.SocketException;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -12,12 +9,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 
-import javax.net.ssl.SSLException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.client.protocol.impl.ConnectionImpl;
+import com.mercury.chat.common.exception.ChatException;
 
 public final class SecureChatClient{
     
@@ -50,7 +46,7 @@ public final class SecureChatClient{
 	         return b.connect(host, port).sync().channel();
 		} catch (Exception e) {
 			group.shutdownGracefully();
-			throw new RuntimeException(e);
+			throw new ChatException(e);
 		}
 	}
     
