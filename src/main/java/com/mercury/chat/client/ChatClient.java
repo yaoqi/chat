@@ -1,4 +1,5 @@
-package com.mercury.chat.client.protocol;
+package com.mercury.chat.client;
+
 
 
 public interface ChatClient {

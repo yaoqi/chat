@@ -2,9 +2,9 @@ package com.mercury.chat.client.protocol.impl;
 
 import org.junit.Test;
 
-import com.mercury.chat.client.protocol.Connection;
+import com.mercury.chat.client.Connection;
+import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.SecureChatClient;
-import com.mercury.chat.client.protocol.Session;
 
 import static org.junit.Assert.assertNotNull;
 

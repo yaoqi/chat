@@ -1,4 +1,4 @@
-package com.mercury.chat.client.protocol;
+package com.mercury.chat.client;
 
 import java.util.Date;
 import java.util.List;

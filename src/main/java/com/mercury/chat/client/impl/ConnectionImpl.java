@@ -1,4 +1,4 @@
-package com.mercury.chat.client.protocol.impl;
+package com.mercury.chat.client.impl;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
@@ -9,9 +9,9 @@ import io.netty.channel.ChannelFutureListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mercury.chat.client.protocol.Connection;
+import com.mercury.chat.client.Connection;
+import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
-import com.mercury.chat.client.protocol.Session;
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Header;

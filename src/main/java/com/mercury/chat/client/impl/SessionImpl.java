@@ -1,4 +1,4 @@
-package com.mercury.chat.client.protocol.impl;
+package com.mercury.chat.client.impl;
 
 import io.netty.channel.Channel;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.mercury.chat.client.protocol.Session;
+import com.mercury.chat.client.Session;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Message;
 

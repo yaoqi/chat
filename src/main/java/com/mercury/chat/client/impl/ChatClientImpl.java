@@ -1,7 +1,7 @@
-package com.mercury.chat.client.protocol.impl;
+package com.mercury.chat.client.impl;
 
-import com.mercury.chat.client.protocol.ChatClient;
-import com.mercury.chat.client.protocol.Connection;
+import com.mercury.chat.client.ChatClient;
+import com.mercury.chat.client.Connection;
 import com.mercury.chat.client.protocol.SecureChatClient;
 
 public class ChatClientImpl implements ChatClient {

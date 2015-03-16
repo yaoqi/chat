@@ -12,7 +12,8 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mercury.chat.client.protocol.impl.ConnectionImpl;
+import com.mercury.chat.client.Connection;
+import com.mercury.chat.client.impl.ConnectionImpl;
 import com.mercury.chat.common.exception.ChatException;
 
 public final class SecureChatClient{
