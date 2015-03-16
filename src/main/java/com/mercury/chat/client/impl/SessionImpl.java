@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.client.Session;
+import com.mercury.chat.client.protocol.SecureChatClientHandler;
+import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Message;
 
@@ -41,7 +43,7 @@ public class SessionImpl implements Session {
 		return Lists.newArrayList();
 	}
 	
-	public void addMessageListener(MessageType messageType, stener messageListener){
+	public void addMessageListener(MessageType messageType, MessageListener messageListener){
 		channel.pipeline().get(SecureChatClientHandler.class).addMessageListener(messageListener);
 	}
 
