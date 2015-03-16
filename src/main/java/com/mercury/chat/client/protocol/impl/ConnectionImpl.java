@@ -1,7 +1,10 @@
 package com.mercury.chat.client.protocol.impl;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.constant.StatusCode.OK;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +13,6 @@ import com.mercury.chat.client.protocol.Connection;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.client.protocol.MessageBox;
 import com.mercury.chat.client.protocol.Session;
-import static com.mercury.chat.common.constant.StatusCode.OK;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
@@ -30,6 +32,12 @@ public class ConnectionImpl implements Connection{
 	
 	public ConnectionImpl channel(Channel channel){
 		this.channel = channel;
+		this.channel.closeFuture().addListener(new ChannelFutureListener(){
+			@Override
+			public void operationComplete(ChannelFuture future) throws Exception {
+				closed = true;
+			}
+		});
 		return this;
 	}
 	

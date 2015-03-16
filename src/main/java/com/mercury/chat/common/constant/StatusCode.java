@@ -11,7 +11,9 @@ public enum StatusCode {
 	INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 	SERVICE_UNAVAILABLE(503, "Service Unavailable"),
 	NOT_LOGIN(600, "Invalid operation:not logged in"),
-	LOGGED_IN(601, "Invalid operation:already logged in");
+	LOGGED_IN(601, "Invalid operation:already logged in"),
+	USER_LOGIN(700, "User Login"),
+	USER_LOGOFF(701, "User Logoff");
 	
 	private int key;
 	

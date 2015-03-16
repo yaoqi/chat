@@ -3,11 +3,13 @@ package com.mercury.chat.server.protocol;
 import static com.mercury.chat.common.MessageType.HANDSHAKE;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
-import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.constant.StatusCode.FAIL;
-import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
+import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
+import static com.mercury.chat.common.constant.StatusCode.OK;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -29,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.StatusCode;
+import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
@@ -56,6 +59,15 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 				ctx.writeAndFlush(msg);
                 channels.add(ctx.channel());
                 
+                ctx.channel().closeFuture().addListener(new ChannelFutureListener(){
+        			@Override
+        			public void operationComplete(ChannelFuture future) throws Exception {
+        				User user = ctx.channel().attr(Constant.userInfo).get();
+        				if(user != null){
+        					channels.writeAndFlush(message, new AntiUserMatcher(user.getUserId()));
+        				}
+        			}
+        		});
             }
         });
     }
