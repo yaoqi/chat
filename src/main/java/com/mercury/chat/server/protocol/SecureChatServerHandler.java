@@ -2,6 +2,8 @@ package com.mercury.chat.server.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
+import static com.mercury.chat.common.util.Channels.has;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -33,10 +35,8 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
     @Override
     public void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {
     	//validate
-    	boolean hasAttr = ctx.channel().hasAttr(Constant.userInfo);
-    	if(!hasAttr){
-    		Message errorMsg = new Message().header(new Header().type(LOGIN.value()).statusCode(NOT_LOGIN.getKey()));
-    		ctx.writeAndFlush(errorMsg);
+    	if(!has(ctx.channel(), Constant.userInfo)){
+    		ctx.writeAndFlush(buildMessage(LOGIN, NOT_LOGIN));
     		return;
     	}
     	

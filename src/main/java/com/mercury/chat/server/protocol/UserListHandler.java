@@ -1,6 +1,7 @@
 package com.mercury.chat.server.protocol;
 
 import static com.mercury.chat.common.MessageType.USER_LIST;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -8,7 +9,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class UserListHandler extends SimpleChannelInboundHandler<Message> {
@@ -23,9 +23,8 @@ public class UserListHandler extends SimpleChannelInboundHandler<Message> {
 			
 			logger.log(Level.INFO, "Receive client user list request : ---> "+ msg);
 			
-		    Message userListMessage = new Message().header(new Header().type(USER_LIST.value()));
 		    //FIXME the find logic need to be implemented.
-			ctx.writeAndFlush(userListMessage);
+			ctx.writeAndFlush(buildMessage(USER_LIST));
 		} else
 		    ctx.fireChannelRead(msg);
     }
