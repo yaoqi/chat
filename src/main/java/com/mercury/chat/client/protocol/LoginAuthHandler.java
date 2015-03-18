@@ -2,29 +2,23 @@ package com.mercury.chat.client.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
-
-import java.util.Collection;
-
 import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageBox;
-import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
+
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class LoginAuthHandler extends SimpleMessageHandler {
 
-	public LoginAuthHandler(MessageType messageType) {
-		super(messageType);
+	@Override
+	protected MessageType _() {
+		return LOGIN;
 	}
 	
 	private volatile MessageBox loginMessageBox = new MessageBox();
@@ -65,4 +59,5 @@ public class LoginAuthHandler extends SimpleMessageHandler {
 		loginMessageBox.put(msg);//put the login result to message box.
 		
 	}
+
 }

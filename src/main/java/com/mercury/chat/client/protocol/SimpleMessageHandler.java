@@ -18,14 +18,9 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 	
 	static final Logger logger = LogManager.getLogger(SimpleMessageHandler.class);
 	
-	private MessageType messageType;
-	
 	private volatile Collection<MessageListener> listeners = Lists.newArrayList();
 	
-	public SimpleMessageHandler(MessageType messageType) {
-		super();
-		this.messageType = messageType;
-	}
+	protected abstract MessageType _();
 	
 	public void addMessageListener(MessageListener listener){
 		listeners.add(listener);
@@ -37,12 +32,14 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 		for (MessageListener listener : listeners) {
 			listener.onMessage(msg);
 		}
-		if(messageType.$(msg)){
+		if(_().$(msg)){
 			onMessage(ctx, msg);
 		}
 		ctx.fireChannelRead(msg);
     }
 	
-    protected abstract void onMessage(ChannelHandlerContext ctx, Message msg);
+    protected void onMessage(ChannelHandlerContext ctx, Message msg){
+    	
+    }
 
 }
