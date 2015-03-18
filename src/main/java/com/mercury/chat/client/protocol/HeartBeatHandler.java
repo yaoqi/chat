@@ -3,6 +3,7 @@ package com.mercury.chat.client.protocol;
 import static com.mercury.chat.common.MessageType.HEARTBEAT;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -16,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageListener;
-import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class HeartBeatHandler extends ChannelHandlerAdapter {
@@ -56,9 +56,7 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
 
 		@Override
 		public void run() {
-			Message heatBeat = new Message().header(new Header().type(HEARTBEAT.value()));
-		    logger.log(Level.INFO, "Client send heart beat messsage to server : ---> "+ heatBeat);
-		    ctx.writeAndFlush(heatBeat);
+		    ctx.writeAndFlush(buildMessage(HEARTBEAT));
 		}
     }
 
