@@ -3,7 +3,7 @@ package com.mercury.chat.common.util;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 
-public class ChannelUtil {
+public class Channels {
 	
 	public static <T> T getAttribute(Channel channel, AttributeKey<T> attributeKey){
 		return channel.attr(attributeKey).get();
