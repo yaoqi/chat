@@ -20,7 +20,7 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 		onMessage(ctx, msg);
 	}
 	
-	protected void validate(ChannelHandlerContext ctx, Message msg) {
+	protected void validate(ChannelHandlerContext ctx, Message msg) throws Exception {
 		
 	}
 
