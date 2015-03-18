@@ -14,15 +14,15 @@ import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Message;
 
-public abstract class AbstractClientMessageHandler extends SimpleChannelInboundHandler<Message> {
+public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<Message> {
 	
-	static final Logger logger = LogManager.getLogger(AbstractClientMessageHandler.class);
+	static final Logger logger = LogManager.getLogger(SimpleMessageHandler.class);
 	
 	private MessageType messageType;
 	
 	private volatile Collection<MessageListener> listeners = Lists.newArrayList();
 	
-	public AbstractClientMessageHandler(MessageType messageType) {
+	public SimpleMessageHandler(MessageType messageType) {
 		super();
 		this.messageType = messageType;
 	}
@@ -37,7 +37,10 @@ public abstract class AbstractClientMessageHandler extends SimpleChannelInboundH
 		for (MessageListener listener : listeners) {
 			listener.onMessage(msg);
 		}
-		onMessage(ctx, msg);
+		if(messageType.$(msg)){
+			onMessage(ctx, msg);
+		}
+		ctx.fireChannelRead(msg);
     }
 	
     protected abstract void onMessage(ChannelHandlerContext ctx, Message msg);

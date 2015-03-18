@@ -1,6 +1,6 @@
 package com.mercury.chat.common;
 
-import com.mercury.chat.common.struct.IHeader;
+import com.mercury.chat.common.struct.IMessage;
 
 public enum MessageType {
 
@@ -21,8 +21,8 @@ public enum MessageType {
     	return this.value;
     }
     
-    public boolean isThisType(IHeader header){
-    	return value == header.getMessageType();
+    public boolean $(IMessage message){
+    	return value == message.getHeader().getMessageType();
     }
     
 }

@@ -17,17 +17,14 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageListener;
+import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
-public class LoginAuthHandler extends ChannelHandlerAdapter {
+public class LoginAuthHandler extends SimpleMessageHandler {
 
-	static final Logger logger = LogManager.getLogger(LoginAuthHandler.class);
-	
-	private volatile Collection<MessageListener> listeners = Lists.newArrayList();
-	
-	public void addMessageListener(MessageListener listener){
-		listeners.add(listener);
+	public LoginAuthHandler(MessageType messageType) {
+		super(messageType);
 	}
 	
 	private volatile MessageBox loginMessageBox = new MessageBox();
@@ -46,7 +43,7 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		Message message = (Message) msg;
 		Header header = message.getHeader();
-		if (LOGIN.isThisType(header)) {
+		if (LOGIN.$(message)) {
 		    if(OK.isThisType(header)){
 		    	ctx.fireChannelRead(msg);
 		    }
@@ -62,4 +59,10 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
     	logger.log(Level.ERROR, cause);
     	ctx.fireExceptionCaught(cause);
     }
+
+	@Override
+	protected void onMessage(ChannelHandlerContext ctx, Message msg) {
+		loginMessageBox.put(msg);//put the login result to message box.
+		
+	}
 }

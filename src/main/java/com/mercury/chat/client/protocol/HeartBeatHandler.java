@@ -35,14 +35,12 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
     	Message message = (Message) msg;
-    	
-    	Header header = message.getHeader();
 		
-		if (LOGIN.isThisType(header)) {
+		if (LOGIN.$(message)) {
 			if(SUCCESS.isThisType((byte)message.getBody())){
 				heartBeat = ctx.executor().scheduleAtFixedRate(new HeartBeatHandler.HeartBeatTask(ctx), 0, 5000,TimeUnit.MILLISECONDS);
 			}
-		} else if (HEARTBEAT.isThisType(header)) {
+		} else if (HEARTBEAT.$(message)) {
 		    logger.log(Level.INFO, "Client receive server heart beat message : ---> "+ message);
 		} else
 		    ctx.fireChannelRead(msg);
