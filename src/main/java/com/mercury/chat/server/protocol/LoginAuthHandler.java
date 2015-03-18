@@ -11,6 +11,8 @@ import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.util.Messages.buildMessage;
+import static com.mercury.chat.common.util.Channels.has;
+import static com.mercury.chat.common.util.Channels.set;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -57,7 +59,7 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 				StringBuilder messageBody = new StringBuilder();
 				messageBody.append("Welcome to " + InetAddress.getLocalHost().getHostName() +" secure chat service!\n");
 				messageBody.append("Your session is protected by " +ctx.pipeline().get(SslHandler.class).engine().getSession().getCipherSuite() + " cipher suite.");
-				Message msg = new Message().header(new Header().type(HANDSHAKE.value())).body(messageBody.toString());
+				Message msg = buildMessage(HANDSHAKE,messageBody.toString());
 				ctx.writeAndFlush(msg);
                 channels.add(ctx.channel());
                 
@@ -80,22 +82,18 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 	protected void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {
 		if (LOGIN.$(msg)) {
 			//validate
-			boolean hasAttr = ctx.channel().hasAttr(Constant.userInfo);
-	    	if(hasAttr){
-	    		Message errorMsg = new Message().header(new Header().type(LOGIN.value()).statusCode(LOGGED_IN.getKey()));
-	    		ctx.writeAndFlush(errorMsg);
+	    	if(has(ctx.channel(), Constant.userInfo)){
+	    		ctx.writeAndFlush(buildMessage(LOGIN, LOGGED_IN));
 	    		return;
 	    	}
 			
 			UserService userService = UserServiceImpl.getInstance();
 			User user = (User) msg.getBody();
 			StatusCode statusCode = null;
-			boolean loginResult = false;;
 			try {
-				loginResult = userService.login(user.getUserId(), user.getPassword());
-				if(loginResult){
-		          	Attribute<User> userAttr = ctx.channel().attr(Constant.userInfo);
-		          	userAttr.setIfAbsent(user);
+				if(userService.login(user.getUserId(), user.getPassword())){
+					ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
+		          	set(ctx.channel(), Constant.userInfo, user);
 		          	statusCode = OK;
 				}else{
 					statusCode = FAIL;
@@ -103,12 +101,7 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 			} catch (Exception e) {
 				statusCode = INTERNAL_SERVER_ERROR;
 			}
-			Message respMsg = new Message().header(new Header().type(MessageType.LOGIN.value()).statusCode(statusCode.getKey()));
-		    ctx.writeAndFlush(respMsg);
-		    
-		    Message userListMsg = new Message().header(new Header().type(MessageType.USER_LIST.value()).statusCode(USER_LOGIN.getKey())).body(user);
-		    ctx.writeAndFlush(userListMsg);
-		    
+		    ctx.writeAndFlush(buildMessage(LOGIN, statusCode));
 		}else if(LOGOFF.$(msg)){
 	        ctx.close();
 		}else {
