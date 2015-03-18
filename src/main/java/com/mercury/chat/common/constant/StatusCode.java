@@ -3,7 +3,6 @@ package com.mercury.chat.common.constant;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.common.struct.protocol.Header;
 
 public enum StatusCode {
 	OK(200, "Operate Success"), 
