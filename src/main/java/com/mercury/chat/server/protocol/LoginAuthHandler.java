@@ -8,16 +8,14 @@ import static com.mercury.chat.common.constant.StatusCode.FAIL;
 import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
-import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGIN;
+import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.util.MessageUtil.buildMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.ssl.SslHandler;
@@ -42,7 +40,7 @@ import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
 
-public class LoginAuthHandler extends ChannelHandlerAdapter {
+public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 
 	static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	
@@ -78,20 +76,9 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
         });
     }
 	
-    /**
-     * Calls {@link ChannelHandlerContext#fireChannelRead(Object)} to forward to
-     * the next {@link ChannelHandler} in the {@link ChannelPipeline}.
-     * 
-     * Sub-classes may override this method to change behavior.
-     */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		
-    	Message message = (Message) msg;
-	
-		Header header = message.getHeader();
-		
-		if (LOGIN.isThisType(header)) {
+	@Override
+	protected void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {
+		if (LOGIN.$(msg)) {
 			//validate
 			boolean hasAttr = ctx.channel().hasAttr(Constant.userInfo);
 	    	if(hasAttr){
@@ -101,7 +88,7 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 	    	}
 			
 			UserService userService = UserServiceImpl.getInstance();
-			User user = (User) message.getBody();
+			User user = (User) msg.getBody();
 			StatusCode statusCode = null;
 			boolean loginResult = false;;
 			try {
@@ -122,16 +109,17 @@ public class LoginAuthHandler extends ChannelHandlerAdapter {
 		    Message userListMsg = new Message().header(new Header().type(MessageType.USER_LIST.value()).statusCode(USER_LOGIN.getKey())).body(user);
 		    ctx.writeAndFlush(userListMsg);
 		    
-		}else if(LOGOFF.isThisType(header)){
+		}else if(LOGOFF.$(msg)){
 	        ctx.close();
 		}else {
 		    ctx.fireChannelRead(msg);
 		}
-    }
+	}
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     	logger.log(Level.ERROR, cause);
 		ctx.close();
 		ctx.fireExceptionCaught(cause);
     }
+	
 }
