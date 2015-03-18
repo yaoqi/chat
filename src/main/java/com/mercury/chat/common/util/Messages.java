@@ -19,4 +19,8 @@ public class Messages {
 		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.getKey())).body(body);
 	}
 	
+	public static Message buildMessage(MessageType messageType, Object body) {
+		return new Message().header(new Header().type(messageType.value())).body(body);
+	}
+	
 }
