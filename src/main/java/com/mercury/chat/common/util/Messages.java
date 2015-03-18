@@ -5,7 +5,7 @@ import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
-public class MessageUtil {
+public class Messages {
 	
 	public static Message buildMessage(MessageType messageType) {
 		return new Message().header(new Header().type(messageType.value()));
