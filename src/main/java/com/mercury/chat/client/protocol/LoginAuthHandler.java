@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Level;
 
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageType;
-
-import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class LoginAuthHandler extends SimpleMessageHandler {
@@ -36,9 +34,8 @@ public class LoginAuthHandler extends SimpleMessageHandler {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		Message message = (Message) msg;
-		Header header = message.getHeader();
 		if (LOGIN.$(message)) {
-		    if(OK.isThisType(header)){
+		    if(OK.$(message)){
 		    	ctx.fireChannelRead(msg);
 		    }
 		    

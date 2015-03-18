@@ -2,6 +2,7 @@ package com.mercury.chat.common.constant;
 
 import org.apache.commons.lang.ObjectUtils;
 
+import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 
 public enum StatusCode {
@@ -32,8 +33,8 @@ public enum StatusCode {
 		return message;
 	}
 
-	public boolean isThisType(Header header) {
-		return ObjectUtils.equals(getKey(), header.getStatusCode());
+	public boolean $(IMessage message) {
+		return ObjectUtils.equals(getKey(), message.getHeader().getStatusCode());
 	}
 
 }

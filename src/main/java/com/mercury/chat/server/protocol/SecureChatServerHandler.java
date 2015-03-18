@@ -1,7 +1,7 @@
 package com.mercury.chat.server.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
-import static com.mercury.chat.common.constant.LoginFlag.NOT_LOGIN;
+import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -35,7 +35,7 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
     	//validate
     	boolean hasAttr = ctx.channel().hasAttr(Constant.userInfo);
     	if(!hasAttr){
-    		Message errorMsg = new Message().header(new Header().type(LOGIN.value())).body(NOT_LOGIN.key());
+    		Message errorMsg = new Message().header(new Header().type(LOGIN.value()).statusCode(NOT_LOGIN.getKey()));
     		ctx.writeAndFlush(errorMsg);
     		return;
     	}

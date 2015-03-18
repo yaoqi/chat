@@ -57,7 +57,7 @@ public class ConnectionImpl implements Connection{
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
 			
-			if(!OK.isThisType(responseMsg.getHeader())){
+			if(!OK.$(responseMsg)){
 				throw new ChatException();
 			}
 			
