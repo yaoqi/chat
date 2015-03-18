@@ -10,7 +10,7 @@ import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
-import static com.mercury.chat.common.util.MessageUtil.buildMessage;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
