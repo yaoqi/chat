@@ -7,11 +7,16 @@ import com.mercury.chat.common.struct.protocol.Message;
 
 public class MessageUtil {
 	
-	public static Message buildMessage(MessageType messageType, StatusCode statusCode, Object body) {
-		return new Message().header(new Header().type(messageType.value())
-												.statusCode(statusCode.getKey()))
-							.body(body);
+	public static Message buildMessage(MessageType messageType) {
+		return new Message().header(new Header().type(messageType.value()));
 	}
 	
+	public static Message buildMessage(MessageType messageType, StatusCode statusCode) {
+		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.getKey()));
+	}
+	
+	public static Message buildMessage(MessageType messageType, StatusCode statusCode, Object body) {
+		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.getKey())).body(body);
+	}
 	
 }
