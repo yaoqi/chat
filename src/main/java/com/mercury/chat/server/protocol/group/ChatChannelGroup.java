@@ -12,6 +12,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
+import com.mercury.chat.user.entity.User;
 
 public class ChatChannelGroup extends DefaultChannelGroup {
 
@@ -68,7 +69,10 @@ public class ChatChannelGroup extends DefaultChannelGroup {
 		}else if(o instanceof Channel){
 			channel = (Channel) o;
 		}
-		cache.invalidate(get(channel ,userInfo).getUserId());
+		User user = get(channel ,userInfo);
+		if(user!=null){
+			cache.invalidate(user.getUserId());
+		}
 		boolean removed = super.remove(o);
 		return removed;
 	}
