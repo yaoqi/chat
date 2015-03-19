@@ -4,11 +4,10 @@ import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Messages.buildMessage;
+import static com.mercury.chat.server.protocol.group.SessionManager.channels;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelMatcher;
-import static com.mercury.chat.server.protocol.config.SessionManager.channels;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;

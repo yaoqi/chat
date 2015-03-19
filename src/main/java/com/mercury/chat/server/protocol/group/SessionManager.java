@@ -1,4 +1,4 @@
-package com.mercury.chat.server.protocol.config;
+package com.mercury.chat.server.protocol.group;
 
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;

@@ -13,7 +13,7 @@ import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Channels.set;
 import static com.mercury.chat.common.util.Messages.buildMessage;
-import static com.mercury.chat.server.protocol.config.SessionManager.channels;
+import static com.mercury.chat.server.protocol.group.SessionManager.channels;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
