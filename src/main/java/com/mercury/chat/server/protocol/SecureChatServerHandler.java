@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelMatcher;
+import static com.mercury.chat.server.protocol.config.SessionManager.channels;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -41,8 +42,6 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
     	}
     	
     	//send message to target user
-    	@SuppressWarnings("static-access")
-		final ChannelGroup channels = ctx.pipeline().get(LoginAuthHandler.class).channels;
     	Header header = msg.getHeader();
 		ChannelMatcher matcher = new UserMatcher(header.getTo());
 		channels.writeAndFlush(msg, matcher);

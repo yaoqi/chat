@@ -13,17 +13,15 @@ import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Channels.set;
 import static com.mercury.chat.common.util.Messages.buildMessage;
+import static com.mercury.chat.server.protocol.config.SessionManager.channels;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.net.InetAddress;
 
@@ -41,8 +39,6 @@ import com.mercury.chat.user.service.storer.MockUserService;
 
 public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 
-	static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-	
 	static final Logger logger = LogManager.getLogger(LoginAuthHandler.class);
 	
 	@Override
