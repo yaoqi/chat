@@ -5,6 +5,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
 
+import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
 
@@ -27,7 +28,7 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
 
         pipeline.addLast("MessageDecoder", new MessageDecoder(1024 * 1024, 4, 4));
 		pipeline.addLast("MessageEncoder", new MessageEncoder());
-		//pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(50)); FIXME
+		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(60));
 		pipeline.addLast("LoginAuthHandler", new LoginAuthHandler());
 		pipeline.addLast("HeartBeatHandler", new HeartBeatHandler());
 		pipeline.addLast("UserListHandler", new UserListHandler());

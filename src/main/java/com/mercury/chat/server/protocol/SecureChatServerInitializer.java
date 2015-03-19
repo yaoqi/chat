@@ -9,6 +9,7 @@ import io.netty.util.concurrent.EventExecutorGroup;
 
 import java.util.concurrent.Executors;
 
+import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
 
@@ -33,7 +34,7 @@ public class SecureChatServerInitializer extends ChannelInitializer<SocketChanne
 
         pipeline.addLast("MessageDecoder", new MessageDecoder(1024 * 1024, 4, 4));
 		pipeline.addLast("MessageEncoder", new MessageEncoder());
-		//pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(50)); FIXME
+		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(60));
 		pipeline.addLast(businessGroup, "login",new LoginAuthHandler());
 		pipeline.addLast("HeartBeatHandler", new HeartBeatHandler());
 
