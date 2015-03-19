@@ -56,7 +56,10 @@ public class ChatChannelGroup extends DefaultChannelGroup {
 	@Override
 	public boolean add(Channel channel) {
 		boolean added = super.add(channel);
-		cache.put(get(channel,userInfo).getUserId(), channel);
+		User user = get(channel,userInfo);
+		if(user!=null){
+			cache.put(user.getUserId(), channel);
+		}
 		return added;
 	}
 
