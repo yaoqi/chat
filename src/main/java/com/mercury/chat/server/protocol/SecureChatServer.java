@@ -1,5 +1,9 @@
 package com.mercury.chat.server.protocol;
 
+import java.security.cert.CertificateException;
+
+import javax.net.ssl.SSLException;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -16,7 +20,12 @@ public final class SecureChatServer {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
 
     public static void main(String[] args) throws Exception {
-        SelfSignedCertificate ssc = new SelfSignedCertificate();
+        startUp(PORT);
+    }
+
+	public static void startUp(int port) throws CertificateException, SSLException, InterruptedException {
+		
+		SelfSignedCertificate ssc = new SelfSignedCertificate();
         SslContext sslCtx = SslContext.newServerContext(ssc.certificate(), ssc.privateKey());
 
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -29,10 +38,10 @@ public final class SecureChatServer {
              .handler(new LoggingHandler(LogLevel.INFO))
              .childHandler(new SecureChatServerInitializer(sslCtx));
 
-            b.bind(PORT).sync().channel().closeFuture().sync();
+            b.bind(port).sync().channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
+	}
 }
