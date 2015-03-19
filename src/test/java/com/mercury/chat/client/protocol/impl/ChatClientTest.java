@@ -22,6 +22,8 @@ public class ChatClientTest{
 		assertNotNull(connection);
 		Session session = connection.login("google@google.com", "welcome1");
 		assertNotNull(session);
+		connection.close();
+		System.out.println("XXX");
 	}
 
 }

@@ -37,7 +37,7 @@ import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
+import com.mercury.chat.user.service.storer.MockUserService;
 
 public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 
@@ -84,7 +84,7 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 	    		return;
 	    	}
 			
-			UserService userService = UserServiceImpl.getInstance();
+			UserService userService = MockUserService.getInstance();
 			User user = (User) msg.getBody();
 			StatusCode statusCode = null;
 			try {
