@@ -24,6 +24,8 @@ public class ConnectionImpl implements Connection{
 	
 	private volatile boolean closed;
 	
+	private volatile boolean connected;
+	
 	private volatile User currentUser;
 	
 	private Channel channel;
