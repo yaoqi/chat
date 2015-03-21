@@ -28,7 +28,7 @@ public interface ChatClient {
 	
 	void setConnectionListener(ConnectionListener connectionListener);
 	
-	List<ChatMessage> loadHisChatMessage(long shopId, long userId, int offset, int batchSize);
+	List<ChatMessage> loadHisChatMessage(long shopId, String userId, int offset, int batchSize);
 	
 	ProductSummary loadProductSummary(long productId);
 	

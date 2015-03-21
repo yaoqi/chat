@@ -25,11 +25,11 @@ public class ConnectionImpl implements Connection{
 	
 	static final Logger logger = LogManager.getLogger(ConnectionImpl.class);
 	
-	private volatile boolean closed;
+	private boolean closed;
 	
-	private volatile boolean connected;
+	private boolean connected;
 	
-	private volatile User currentUser;
+	private User currentUser;
 	
 	private Channel channel;
 	

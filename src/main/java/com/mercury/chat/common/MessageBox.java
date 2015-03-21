@@ -4,6 +4,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import com.mercury.chat.common.exception.ChatException;
+import com.mercury.chat.common.exception.ErrorCode;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class MessageBox {
@@ -28,6 +30,7 @@ public class MessageBox {
 		
 		if(msg == null){
 			setDiscard(true);
+			throw new ChatException(ErrorCode.TIME_OUT);
 		}
 		
 		return msg;

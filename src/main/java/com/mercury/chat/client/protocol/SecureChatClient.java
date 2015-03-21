@@ -35,7 +35,7 @@ public final class SecureChatClient{
 		return new ConnectionImpl().channel(new SecureChatClient().connectInner(host, port));
 	}
 
-	private Channel connectInner(String host, int port) {
+	public Channel connectInner(String host, int port) {
 		checkAllNotNull(host, port);
 		// Configure SSL.
         SslContext sslCtx;
