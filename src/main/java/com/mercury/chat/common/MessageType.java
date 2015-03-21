@@ -7,19 +7,20 @@ public enum MessageType {
 	HANDSHAKE((byte) 0, null){
 		@Override
 		public boolean listenble(){
-	    	return true;
+	    	return false;
 	    }
 	},
 	LOGIN((byte) 1, "LoginAuthHandler"),
 	LOGOFF((byte) 2, null){
 		@Override
 		public boolean listenble(){
-	    	return true;
+	    	return false;
 	    }
 	},
 	CHAT((byte) 3, "ChatHandler"),
     USER_LIST((byte) 4, "UserListHandler"),
-    HEARTBEAT((byte) 5, "HeartBeatHandler");
+    HEARTBEAT((byte) 5, "HeartBeatHandler"),
+	HISTORICAL_MESSAGE((byte) 6, "HeartBeatHandler");
     
     private byte value;
     
