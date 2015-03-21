@@ -9,24 +9,32 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class TestRuleImpl implements TestRule {
-	static final Logger logger = LogManager.getLogger(TestRuleImpl.class);
+public class TestRuleImpl2 implements TestRule {
+	static final Logger logger = LogManager.getLogger(TestRuleImpl2.class);
 	private ConfigurableApplicationContext context;
 	private final String[] locations;
 	private final Object target;
 
-	public TestRuleImpl(String[] locations, Object target) {
+	public TestRuleImpl2(String[] locations, Object target) {
 		this.locations = locations;
 		this.target = target;
 	}
 
+	private static ThreadLocal<ConfigurableApplicationContext> threadLocalVar = new ThreadLocal<ConfigurableApplicationContext>();
+	
 	@Override
 	public Statement apply(Statement base, Description description) {
-		context = new ClassPathXmlApplicationContext(this.getLocations());
+		if (threadLocalVar.get() == null) {
+			context = new ClassPathXmlApplicationContext(this.getLocations());
+			threadLocalVar.set(context);
+			System.out.println("Thread id = " + Thread.currentThread().getId() + ", name = " + Thread.currentThread().getName());
+		} else {
+			this.context = threadLocalVar.get();
+		}
 		context.getAutowireCapableBeanFactory().autowireBean(this.getTarget());
 		context.start();
 		Statement testStatement = base;
-		testStatement = new TestStatement(getContext(), base, description);
+		testStatement = new TestStatement2(getContext(), base, description);
 		return testStatement;
 	}
 

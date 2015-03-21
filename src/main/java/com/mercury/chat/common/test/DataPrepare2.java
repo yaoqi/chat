@@ -7,15 +7,15 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD })
-public @interface DataPrepare {
+public @interface DataPrepare2 {
 
-	DbType dbType() default DbType.H2;
+	DbType[] dbTypes() default {DbType.H2};
 
 	String[] schema() default { "" };
 
 	boolean isEnable() default true;
 	
-	Class<?> domainClass();
+	Class<?>[] domainClasses() default {};
 
 	// Class<? extends Throwable> cacheLoader();
 
