@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -47,14 +48,14 @@ public interface MessageMapper {
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
     })
-    List<ChatMessage> select(String userId, Long shopId, int offset, int batchSize);
+    List<ChatMessage> select(@Param(value = "userId")String userId, @Param(value = "shopId")Long shopId, @Param(value = "offset")int offset, @Param(value = "batchSize")int batchSize);
 	
     @Insert({
-        "insert into MESSAGE (ID, CHAT_FROM, ",
-        "CHAT_TO, SHOP_ID, CREATE_TS, ",
+        "insert into MESSAGE (CHAT_FROM, ",
+        "CHAT_TO, SHOP_ID, ",
         "MESSAGE)",
-        "values (#{id,jdbcType=BIGINT}, #{chatFrom,jdbcType=VARCHAR}, ",
-        "#{chatTo,jdbcType=VARCHAR}, #{shopId,jdbcType=BIGINT}, #{createTs,jdbcType=TIMESTAMP}, ",
+        "values (#{chatFrom,jdbcType=VARCHAR}, ",
+        "#{chatTo,jdbcType=VARCHAR}, #{shopId,jdbcType=BIGINT}, ",
         "#{message,jdbcType=CLOB})"
     })
     int insert(ChatMessage record);

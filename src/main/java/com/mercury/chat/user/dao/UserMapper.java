@@ -1,5 +1,6 @@
 package com.mercury.chat.user.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -22,5 +23,5 @@ public interface UserMapper {
         @Result(column="SALES", property="sales", jdbcType=JdbcType.BOOLEAN),
         @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT)
     })
-    User select(String userId, String password);
+    User select(@Param(value = "userId")String userId, @Param(value = "password") String password);
 }

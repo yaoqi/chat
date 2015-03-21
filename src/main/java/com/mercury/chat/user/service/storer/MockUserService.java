@@ -1,9 +1,8 @@
 package com.mercury.chat.user.service.storer;
 
-import java.util.Date;
 import java.util.List;
 
-import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -31,13 +30,14 @@ public class MockUserService implements UserService {
 	}
 
 	@Override
-	public List<ChatMessage> find(String userId, Date from, Date to) {
+	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
 		return null;
 	}
 
 	@Override
-	public int store(List<ChatMessage> messages) {
+	public int store(List<IMessage> messages) {
 		return messages.size();
 	}
+
 
 }

@@ -1,10 +1,10 @@
 package com.mercury.chat.user.service.protocol;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -54,10 +54,12 @@ public class UserServiceTest {
 	@Test
 	public void testFindMessage(){
 		UserService userService = UserServiceImpl.getInstance();
-		Date from = null;
-		Date to = null;
-		List<IMessage> messages = userService.find("god", from, to);
-		System.out.println(messages.size());
+		String userId = null;
+		Long shopId = null;
+		int offset = 0;
+		int batchSize = 0;
+		IMessage message = userService.select(userId, shopId, offset, batchSize);
+		assertNotNull(message);
 	}
 	
 	

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ChatMessage implements Serializable {
-    private Long id;
+    
+	private Long id;
 
     private String chatFrom;
 
@@ -17,7 +18,27 @@ public class ChatMessage implements Serializable {
     private String message;
 
     private static final long serialVersionUID = 1L;
-
+    
+    public ChatMessage from(String from){
+    	this.chatFrom = from;
+    	return this;
+    }
+    
+    public ChatMessage to(String to){
+    	this.chatTo = to;
+    	return this;
+    }
+    
+    public ChatMessage shopId(Long shopId){
+    	this.shopId = shopId;
+    	return this;
+    }
+    
+    public ChatMessage message(String message){
+    	this.message = message;
+    	return this;
+    }
+    
     public Long getId() {
         return id;
     }

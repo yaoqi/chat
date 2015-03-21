@@ -2,9 +2,9 @@ package com.mercury.chat.user.service.protocol.db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Rule;
@@ -20,6 +20,7 @@ import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.common.test.DataPrepare2;
 import com.mercury.chat.common.test.DbType;
 import com.mercury.chat.common.test.TestRuleImpl2;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -36,7 +37,7 @@ public class UserServiceTest {
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testLoginSuccessfully(){
-		boolean login = userService.login("google@google.com", "welcome1");
+		boolean login = userService.login("google@gmail.com", "welcome1");
 		assertTrue(login);
 	}
 	
@@ -67,10 +68,10 @@ public class UserServiceTest {
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testFindMessage(){
-		Date from = null;
-		Date to = null;
-		List<IMessage> messages = userService.find("god", from, to);
-		System.out.println(messages.size());
+		IMessage message = userService.select("baidu@baidu.com", 1L, 0, 5);
+		List<ChatMessage> messages = (List<ChatMessage>) message.getBody();
+		assertNotNull(message);
+		assertEquals(5, messages.size());
 	}
 	
 	

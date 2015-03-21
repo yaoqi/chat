@@ -1,9 +1,8 @@
 package com.mercury.chat.user.service;
 
-import java.util.Date;
 import java.util.List;
 
-import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.User;
 
 public interface UserService {
@@ -12,8 +11,8 @@ public interface UserService {
 	
 	List<User> getUserList(String userId);
 	
-	List<ChatMessage> find(String userId, Date from, Date to);
+	IMessage select(String userId, Long shopId, int offset, int batchSize);
 	
-	int store(List<ChatMessage> message);
+	int store(List<IMessage> message);
 	
 }

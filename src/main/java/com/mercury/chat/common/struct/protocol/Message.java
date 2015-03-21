@@ -1,6 +1,7 @@
 package com.mercury.chat.common.struct.protocol;
 
 import com.mercury.chat.common.struct.IMessage;
+import com.mercury.chat.user.entity.ChatMessage;
 
 
 public final class Message implements IMessage{
@@ -48,5 +49,12 @@ public final class Message implements IMessage{
 	@Override
 	public String getTo() {
 		return (String) header.getAttachment().get("to");
+	}
+
+	@Override
+	public ChatMessage convert() {
+		ChatMessage message = new ChatMessage();
+		message.from(getFrom()).to(getTo()).message((String)getBody());
+		return message;
 	}
 }

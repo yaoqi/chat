@@ -16,7 +16,7 @@ import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
-public class UserServiceImpl{
+public class UserServiceImpl  implements UserService {
 
 	private static class SingletonHolder {
 		private static final UserServiceImpl INSTANCE = new UserServiceImpl();
@@ -72,6 +72,11 @@ public class UserServiceImpl{
 	}
 
 	public List<User> getUserList(String userId) {
+		return null;
+	}
+
+	@Override
+	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
 		return null;
 	}
 	

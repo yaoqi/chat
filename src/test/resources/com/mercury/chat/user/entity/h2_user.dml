@@ -1,4 +1,10 @@
 insert into CHAT.USER(USER_ID,PASSWORD) values('google@gmail.com','welcome1');
 insert into CHAT.USER(USER_ID,PASSWORD) values('baidu@baidu.com','welcome1');
-insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,MESSAGE) values('baidu@baidu.com','google@gmail.com', 'hello, google');
-insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,MESSAGE) values('google@gmail.com','baidu@baidu.com', 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('baidu@baidu.com','google@gmail.com', 1, 'hello, google');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
+insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('google@gmail.com','baidu@baidu.com', 1, 'hello, baidu');
