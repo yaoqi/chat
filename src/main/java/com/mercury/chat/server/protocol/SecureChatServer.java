@@ -20,10 +20,10 @@ public final class SecureChatServer {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
 
     public static void main(String[] args) throws Exception {
-        startUp(PORT);
+        new SecureChatServer().startUp(PORT);
     }
 
-	public static void startUp(int port) throws CertificateException, SSLException, InterruptedException {
+	public void startUp(int port) throws CertificateException, SSLException, InterruptedException {
 		
 		SelfSignedCertificate ssc = new SelfSignedCertificate();
         SslContext sslCtx = SslContext.newServerContext(ssc.certificate(), ssc.privateKey());
