@@ -10,6 +10,10 @@ public class ChatException extends RuntimeException {
 		this(statusCode.message());
 	}
 	
+	public ChatException(ErrorCode errorCode) {
+		this(errorCode.message());
+	}
+	
 	public ChatException() {
 		super();
 	}

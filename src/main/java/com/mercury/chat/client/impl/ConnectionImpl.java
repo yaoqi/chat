@@ -16,6 +16,7 @@ import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
+import com.mercury.chat.common.exception.ErrorCode;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 
@@ -51,15 +52,14 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public Session login(String userId, String password) {
 		if(closed){
-			//FIXME
-			throw new ChatException();
+			throw new ChatException(ErrorCode.CLOSED);
 		}
 		try {
 			User user = new User(userId,password);
 			channel.writeAndFlush(buildMessage(LOGIN, user)).sync();//send login request to chat service
 			
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).messageBox();
-			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
+			Message responseMsg = loginMessageBox.get();//wait until received the login response.
 			
 			if(!OK.$(responseMsg)){
 				throw new ChatException(StatusCode.valOf(responseMsg));
@@ -70,7 +70,7 @@ public class ConnectionImpl implements Connection{
 			logger.info(responseMsg);
 		} catch (InterruptedException e) {
 			logger.error(e);
-			throw new ChatException();
+			throw new ChatException(e);
 		}
 		return new SessionImpl(channel).user(currentUser);
 	}
