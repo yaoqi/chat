@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageListener;
-import com.mercury.chat.common.handler.LinstenbleHandler;
+import com.mercury.chat.common.handler.ListenbleHandler;
 
-public class SimpleLinstenbleHandler implements LinstenbleHandler {
+public class SimpleLinstenbleHandler implements ListenbleHandler {
 
 	private volatile Collection<MessageListener> listeners = Lists.newArrayList();
 	
