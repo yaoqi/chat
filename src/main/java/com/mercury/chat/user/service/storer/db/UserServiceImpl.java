@@ -1,5 +1,8 @@
 package com.mercury.chat.user.service.storer.db;
 
+import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
+import static com.mercury.chat.common.util.Messages.buildMessage;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.dao.MessageMapper;
 import com.mercury.chat.user.dao.UserMapper;
 import com.mercury.chat.user.entity.ChatMessage;
@@ -38,8 +40,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
 		List<ChatMessage> messages = messageMapper.select(userId, shopId, offset, batchSize);
-		Message msg = new Message().body(messages);
-		return msg;
+		return buildMessage(HISTORICAL_MESSAGE, messages);
 	}
 
 	@Override
