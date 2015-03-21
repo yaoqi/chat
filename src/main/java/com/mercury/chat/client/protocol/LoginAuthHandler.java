@@ -1,7 +1,6 @@
 package com.mercury.chat.client.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
-import static com.mercury.chat.common.constant.StatusCode.OK;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
@@ -31,20 +30,20 @@ public class LoginAuthHandler extends SimpleMessageHandler {
      * 
      * Sub-classes may override this method to change behavior.
      */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		Message message = (Message) msg;
-		if (LOGIN.$(message)) {
-		    if(OK.$(message)){
-		    	ctx.fireChannelRead(msg);
-		    }
-		    
-		    loginMessageBox.put(message);//put the login result to message box.
-		   
-		    logger.log(Level.INFO, message);
-		} else
-		    ctx.fireChannelRead(msg);
-    }
+//    @Override
+//    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+//		Message message = (Message) msg;
+//		if (LOGIN.$(message)) {
+//		    if(OK.$(message)){
+//		    	ctx.fireChannelRead(msg);
+//		    }
+//		    
+//		    loginMessageBox.put(message);//put the login result to message box.
+//		   
+//		    logger.log(Level.INFO, message);
+//		} else
+//		    ctx.fireChannelRead(msg);
+//    }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     	logger.log(Level.ERROR, cause);

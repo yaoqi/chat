@@ -12,9 +12,10 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.handler.LinstenbleHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 
-public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<Message> {
+public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<Message> implements LinstenbleHandler{
 	
 	static final Logger logger = LogManager.getLogger(SimpleMessageHandler.class);
 	
@@ -24,6 +25,10 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 	
 	public void addMessageListener(MessageListener listener){
 		listeners.add(listener);
+	}
+	
+	public void removeMessageListener(MessageListener listener){
+		listeners.remove(listener);
 	}
 
 	@Override
