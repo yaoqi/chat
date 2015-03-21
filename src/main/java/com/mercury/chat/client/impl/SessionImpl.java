@@ -3,18 +3,16 @@ package com.mercury.chat.client.impl;
 import static com.mercury.chat.common.MessageType.LOGOFF;
 import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 
 import java.util.Date;
 import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.client.Session;
-import com.mercury.chat.client.protocol.HeartBeatHandler;
-import com.mercury.chat.client.protocol.LoginAuthHandler;
-import com.mercury.chat.client.protocol.SecureChatClientHandler;
-import com.mercury.chat.client.protocol.UserListHandler;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.handler.ListenbleHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 
@@ -62,28 +60,23 @@ public class SessionImpl implements Session {
 	}
 	
 	public void addMessageListener(MessageType messageType, MessageListener messageListener){
-		if(LOGOFF != messageType){
-			
+		if(messageType.listenble()){
+			ChannelHandler channelHandler = channel.pipeline().get(messageType.handler());
+			if(channelHandler instanceof ListenbleHandler){
+				ListenbleHandler listenbleHandler = (ListenbleHandler) channelHandler;
+				listenbleHandler.addMessageListener(messageListener);
+			}
 		}
-		switch(messageType){
-			case LOGIN:
-				channel.pipeline().get(LoginAuthHandler.class).addMessageListener(messageListener);
-				break;
-			case LOGOFF:
-				break;
-			case CHAT:
-				channel.pipeline().get(SecureChatClientHandler.class).addMessageListener(messageListener);
-				break;
-			case USER_LIST:
-				channel.pipeline().get(UserListHandler.class).addMessageListener(messageListener);
-				break;
-			case HEARTBEAT:
-				channel.pipeline().get(HeartBeatHandler.class).addMessageListener(messageListener);
-				break;
-			default:
-				break;
+	}
+	
+	public void removeMessageListener(MessageType messageType, MessageListener messageListener){
+		if(messageType.listenble()){
+			ChannelHandler channelHandler = channel.pipeline().get(messageType.handler());
+			if(channelHandler instanceof ListenbleHandler){
+				ListenbleHandler listenbleHandler = (ListenbleHandler) channelHandler;
+				listenbleHandler.removeMessageListener(messageListener);
+			}
 		}
-		
 	}
 
 }

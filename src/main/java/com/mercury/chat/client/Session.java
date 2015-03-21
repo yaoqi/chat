@@ -16,4 +16,7 @@ public interface Session {
 	List<Message> getHistoricalMessages(String user, Date from, Date to);
 	
 	void addMessageListener(MessageType messageType, MessageListener messageListener);
+	
+	void removeMessageListener(MessageType messageType, MessageListener messageListener);
+	
 }
