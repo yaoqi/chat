@@ -29,7 +29,6 @@
         <property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis.xml" />
 		<property name="typeAliasesPackage" value="com.mercury.chat.user.entity"></property>
-		<property name="mapperLocations" value="classpath:com/mercury/chat/user/dao/*Mapper.class"></property>
     </bean>
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
