@@ -2,6 +2,7 @@ package com.mercury.chat.client.impl;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -14,7 +15,6 @@ import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.exception.ChatException;
-import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 
@@ -55,8 +55,7 @@ public class ConnectionImpl implements Connection{
 		}
 		try {
 			User user = new User(userId,password);
-			Message message = new Message().header(new Header().type(LOGIN.value())).body(user);
-			channel.writeAndFlush(message).sync();//send login request to chat service
+			channel.writeAndFlush(buildMessage(LOGIN, user)).sync();//send login request to chat service
 			
 			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).messageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.

@@ -24,16 +24,16 @@ public enum StatusCode {
 		this.message = message;
 	}
 
-	public int getKey() {
+	public int key() {
 		return key;
 	}
 
-	public String getMessage() {
+	public String message() {
 		return message;
 	}
 
 	public boolean $(IMessage message) {
-		return ObjectUtils.equals(getKey(), message.getHeader().getStatusCode());
+		return ObjectUtils.equals(key(), message.getHeader().getStatusCode());
 	}
 
 }

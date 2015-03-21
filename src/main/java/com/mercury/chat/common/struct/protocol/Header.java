@@ -3,6 +3,7 @@ package com.mercury.chat.common.struct.protocol;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.struct.IHeader;
 
 public final class Header implements IHeader{
@@ -13,7 +14,7 @@ public final class Header implements IHeader{
 
     private long sessionID;// session id
     
-    private int statusCode;//status code
+    private int statusCode = StatusCode.OK.key();//status code
 
     private byte type;// message type
 

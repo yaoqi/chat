@@ -12,11 +12,11 @@ public class Messages {
 	}
 	
 	public static Message buildMessage(MessageType messageType, StatusCode statusCode) {
-		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.getKey()));
+		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.key()));
 	}
 	
 	public static Message buildMessage(MessageType messageType, StatusCode statusCode, Object body) {
-		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.getKey())).body(body);
+		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.key())).body(body);
 	}
 	
 	public static Message buildMessage(MessageType messageType, Object body) {
