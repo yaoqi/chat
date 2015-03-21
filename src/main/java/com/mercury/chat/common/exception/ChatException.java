@@ -1,14 +1,13 @@
 package com.mercury.chat.common.exception;
 
+import com.mercury.chat.common.constant.StatusCode;
+
 public class ChatException extends RuntimeException {
 
 	private static final long serialVersionUID = -3020226599902573310L;
 	
-	private ErrorCode errorCode;
-	
-	public ChatException(ErrorCode messageCode) {
-		super();
-		this.errorCode = messageCode;
+	public ChatException(StatusCode statusCode) {
+		this(statusCode.message());
 	}
 	
 	public ChatException() {
@@ -31,8 +30,5 @@ public class ChatException extends RuntimeException {
 		super(cause);
 	}
 	
-	public ErrorCode messageCode(){
-		return this.errorCode;
-	}
 
 }

@@ -39,10 +39,6 @@ public enum StatusCode {
 		this.message = message;
 	}
 	
-	public boolean isFailed(){
-		return true;
-	}
-
 	public int key() {
 		return key;
 	}
@@ -53,6 +49,10 @@ public enum StatusCode {
 
 	public boolean $(IMessage message) {
 		return ObjectUtils.equals(key(), message.getHeader().getStatusCode());
+	}
+	
+	public boolean isFailed(){
+		return true;
 	}
 
 }
