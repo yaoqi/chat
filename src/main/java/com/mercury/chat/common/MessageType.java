@@ -4,21 +4,42 @@ import com.mercury.chat.common.struct.IMessage;
 
 public enum MessageType {
 
-	HANDSHAKE((byte) 0),
-	LOGIN((byte) 1),
-	LOGOFF((byte) 2),
-	CHAT((byte) 3),
-    USER_LIST((byte) 4),
-    HEARTBEAT((byte) 5);
+	HANDSHAKE((byte) 0, null){
+		@Override
+		public boolean listenble(){
+	    	return true;
+	    }
+	},
+	LOGIN((byte) 1, "LoginAuthHandler"),
+	LOGOFF((byte) 2, null){
+		@Override
+		public boolean listenble(){
+	    	return true;
+	    }
+	},
+	CHAT((byte) 3, "ChatHandler"),
+    USER_LIST((byte) 4, "UserListHandler"),
+    HEARTBEAT((byte) 5, "HeartBeatHandler");
     
     private byte value;
+    
+    private String handlerName;
 
-    private MessageType(byte value) {
+    private MessageType(byte value, String handlerName) {
     	this.value = value;
+    	this.handlerName = handlerName;
     }
 
+    public boolean listenble(){
+    	return true;
+    }
+    
     public byte value() {
     	return this.value;
+    }
+    
+    public String handler(){
+    	return this.handlerName;
     }
     
     public boolean $(IMessage message){

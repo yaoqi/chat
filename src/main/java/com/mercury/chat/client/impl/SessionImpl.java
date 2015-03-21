@@ -1,5 +1,7 @@
 package com.mercury.chat.client.impl;
 
+import static com.mercury.chat.common.MessageType.LOGOFF;
+import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.Channel;
 
 import java.util.Date;
@@ -13,7 +15,6 @@ import com.mercury.chat.client.protocol.SecureChatClientHandler;
 import com.mercury.chat.client.protocol.UserListHandler;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
-import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 
@@ -47,8 +48,7 @@ public class SessionImpl implements Session {
 	@Override
 	public boolean logoff() {
 		try {
-			Message message = new Message().header(new Header().type(MessageType.LOGOFF.value()));
-			channel.writeAndFlush(message).sync();
+			channel.writeAndFlush(buildMessage(LOGOFF)).sync();
 		} catch (InterruptedException e) {
 			return false;
 		}
@@ -62,6 +62,9 @@ public class SessionImpl implements Session {
 	}
 	
 	public void addMessageListener(MessageType messageType, MessageListener messageListener){
+		if(LOGOFF != messageType){
+			
+		}
 		switch(messageType){
 			case LOGIN:
 				channel.pipeline().get(LoginAuthHandler.class).addMessageListener(messageListener);
