@@ -1,8 +1,14 @@
 package com.mercury.chat.client.impl;
 
+import static com.mercury.chat.common.MessageType.CHAT;
+import static com.mercury.chat.common.MessageType.HANDSHAKE;
+import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
 import static com.mercury.chat.common.constant.StatusCode.OK;
+import static com.mercury.chat.common.exception.ErrorCode.LOGINED;
+import static com.mercury.chat.common.exception.ErrorCode.NOT_CONNECTED;
+import static com.mercury.chat.common.exception.ErrorCode.NOT_LOGINED;
 import static com.mercury.chat.common.util.Channels.getListenbleHandler;
 import static com.mercury.chat.common.util.Messages.buildMessage;
 import static com.mercury.chat.common.util.Preconditions.checkAllNotNull;
@@ -14,7 +20,6 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.common.collect.Lists;
 import com.mercury.chat.client.ChatClient;
 import com.mercury.chat.client.Connection;
 import com.mercury.chat.client.protocol.HistoricalMessageHandler;
@@ -23,12 +28,10 @@ import com.mercury.chat.client.protocol.SecureChatClient;
 import com.mercury.chat.common.ConnectionListener;
 import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageListener;
-import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
-import com.mercury.chat.common.exception.ErrorCode;
 import com.mercury.chat.common.handler.ListenbleHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.ChatMessage;
@@ -64,10 +67,10 @@ public class ChatClientImpl implements ChatClient {
 	public void login(String userName, String password, Properties properties) throws ChatException {
 		checkAllNotNull(userName, password);
 		if(!connected){
-			throw new ChatException(ErrorCode.NOT_CONNECTED);
+			throw new ChatException(NOT_CONNECTED);
 		}
 		if (currentUser != null) {
-			throw new ChatException(ErrorCode.LOGINED);
+			throw new ChatException(LOGINED);
 		}
 		try {
 			User user = new User(userName,password);
@@ -120,7 +123,7 @@ public class ChatClientImpl implements ChatClient {
 	@Override
 	public void addMessageListener(MessageListener messageListener) {
 		checkAllNotNull(messageListener);
-		ListenbleHandler listenbleHandler = getListenbleHandler(channel, MessageType.CHAT);
+		ListenbleHandler listenbleHandler = getListenbleHandler(channel, CHAT);
 		if(listenbleHandler!= null){
 			listenbleHandler.addMessageListener(messageListener);
 		}
@@ -129,7 +132,7 @@ public class ChatClientImpl implements ChatClient {
 	@Override
 	public void removeListener(MessageListener messageListener) {
 		checkAllNotNull(messageListener);
-		ListenbleHandler listenbleHandler = getListenbleHandler(channel, MessageType.CHAT);
+		ListenbleHandler listenbleHandler = getListenbleHandler(channel, CHAT);
 		if(listenbleHandler!= null){
 			listenbleHandler.removeMessageListener(messageListener);
 		}
@@ -139,7 +142,7 @@ public class ChatClientImpl implements ChatClient {
 	public void setConnectionListener(ConnectionListener connectionListener) {
 		checkAllNotNull(connectionListener);
 		//FIXME need to implement this logic
-		ListenbleHandler listenbleHandler = getListenbleHandler(channel, MessageType.HANDSHAKE);
+		ListenbleHandler listenbleHandler = getListenbleHandler(channel, HANDSHAKE);
 		if(listenbleHandler!= null){
 			listenbleHandler.addMessageListener(connectionListener);
 		}
@@ -151,7 +154,7 @@ public class ChatClientImpl implements ChatClient {
 		checkAllNotNull(shopId,userId,offset,batchSize);
 		HistoricalMsgRequest request = new HistoricalMsgRequest(userId, shopId, offset, batchSize);
 		try {
-			channel.writeAndFlush(buildMessage(MessageType.HISTORICAL_MESSAGE, request)).sync();
+			channel.writeAndFlush(buildMessage(HISTORICAL_MESSAGE, request)).sync();
 			MessageBox messageBox = channel.pipeline().get(HistoricalMessageHandler.class).messageBox();
 			Message responseMsg = messageBox.get();
 			
@@ -177,10 +180,10 @@ public class ChatClientImpl implements ChatClient {
 
 	private void validate() {
 		if(!connected){
-			throw new ChatException(ErrorCode.NOT_CONNECTED);
+			throw new ChatException(NOT_CONNECTED);
 		}
 		if (currentUser == null) {
-			throw new ChatException(ErrorCode.NOT_LOGINED);
+			throw new ChatException(NOT_LOGINED);
 		}
 	}
 
