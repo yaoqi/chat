@@ -20,14 +20,16 @@ public interface UserMapper {
 	
     @Select({
         "select",
-        "UUID, USER_ID, PASSWORD",
+        "UUID, USER_ID, PASSWORD, SALES, SHOP_ID",
         "from USER",
-        "where USER_ID = #{{userId,jdbcType=VARCHAR} and PASSWORD = #{password,jdbcType=VARCHAR}"
+        "where USER_ID = #{userId,jdbcType=VARCHAR} and  PASSWORD = #{password,jdbcType=VARCHAR}"
     })
     @Results({
         @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="USER_ID", property="userId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SALES", property="sales", jdbcType=JdbcType.BOOLEAN),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT)
     })
     User select(String userId, String password);
 	
@@ -45,9 +47,11 @@ public interface UserMapper {
 
     @Insert({
         "insert into USER (UUID, USER_ID, ",
-        "PASSWORD)",
+        "PASSWORD, SALES, ",
+        "SHOP_ID)",
         "values (#{uuid,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR})"
+        "#{password,jdbcType=VARCHAR}, #{sales,jdbcType=BOOLEAN}, ",
+        "#{shopId,jdbcType=BIGINT})"
     })
     int insert(User record);
 
@@ -58,23 +62,27 @@ public interface UserMapper {
     @Results({
         @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="USER_ID", property="userId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SALES", property="sales", jdbcType=JdbcType.BOOLEAN),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT)
     })
     List<User> selectByExample(UserTemplate example);
 
     @Select({
         "select",
-        "UUID, USER_ID, PASSWORD",
+        "UUID, USER_ID, PASSWORD, SALES, SHOP_ID",
         "from USER",
         "where UUID = #{uuid,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="USER_ID", property="userId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SALES", property="sales", jdbcType=JdbcType.BOOLEAN),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT)
     })
     User selectByPrimaryKey(Long uuid);
-    
+
     @UpdateProvider(type=UserSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserTemplate example);
 
@@ -87,7 +95,9 @@ public interface UserMapper {
     @Update({
         "update USER",
         "set USER_ID = #{userId,jdbcType=VARCHAR},",
-          "PASSWORD = #{password,jdbcType=VARCHAR}",
+          "PASSWORD = #{password,jdbcType=VARCHAR},",
+          "SALES = #{sales,jdbcType=BOOLEAN},",
+          "SHOP_ID = #{shopId,jdbcType=BIGINT}",
         "where UUID = #{uuid,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(User record);

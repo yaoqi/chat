@@ -303,6 +303,126 @@ public class UserTemplate {
             addCriterion("PASSWORD not between", value1, value2, "password");
             return (Criteria) this;
         }
+
+        public Criteria andSalesIsNull() {
+            addCriterion("SALES is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesIsNotNull() {
+            addCriterion("SALES is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesEqualTo(Boolean value) {
+            addCriterion("SALES =", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesNotEqualTo(Boolean value) {
+            addCriterion("SALES <>", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesGreaterThan(Boolean value) {
+            addCriterion("SALES >", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("SALES >=", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesLessThan(Boolean value) {
+            addCriterion("SALES <", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesLessThanOrEqualTo(Boolean value) {
+            addCriterion("SALES <=", value, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesIn(List<Boolean> values) {
+            addCriterion("SALES in", values, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesNotIn(List<Boolean> values) {
+            addCriterion("SALES not in", values, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesBetween(Boolean value1, Boolean value2) {
+            addCriterion("SALES between", value1, value2, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("SALES not between", value1, value2, "sales");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdIsNull() {
+            addCriterion("SHOP_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdIsNotNull() {
+            addCriterion("SHOP_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdEqualTo(Long value) {
+            addCriterion("SHOP_ID =", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdNotEqualTo(Long value) {
+            addCriterion("SHOP_ID <>", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdGreaterThan(Long value) {
+            addCriterion("SHOP_ID >", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("SHOP_ID >=", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdLessThan(Long value) {
+            addCriterion("SHOP_ID <", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdLessThanOrEqualTo(Long value) {
+            addCriterion("SHOP_ID <=", value, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdIn(List<Long> values) {
+            addCriterion("SHOP_ID in", values, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdNotIn(List<Long> values) {
+            addCriterion("SHOP_ID not in", values, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdBetween(Long value1, Long value2) {
+            addCriterion("SHOP_ID between", value1, value2, "shopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopIdNotBetween(Long value1, Long value2) {
+            addCriterion("SHOP_ID not between", value1, value2, "shopId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

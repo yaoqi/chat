@@ -31,10 +31,10 @@ public interface MessageMapper {
 
     @Insert({
         "insert into MESSAGE (ID, CHAT_FROM, ",
-        "CHAT_TO, CREATE_TS, ",
+        "CHAT_TO, SHOP_ID, CREATE_TS, ",
         "MESSAGE)",
         "values (#{id,jdbcType=BIGINT}, #{chatFrom,jdbcType=VARCHAR}, ",
-        "#{chatTo,jdbcType=VARCHAR}, #{createTs,jdbcType=TIMESTAMP}, ",
+        "#{chatTo,jdbcType=VARCHAR}, #{shopId,jdbcType=BIGINT}, #{createTs,jdbcType=TIMESTAMP}, ",
         "#{message,jdbcType=CLOB})"
     })
     int insert(Message record);
@@ -47,6 +47,7 @@ public interface MessageMapper {
         @Result(column="ID", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="CHAT_FROM", property="chatFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="CHAT_TO", property="chatTo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT),
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
     })
@@ -57,13 +58,14 @@ public interface MessageMapper {
         @Result(column="ID", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="CHAT_FROM", property="chatFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="CHAT_TO", property="chatTo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT),
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP)
     })
     List<Message> selectByExample(MessageTemplate example);
 
     @Select({
         "select",
-        "ID, CHAT_FROM, CHAT_TO, CREATE_TS, MESSAGE",
+        "ID, CHAT_FROM, CHAT_TO, SHOP_ID, CREATE_TS, MESSAGE",
         "from MESSAGE",
         "where ID = #{id,jdbcType=BIGINT}"
     })
@@ -71,6 +73,7 @@ public interface MessageMapper {
         @Result(column="ID", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="CHAT_FROM", property="chatFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="CHAT_TO", property="chatTo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT),
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
     })
@@ -92,6 +95,7 @@ public interface MessageMapper {
         "update MESSAGE",
         "set CHAT_FROM = #{chatFrom,jdbcType=VARCHAR},",
           "CHAT_TO = #{chatTo,jdbcType=VARCHAR},",
+          "SHOP_ID = #{shopId,jdbcType=BIGINT},",
           "CREATE_TS = #{createTs,jdbcType=TIMESTAMP},",
           "MESSAGE = #{message,jdbcType=CLOB}",
         "where ID = #{id,jdbcType=BIGINT}"
@@ -102,6 +106,7 @@ public interface MessageMapper {
         "update MESSAGE",
         "set CHAT_FROM = #{chatFrom,jdbcType=VARCHAR},",
           "CHAT_TO = #{chatTo,jdbcType=VARCHAR},",
+          "SHOP_ID = #{shopId,jdbcType=BIGINT},",
           "CREATE_TS = #{createTs,jdbcType=TIMESTAMP}",
         "where ID = #{id,jdbcType=BIGINT}"
     })

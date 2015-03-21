@@ -53,6 +53,10 @@ public class MessageSqlProvider {
             VALUES("CHAT_TO", "#{chatTo,jdbcType=VARCHAR}");
         }
         
+        if (record.getShopId() != null) {
+            VALUES("SHOP_ID", "#{shopId,jdbcType=BIGINT}");
+        }
+        
         if (record.getCreateTs() != null) {
             VALUES("CREATE_TS", "#{createTs,jdbcType=TIMESTAMP}");
         }
@@ -73,6 +77,7 @@ public class MessageSqlProvider {
         }
         SELECT("CHAT_FROM");
         SELECT("CHAT_TO");
+        SELECT("SHOP_ID");
         SELECT("CREATE_TS");
         SELECT("MESSAGE");
         FROM("MESSAGE");
@@ -94,6 +99,7 @@ public class MessageSqlProvider {
         }
         SELECT("CHAT_FROM");
         SELECT("CHAT_TO");
+        SELECT("SHOP_ID");
         SELECT("CREATE_TS");
         FROM("MESSAGE");
         applyWhere(example, false);
@@ -124,6 +130,10 @@ public class MessageSqlProvider {
             SET("CHAT_TO = #{record.chatTo,jdbcType=VARCHAR}");
         }
         
+        if (record.getShopId() != null) {
+            SET("SHOP_ID = #{record.shopId,jdbcType=BIGINT}");
+        }
+        
         if (record.getCreateTs() != null) {
             SET("CREATE_TS = #{record.createTs,jdbcType=TIMESTAMP}");
         }
@@ -143,6 +153,7 @@ public class MessageSqlProvider {
         SET("ID = #{record.id,jdbcType=BIGINT}");
         SET("CHAT_FROM = #{record.chatFrom,jdbcType=VARCHAR}");
         SET("CHAT_TO = #{record.chatTo,jdbcType=VARCHAR}");
+        SET("SHOP_ID = #{record.shopId,jdbcType=BIGINT}");
         SET("CREATE_TS = #{record.createTs,jdbcType=TIMESTAMP}");
         SET("MESSAGE = #{record.message,jdbcType=CLOB}");
         
@@ -158,6 +169,7 @@ public class MessageSqlProvider {
         SET("ID = #{record.id,jdbcType=BIGINT}");
         SET("CHAT_FROM = #{record.chatFrom,jdbcType=VARCHAR}");
         SET("CHAT_TO = #{record.chatTo,jdbcType=VARCHAR}");
+        SET("SHOP_ID = #{record.shopId,jdbcType=BIGINT}");
         SET("CREATE_TS = #{record.createTs,jdbcType=TIMESTAMP}");
         
         MessageTemplate example = (MessageTemplate) parameter.get("example");
@@ -175,6 +187,10 @@ public class MessageSqlProvider {
         
         if (record.getChatTo() != null) {
             SET("CHAT_TO = #{chatTo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShopId() != null) {
+            SET("SHOP_ID = #{shopId,jdbcType=BIGINT}");
         }
         
         if (record.getCreateTs() != null) {

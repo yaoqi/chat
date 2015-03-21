@@ -53,6 +53,14 @@ public class UserSqlProvider {
             VALUES("PASSWORD", "#{password,jdbcType=VARCHAR}");
         }
         
+        if (record.getSales() != null) {
+            VALUES("SALES", "#{sales,jdbcType=BOOLEAN}");
+        }
+        
+        if (record.getShopId() != null) {
+            VALUES("SHOP_ID", "#{shopId,jdbcType=BIGINT}");
+        }
+        
         return SQL();
     }
 
@@ -65,6 +73,8 @@ public class UserSqlProvider {
         }
         SELECT("USER_ID");
         SELECT("PASSWORD");
+        SELECT("SALES");
+        SELECT("SHOP_ID");
         FROM("USER");
         applyWhere(example, false);
         
@@ -94,6 +104,14 @@ public class UserSqlProvider {
             SET("PASSWORD = #{record.password,jdbcType=VARCHAR}");
         }
         
+        if (record.getSales() != null) {
+            SET("SALES = #{record.sales,jdbcType=BOOLEAN}");
+        }
+        
+        if (record.getShopId() != null) {
+            SET("SHOP_ID = #{record.shopId,jdbcType=BIGINT}");
+        }
+        
         applyWhere(example, true);
         return SQL();
     }
@@ -105,6 +123,8 @@ public class UserSqlProvider {
         SET("UUID = #{record.uuid,jdbcType=BIGINT}");
         SET("USER_ID = #{record.userId,jdbcType=VARCHAR}");
         SET("PASSWORD = #{record.password,jdbcType=VARCHAR}");
+        SET("SALES = #{record.sales,jdbcType=BOOLEAN}");
+        SET("SHOP_ID = #{record.shopId,jdbcType=BIGINT}");
         
         UserTemplate example = (UserTemplate) parameter.get("example");
         applyWhere(example, true);
@@ -121,6 +141,14 @@ public class UserSqlProvider {
         
         if (record.getPassword() != null) {
             SET("PASSWORD = #{password,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSales() != null) {
+            SET("SALES = #{sales,jdbcType=BOOLEAN}");
+        }
+        
+        if (record.getShopId() != null) {
+            SET("SHOP_ID = #{shopId,jdbcType=BIGINT}");
         }
         
         WHERE("UUID = #{uuid,jdbcType=BIGINT}");
