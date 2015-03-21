@@ -96,6 +96,7 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 			}
 		    ctx.writeAndFlush(buildMessage(LOGIN, statusCode));
 		}else if(LOGOFF.$(msg)){
+			logger.log(Level.ERROR, msg);
 	        ctx.close();
 		}else {
 		    ctx.fireChannelRead(msg);

@@ -1,9 +1,9 @@
 package com.mercury.chat.client.impl;
 
 import static com.mercury.chat.common.MessageType.LOGOFF;
+import static com.mercury.chat.common.util.Channels.getListenbleHandler;
 import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandler;
 
 import java.util.Date;
 import java.util.List;
@@ -54,29 +54,26 @@ public class SessionImpl implements Session {
 	}
 
 	@Override
+	public void addMessageListener(MessageType messageType, MessageListener messageListener){
+		ListenbleHandler listenbleHandler = getListenbleHandler(channel, messageType);
+		if(listenbleHandler!= null){
+			listenbleHandler.addMessageListener(messageListener);
+		}
+	}
+
+	@Override
+	public void removeMessageListener(MessageType messageType, MessageListener messageListener){
+		ListenbleHandler listenbleHandler = getListenbleHandler(channel, messageType);
+		if(listenbleHandler!= null){
+			listenbleHandler.removeMessageListener(messageListener);
+		}
+	}
+	
+	@Override
 	public List<Message> getHistoricalMessages(String user, Date from, Date to) {
 		// TODO
 		return Lists.newArrayList();
 	}
 	
-	public void addMessageListener(MessageType messageType, MessageListener messageListener){
-		if(messageType.listenble()){
-			ChannelHandler channelHandler = channel.pipeline().get(messageType.handler());
-			if(channelHandler instanceof ListenbleHandler){
-				ListenbleHandler listenbleHandler = (ListenbleHandler) channelHandler;
-				listenbleHandler.addMessageListener(messageListener);
-			}
-		}
-	}
-	
-	public void removeMessageListener(MessageType messageType, MessageListener messageListener){
-		if(messageType.listenble()){
-			ChannelHandler channelHandler = channel.pipeline().get(messageType.handler());
-			if(channelHandler instanceof ListenbleHandler){
-				ListenbleHandler listenbleHandler = (ListenbleHandler) channelHandler;
-				listenbleHandler.removeMessageListener(messageListener);
-			}
-		}
-	}
 
 }

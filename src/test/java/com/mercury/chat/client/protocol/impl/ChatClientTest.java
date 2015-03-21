@@ -14,6 +14,7 @@ import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.SecureChatClient;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.common.util.Messages;
 
@@ -31,6 +32,26 @@ public class ChatClientTest{
 		assertNotNull(connection);
 		Session session = connection.login("google@google.com", "welcome1");
 		assertNotNull(session);
+		connection.close();
+	}
+	
+	@Test(expected = ChatException.class)
+	public void testLoginFailed() {
+		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection);
+		Session session = connection.login("google@google.com", "welcome1");
+		session = connection.login("google@google.com", "welcome1");
+		assertNotNull(session);
+		connection.close();
+	}
+	
+	@Test
+	public void testLoginOff() {
+		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection);
+		Session session = connection.login("google@google.com", "welcome1");
+		assertNotNull(session);
+		session.logoff();
 		connection.close();
 	}
 	
