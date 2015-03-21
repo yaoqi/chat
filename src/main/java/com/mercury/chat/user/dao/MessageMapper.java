@@ -1,33 +1,21 @@
 package com.mercury.chat.user.dao;
 
-import com.mercury.chat.user.entity.Message;
-import com.mercury.chat.user.entity.MessageTemplate;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import com.mercury.chat.user.entity.Message;
+import com.mercury.chat.user.entity.MessageTemplate;
+
 public interface MessageMapper {
-    @SelectProvider(type=MessageSqlProvider.class, method="countByExample")
+    
+	@SelectProvider(type=MessageSqlProvider.class, method="countByExample")
     int countByExample(MessageTemplate example);
-
-    @DeleteProvider(type=MessageSqlProvider.class, method="deleteByExample")
-    int deleteByExample(MessageTemplate example);
-
-    @Delete({
-        "delete from MESSAGE",
-        "where ID = #{id,jdbcType=BIGINT}"
-    })
-    int deleteByPrimaryKey(Long id);
 
     @Insert({
         "insert into MESSAGE (ID, CHAT_FROM, ",
@@ -63,52 +51,5 @@ public interface MessageMapper {
     })
     List<Message> selectByExample(MessageTemplate example);
 
-    @Select({
-        "select",
-        "ID, CHAT_FROM, CHAT_TO, SHOP_ID, CREATE_TS, MESSAGE",
-        "from MESSAGE",
-        "where ID = #{id,jdbcType=BIGINT}"
-    })
-    @Results({
-        @Result(column="ID", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="CHAT_FROM", property="chatFrom", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CHAT_TO", property="chatTo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT),
-        @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
-    })
-    Message selectByPrimaryKey(Long id);
 
-    @UpdateProvider(type=MessageSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") Message record, @Param("example") MessageTemplate example);
-
-    @UpdateProvider(type=MessageSqlProvider.class, method="updateByExampleWithBLOBs")
-    int updateByExampleWithBLOBs(@Param("record") Message record, @Param("example") MessageTemplate example);
-
-    @UpdateProvider(type=MessageSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") Message record, @Param("example") MessageTemplate example);
-
-    @UpdateProvider(type=MessageSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(Message record);
-
-    @Update({
-        "update MESSAGE",
-        "set CHAT_FROM = #{chatFrom,jdbcType=VARCHAR},",
-          "CHAT_TO = #{chatTo,jdbcType=VARCHAR},",
-          "SHOP_ID = #{shopId,jdbcType=BIGINT},",
-          "CREATE_TS = #{createTs,jdbcType=TIMESTAMP},",
-          "MESSAGE = #{message,jdbcType=CLOB}",
-        "where ID = #{id,jdbcType=BIGINT}"
-    })
-    int updateByPrimaryKeyWithBLOBs(Message record);
-
-    @Update({
-        "update MESSAGE",
-        "set CHAT_FROM = #{chatFrom,jdbcType=VARCHAR},",
-          "CHAT_TO = #{chatTo,jdbcType=VARCHAR},",
-          "SHOP_ID = #{shopId,jdbcType=BIGINT},",
-          "CREATE_TS = #{createTs,jdbcType=TIMESTAMP}",
-        "where ID = #{id,jdbcType=BIGINT}"
-    })
-    int updateByPrimaryKey(Message record);
 }
