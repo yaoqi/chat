@@ -3,7 +3,7 @@ package com.mercury.chat.user.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Message implements Serializable {
+public class ChatMessage implements Serializable {
     private Long id;
 
     private String chatFrom;
@@ -77,7 +77,7 @@ public class Message implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Message other = (Message) that;
+        ChatMessage other = (ChatMessage) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getChatFrom() == null ? other.getChatFrom() == null : this.getChatFrom().equals(other.getChatFrom()))
             && (this.getChatTo() == null ? other.getChatTo() == null : this.getChatTo().equals(other.getChatTo()))

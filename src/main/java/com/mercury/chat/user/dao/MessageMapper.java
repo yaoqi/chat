@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import com.mercury.chat.user.entity.Message;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.MessageTemplate;
 
 public interface MessageMapper {
@@ -19,7 +19,7 @@ public interface MessageMapper {
     int countByExample(MessageTemplate example);
 
     @InsertProvider(type=MessageSqlProvider.class, method="insertSelective")
-    int insertSelective(Message record);
+    int insertSelective(ChatMessage record);
 
     @SelectProvider(type=MessageSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
@@ -30,7 +30,7 @@ public interface MessageMapper {
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
     })
-    List<Message> selectByExampleWithBLOBs(MessageTemplate example);
+    List<ChatMessage> selectByExampleWithBLOBs(MessageTemplate example);
     
     @Select({
         "select",
@@ -47,7 +47,7 @@ public interface MessageMapper {
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
     })
-    List<Message> select(String userId, Long shopId, int offset, int batchSize);
+    List<ChatMessage> select(String userId, Long shopId, int offset, int batchSize);
 	
     @Insert({
         "insert into MESSAGE (ID, CHAT_FROM, ",
@@ -57,7 +57,7 @@ public interface MessageMapper {
         "#{chatTo,jdbcType=VARCHAR}, #{shopId,jdbcType=BIGINT}, #{createTs,jdbcType=TIMESTAMP}, ",
         "#{message,jdbcType=CLOB})"
     })
-    int insert(Message record);
+    int insert(ChatMessage record);
     
     @SelectProvider(type=MessageSqlProvider.class, method="selectByExample")
     @Results({
@@ -67,7 +67,7 @@ public interface MessageMapper {
         @Result(column="SHOP_ID", property="shopId", jdbcType=JdbcType.BIGINT),
         @Result(column="CREATE_TS", property="createTs", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<Message> selectByExample(MessageTemplate example);
+    List<ChatMessage> selectByExample(MessageTemplate example);
 
 
 }

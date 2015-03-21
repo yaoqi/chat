@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mercury.chat.user.dao.MessageMapper;
 import com.mercury.chat.user.dao.UserMapper;
-import com.mercury.chat.user.entity.Message;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -35,13 +35,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Message> find(String userId, Date from, Date to) {
+	public List<ChatMessage> find(String userId, Date from, Date to) {
 		return null;
 	}
 
 	@Override
-	public int store(List<Message> messages) {
-		for(Message message : messages){
+	public int store(List<ChatMessage> messages) {
+		for(ChatMessage message : messages){
 			messageMapper.insert(message);
 		}
 		return messages.size();

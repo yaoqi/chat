@@ -13,7 +13,7 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.mercury.chat.user.entity.Message;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.MessageTemplate.Criteria;
 import com.mercury.chat.user.entity.MessageTemplate.Criterion;
 import com.mercury.chat.user.entity.MessageTemplate;
@@ -37,7 +37,7 @@ public class MessageSqlProvider {
         return SQL();
     }
 
-    public String insertSelective(Message record) {
+    public String insertSelective(ChatMessage record) {
         BEGIN();
         INSERT_INTO("MESSAGE");
         
@@ -112,7 +112,7 @@ public class MessageSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        Message record = (Message) parameter.get("record");
+        ChatMessage record = (ChatMessage) parameter.get("record");
         MessageTemplate example = (MessageTemplate) parameter.get("example");
         
         BEGIN();
@@ -177,7 +177,7 @@ public class MessageSqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(Message record) {
+    public String updateByPrimaryKeySelective(ChatMessage record) {
         BEGIN();
         UPDATE("MESSAGE");
         
