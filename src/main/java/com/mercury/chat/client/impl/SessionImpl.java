@@ -3,6 +3,7 @@ package com.mercury.chat.client.impl;
 import static com.mercury.chat.common.MessageType.LOGOFF;
 import static com.mercury.chat.common.util.Channels.getListenbleHandler;
 import static com.mercury.chat.common.util.Messages.buildMessage;
+import static com.mercury.chat.common.util.Preconditions.checkAllNotNull;
 import io.netty.channel.Channel;
 
 import java.util.Date;
@@ -34,6 +35,8 @@ public class SessionImpl implements Session {
 
 	@Override
 	public boolean sendMessage(String to, Message message) {
+		checkAllNotNull(to, message);
+		checkAllNotNull(message.getHeader());
 		try {
 			message.getHeader().from(currentUser.getUserId()).to(to);
 			channel.writeAndFlush(message).sync();
@@ -55,6 +58,7 @@ public class SessionImpl implements Session {
 
 	@Override
 	public void addMessageListener(MessageType messageType, MessageListener messageListener){
+		checkAllNotNull(messageType, messageListener);
 		ListenbleHandler listenbleHandler = getListenbleHandler(channel, messageType);
 		if(listenbleHandler!= null){
 			listenbleHandler.addMessageListener(messageListener);
@@ -63,6 +67,7 @@ public class SessionImpl implements Session {
 
 	@Override
 	public void removeMessageListener(MessageType messageType, MessageListener messageListener){
+		checkAllNotNull(messageType, messageListener);
 		ListenbleHandler listenbleHandler = getListenbleHandler(channel, messageType);
 		if(listenbleHandler!= null){
 			listenbleHandler.removeMessageListener(messageListener);
@@ -71,6 +76,7 @@ public class SessionImpl implements Session {
 	
 	@Override
 	public List<Message> getHistoricalMessages(String user, Date from, Date to) {
+		checkAllNotNull(user, from, to);
 		// TODO
 		return Lists.newArrayList();
 	}

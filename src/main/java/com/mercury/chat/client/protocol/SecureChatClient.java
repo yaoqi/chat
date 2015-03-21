@@ -1,5 +1,6 @@
 package com.mercury.chat.client.protocol;
 
+import static com.mercury.chat.common.util.Preconditions.checkAllNotNull;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -35,6 +36,7 @@ public final class SecureChatClient{
 	}
 
 	private Channel connectInner(String host, int port) {
+		checkAllNotNull(host, port);
 		// Configure SSL.
         SslContext sslCtx;
 		try {

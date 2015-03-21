@@ -3,6 +3,7 @@ package com.mercury.chat.client.impl;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.util.Messages.buildMessage;
+import static com.mercury.chat.common.util.Preconditions.checkAllNotEmpty;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -51,6 +52,9 @@ public class ConnectionImpl implements Connection{
 	
 	@Override
 	public Session login(String userId, String password) {
+		
+		checkAllNotEmpty(userId, password);
+		
 		if(closed){
 			throw new ChatException(ErrorCode.CLOSED);
 		}
