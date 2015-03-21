@@ -1,6 +1,7 @@
 package com.mercury.chat.client.protocol.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class ChatClientTest{
 		assertNotNull(connection);
 		Session session = connection.login("google@google.com", "welcome1");
 		assertNotNull(session);
-		session.logoff();
+		assertTrue(session.logoff());
 		connection.close();
 	}
 	
