@@ -2,6 +2,7 @@ package com.mercury.chat.server.protocol.group;
 
 import static com.mercury.chat.common.constant.Constant.userInfo;
 import static com.mercury.chat.common.util.Channels.get;
+import static com.mercury.chat.common.util.Channels.has;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -56,8 +57,8 @@ public class ChatChannelGroup extends DefaultChannelGroup {
 	@Override
 	public boolean add(Channel channel) {
 		boolean added = super.add(channel);
-		User user = get(channel,userInfo);
-		if(user!=null){
+		if(has(channel,userInfo)){
+			User user = get(channel,userInfo);
 			cache.put(user.getUserId(), channel);
 		}
 		return added;
@@ -72,8 +73,8 @@ public class ChatChannelGroup extends DefaultChannelGroup {
 		}else if(o instanceof Channel){
 			channel = (Channel) o;
 		}
-		User user = get(channel ,userInfo);
-		if(user!=null){
+		if(has(channel,userInfo)){
+			User user = get(channel,userInfo);
 			cache.invalidate(user.getUserId());
 		}
 		boolean removed = super.remove(o);

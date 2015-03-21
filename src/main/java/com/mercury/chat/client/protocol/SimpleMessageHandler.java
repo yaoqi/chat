@@ -1,13 +1,14 @@
 package com.mercury.chat.client.protocol;
 
+import static com.mercury.chat.common.MessageType.CHAT;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
 import java.util.Collection;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageListener;
@@ -28,13 +29,13 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 
 	@Override
     public void messageReceived(ChannelHandlerContext ctx, Message msg) {
-    	logger.log(Level.INFO, "Received Message:"+msg);
-		for (MessageListener listener : listeners) {
-			listener.onMessage(msg);
-		}
-		if(_().$(msg)){
-			onMessage(ctx, msg);
-		}
+    	if(_().$(msg)){
+    		logger.log(Level.INFO, _()+"_Received Message:"+msg);
+    		for (MessageListener listener : listeners) {
+    			listener.onMessage(msg);
+    		}
+    		onMessage(ctx, msg);
+    	}
 		ctx.fireChannelRead(msg);
     }
 	

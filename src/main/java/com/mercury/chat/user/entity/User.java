@@ -67,4 +67,10 @@ public class User implements Serializable {
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "User [uuid=" + uuid + ", userId=" + userId + "]";
+	}
+    
 }
