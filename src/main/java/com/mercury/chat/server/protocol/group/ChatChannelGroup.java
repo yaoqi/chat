@@ -10,41 +10,33 @@ import io.netty.channel.group.ChannelMatcher;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.EventExecutor;
 
+import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import com.mercury.chat.user.entity.User;
 
 public class ChatChannelGroup extends DefaultChannelGroup {
 
-	private CacheLoader<String,Channel> cacheLoader = new CacheLoader<String,Channel>(){
-				@Override
-				public Channel load(String key) throws Exception {
-					return null;
-				}
-	};
-	
 	private RemovalListener<String,Channel> removalListener = new RemovalListener<String,Channel>(){
 
 		@Override
 		public void onRemoval(RemovalNotification<String, Channel> notification) {
-			//XXX
+			//TODO add logic to handler removing the channel
 		}
 		
 	};
 	
-	private LoadingCache<String,Channel> cache = CacheBuilder
+	private Cache<String,Channel> cache = CacheBuilder
 												.newBuilder()
 												.concurrencyLevel(4)
 												.initialCapacity(8)
 												.maximumSize(10000)
 												.removalListener(removalListener)
 												.recordStats()
-												.build(cacheLoader);
+												.build();
 	
-	public LoadingCache<String,Channel> getCache(){
+	public Cache<String,Channel> getCache(){
 		return cache;
 	}
 	
