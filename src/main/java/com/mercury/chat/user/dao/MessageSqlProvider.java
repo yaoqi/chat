@@ -24,7 +24,7 @@ public class MessageSqlProvider {
 
     public String countByExample(MessageTemplate example) {
         BEGIN();
-        SELECT("count (*)");
+        SELECT("count (1)");
         FROM("MESSAGE");
         applyWhere(example, false);
         return SQL();
