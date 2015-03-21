@@ -4,10 +4,8 @@ import static com.mercury.chat.common.MessageType.HEARTBEAT;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.util.Messages.buildMessage;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -15,40 +13,41 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageListener;
+import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.handler.impl.SimpleLinstenbleHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 
-public class HeartBeatHandler extends ChannelHandlerAdapter {
+public class HeartBeatHandler extends SimpleLinstenbleHandler {
 
 	static final Logger logger = LogManager.getLogger(HeartBeatHandler.class);
 	
     private volatile ScheduledFuture<?> heartBeat;
     
-    private volatile Collection<MessageListener> listeners = Lists.newArrayList();
-	
-	public void addMessageListener(MessageListener listener){
-		listeners.add(listener);
-	}
-
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+	protected MessageType _() {
+		return HEARTBEAT;
+	}
+    
+	@Override
+	protected void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {
 		
-    	Message message = (Message) msg;
-		
-		if (LOGIN.$(message)) {
-			if(OK.$(message)){
+		if (LOGIN.$(msg)) {
+			if(OK.$(msg)){
 				heartBeat = ctx.executor().scheduleAtFixedRate(new HeartBeatHandler.HeartBeatTask(ctx), 0, 5000,TimeUnit.MILLISECONDS);
 			}
-		} else if (HEARTBEAT.$(message)) {
-		    logger.log(Level.INFO, "Client receive server heart beat message : ---> "+ message);
+		} else if (_().$(msg)) {
+			for(MessageListener listener : listeners()){
+				listener.onMessage(msg);
+			}
+		    logger.log(Level.INFO, "Client receive server heart beat message : ---> "+ msg);
 		} else
 		    ctx.fireChannelRead(msg);
-		
-    }
+	}
 
     private class HeartBeatTask implements Runnable {
-		private final ChannelHandlerContext ctx;
+		
+    	private final ChannelHandlerContext ctx;
 	
 		public HeartBeatTask(final ChannelHandlerContext ctx) {
 		    this.ctx = ctx;
@@ -69,4 +68,5 @@ public class HeartBeatHandler extends ChannelHandlerAdapter {
 		}
 		ctx.fireExceptionCaught(cause);
     }
+	
 }

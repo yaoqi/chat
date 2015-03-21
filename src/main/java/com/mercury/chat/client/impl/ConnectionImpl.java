@@ -32,6 +32,7 @@ public class ConnectionImpl implements Connection{
 	
 	public ConnectionImpl() {
 		super();
+		connected = true;
 	}
 	
 	public ConnectionImpl channel(Channel channel){
@@ -40,6 +41,7 @@ public class ConnectionImpl implements Connection{
 			@Override
 			public void operationComplete(ChannelFuture future) throws Exception {
 				closed = true;
+				connected = false;
 			}
 		});
 		return this;
@@ -48,7 +50,7 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public Session login(String userId, String password) {
 		if(closed){
-			//TODO
+			//FIXME
 			throw new ChatException();
 		}
 		try {
@@ -56,7 +58,7 @@ public class ConnectionImpl implements Connection{
 			Message message = new Message().header(new Header().type(LOGIN.value())).body(user);
 			channel.writeAndFlush(message).sync();//send login request to chat service
 			
-			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).getLoginMessageBox();
+			MessageBox loginMessageBox = channel.pipeline().get(LoginAuthHandler.class).messageBox();
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
 			
 			if(!OK.$(responseMsg)){
@@ -78,6 +80,7 @@ public class ConnectionImpl implements Connection{
 		try {
 			channel.close().sync();
 			closed = true;
+			connected = false;
 		} catch (InterruptedException e) {
 			logger.error(e);
 			throw new ChatException();
@@ -88,6 +91,11 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public boolean isClosed() {
 		return closed;
+	}
+
+	@Override
+	public boolean isConnected() {
+		return connected;
 	}
 	
 }

@@ -8,4 +8,6 @@ public interface Connection {
 	void close();
 	
 	boolean isClosed();
+	
+	boolean isConnected();
 }
