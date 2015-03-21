@@ -3,7 +3,8 @@ package com.mercury.chat.user.entity;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private Long uuid;
+    
+	private Long uuid;
 
     private String userId;
 
