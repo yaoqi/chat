@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.dao.MessageMapper;
 import com.mercury.chat.user.dao.UserMapper;
+import com.mercury.chat.user.entity.Message;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -35,13 +35,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<IMessage> find(String userId, Date from, Date to) {
+	public List<Message> find(String userId, Date from, Date to) {
 		return null;
 	}
 
 	@Override
-	public int store(List<IMessage> message) {
-		return 0;
+	public int store(List<Message> messages) {
+		for(Message message : messages){
+			messageMapper.insert(message);
+		}
+		return messages.size();
 	}
 
 }

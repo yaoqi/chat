@@ -16,7 +16,7 @@ import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl{
 
 	private static class SingletonHolder {
 		private static final UserServiceImpl INSTANCE = new UserServiceImpl();
@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 		return SingletonHolder.INSTANCE;
 	}
 	
-	@Override
 	public List<IMessage> find(String userId, Date from, Date to) {
 		Jedis jedis = JedisPoolUtils.getJedis();
 		Set<String> keys = jedis.keys("chat:from:*:to:"+userId);
@@ -46,7 +45,6 @@ public class UserServiceImpl implements UserService {
 		return messages;
 	}
 
-	@Override
 	public int store(List<IMessage> messages) {
 		Jedis jedis = JedisPoolUtils.getJedis();
 		for(IMessage msg : messages){
@@ -61,7 +59,6 @@ public class UserServiceImpl implements UserService {
 		return messages.size();
 	}
 
-	@Override
 	public boolean login(String userName, String passWord) {
 		Jedis jedis = JedisPoolUtils.getJedis();
 		Boolean hexists = jedis.hexists("user", userName);
@@ -74,7 +71,6 @@ public class UserServiceImpl implements UserService {
 		return StringUtils.equals(passWord, pwd);
 	}
 
-	@Override
 	public List<User> getUserList(String userId) {
 		return null;
 	}
