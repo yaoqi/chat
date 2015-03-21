@@ -1,6 +1,5 @@
 package com.mercury.chat.client.protocol;
 
-import static com.mercury.chat.common.MessageType.CHAT;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -30,7 +29,7 @@ public abstract class SimpleMessageHandler extends SimpleChannelInboundHandler<M
 	@Override
     public void messageReceived(ChannelHandlerContext ctx, Message msg) {
     	if(_().$(msg)){
-    		logger.log(Level.INFO, _()+"_Received Message:"+msg);
+    		logger.log(Level.INFO, _()+"-Received Message:"+msg);
     		for (MessageListener listener : listeners) {
     			listener.onMessage(msg);
     		}
