@@ -5,6 +5,8 @@ import static com.mercury.chat.common.util.Channels.get;
 import static com.mercury.chat.common.util.Channels.has;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
+import io.netty.channel.group.ChannelGroupFuture;
+import io.netty.channel.group.ChannelMatcher;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.EventExecutor;
 
@@ -80,7 +82,10 @@ public class ChatChannelGroup extends DefaultChannelGroup {
 		boolean removed = super.remove(o);
 		return removed;
 	}
-	
-	
+
+	@Override
+	public ChannelGroupFuture writeAndFlush(Object message, ChannelMatcher matcher) {
+		return super.writeAndFlush(message, matcher);
+	}
 
 }
