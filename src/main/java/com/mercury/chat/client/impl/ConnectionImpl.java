@@ -14,6 +14,7 @@ import com.mercury.chat.client.Connection;
 import com.mercury.chat.client.Session;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.common.MessageBox;
+import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
@@ -61,7 +62,7 @@ public class ConnectionImpl implements Connection{
 			Message responseMsg = loginMessageBox.get();//wait until receive the login response.
 			
 			if(!OK.$(responseMsg)){
-				throw new ChatException();
+				throw new ChatException(StatusCode.valOf(responseMsg));
 			}
 			
 			currentUser = user;
@@ -82,7 +83,7 @@ public class ConnectionImpl implements Connection{
 			connected = false;
 		} catch (InterruptedException e) {
 			logger.error(e);
-			throw new ChatException();
+			throw new ChatException(e);
 		}
 		
 	}

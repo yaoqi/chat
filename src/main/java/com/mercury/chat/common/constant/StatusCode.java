@@ -47,6 +47,27 @@ public enum StatusCode {
 		return message;
 	}
 
+	public static StatusCode valOf(int key){
+		StatusCode[] codes = StatusCode.class.getEnumConstants();
+		for(StatusCode code:codes){
+			if(ObjectUtils.equals(key, code.key)){
+				return code;
+			}
+		}
+		return null;
+	}
+	
+	public static StatusCode valOf(IMessage message){
+		int key = message.getHeader().getStatusCode();
+		StatusCode[] codes = StatusCode.class.getEnumConstants();
+		for(StatusCode code:codes){
+			if(ObjectUtils.equals(key, code.key)){
+				return code;
+			}
+		}
+		return null;
+	}
+	
 	public boolean $(IMessage message) {
 		return ObjectUtils.equals(key(), message.getHeader().getStatusCode());
 	}
