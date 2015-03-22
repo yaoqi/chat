@@ -19,6 +19,7 @@
 	<import resource="classpath:test-jdbc-context.xml"/>
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.mercury.chat.user.service"></context:component-scan>
+	<context:component-scan base-package="com.mercury.chat.server.protocol"></context:component-scan>
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
     
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -39,10 +40,6 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
-	<bean id="jedisPoolUtils" class="com.mercury.chat.user.service.storer.redis.JedisPoolUtils"/>
-	
-	<bean id="loginAuthHandler" class = "com.mercury.chat.server.protocol.LoginAuthHandler"></bean>
-	
-	<bean id = "historicalMessageHandler" class = "com.mercury.chat.server.protocol.HistoricalMessageHandler"/>
+	<bean id="jedisPoolUtils" class="com.mercury.chat.user.service.redis.JedisPoolUtils"/>
 	
 </beans>

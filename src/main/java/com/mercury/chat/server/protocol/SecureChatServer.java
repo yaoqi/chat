@@ -5,8 +5,10 @@ import java.security.cert.CertificateException;
 import javax.net.ssl.SSLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.user.service.UserService;
 
@@ -21,7 +23,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
-
+@Component(value ="chatServer")
 public final class SecureChatServer {
 
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
