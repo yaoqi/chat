@@ -85,7 +85,6 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 	    		return;
 	    	}
 			
-			UserService userService = MockUserService.getInstance();
 			User user = (User) msg.getBody();
 			StatusCode statusCode = null;
 			try {

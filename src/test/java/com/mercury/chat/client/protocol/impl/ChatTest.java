@@ -60,6 +60,7 @@ public class ChatTest{
 	}
 	
 	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testLogin() {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);

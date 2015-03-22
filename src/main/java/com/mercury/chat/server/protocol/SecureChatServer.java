@@ -24,7 +24,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 @Component(value ="chatServer")
-public final class SecureChatServer {
+public final class SecureChatServer extends Thread{
 
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
 
@@ -50,8 +50,21 @@ public final class SecureChatServer {
 		//FIXME start up the server?
 	}
 
+	@Override
+	public void run() {
+		try {
+			startUpInner(port);
+		} catch (CertificateException | SSLException | InterruptedException e) {
+			throw new ChatException(e);
+		}
+	}
+
 	public void startUp(int port) throws CertificateException, SSLException, InterruptedException {
-		
+		port(port);
+		start();
+	}
+
+	private void startUpInner(int port) throws CertificateException, SSLException, InterruptedException {
 		SelfSignedCertificate ssc = new SelfSignedCertificate();
         SslContext sslCtx = SslContext.newServerContext(ssc.certificate(), ssc.privateKey());
 
@@ -82,11 +95,7 @@ public final class SecureChatServer {
 		}
 	}
 	
-	public int getPort() {
-		return port;
-	}
-	
-	public void setPort(int port) {
+	public void port(int port){
 		this.port = port;
 	}
 	
