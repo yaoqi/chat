@@ -21,17 +21,18 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf sendBuf) throws Exception {
 	if (msg == null || msg.getHeader() == null)
 	    throw new Exception("The encode message is null");
-		sendBuf.writeInt((msg.getHeader().getVersion()));
-		sendBuf.writeInt((msg.getHeader().getLength()));
-		sendBuf.writeLong((msg.getHeader().getSessionID()));
-		sendBuf.writeInt((msg.getHeader().getStatusCode()));
-		sendBuf.writeByte((msg.getHeader().getType()));
-		sendBuf.writeByte((msg.getHeader().getPriority()));
-		sendBuf.writeInt((msg.getHeader().getAttachment().size()));
+		sendBuf.writeInt((msg.getHeader().version()));
+		sendBuf.writeInt((msg.getHeader().length()));
+		sendBuf.writeLong((msg.getHeader().sessionID()));
+		sendBuf.writeInt((msg.getHeader().statusCode()));
+		sendBuf.writeByte((msg.getHeader().type()));
+		sendBuf.writeByte((msg.getHeader().priority()));
+		sendBuf.writeLong((msg.getHeader().requestId()));
+		sendBuf.writeInt((msg.getHeader().attachment().size()));
 		String key = null;
 		byte[] keyArray = null;
 		Object value = null;
-		for (Map.Entry<String, Object> param : msg.getHeader().getAttachment().entrySet()) {
+		for (Map.Entry<String, Object> param : msg.getHeader().attachment().entrySet()) {
 		    key = param.getKey();
 		    keyArray = key.getBytes("UTF-8");
 		    sendBuf.writeInt(keyArray.length);

@@ -58,7 +58,7 @@ public enum StatusCode {
 	}
 	
 	public static StatusCode valOf(IMessage message){
-		int key = message.getHeader().getStatusCode();
+		int key = message.getHeader().statusCode();
 		StatusCode[] codes = StatusCode.class.getEnumConstants();
 		for(StatusCode code:codes){
 			if(ObjectUtils.equals(key, code.key)){
@@ -69,7 +69,7 @@ public enum StatusCode {
 	}
 	
 	public boolean $(IMessage message) {
-		return ObjectUtils.equals(key(), message.getHeader().getStatusCode());
+		return ObjectUtils.equals(key(), message.getHeader().statusCode());
 	}
 	
 	public boolean isFailed(){

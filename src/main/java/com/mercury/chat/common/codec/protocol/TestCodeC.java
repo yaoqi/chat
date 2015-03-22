@@ -24,16 +24,16 @@ public class TestCodeC {
     public Message getMessage() {
 		Message message = new Message();
 		Header header = new Header();
-		header.setLength(123);
-		header.setSessionID(99999);
-		header.setStatusCode(121);
-		header.setType((byte) 1);
-		header.setPriority((byte) 7);
+		header.length(123);
+		header.sessionID(99999);
+		header.statusCode(121);
+		header.type((byte) 1);
+		header.priority((byte) 7);
 		Map<String, Object> attachment = new HashMap<String, Object>();
 		for (int i = 0; i < 10; i++) {
 		    attachment.put("ciyt --> " + i, "123456 " + i);
 		}
-		header.setAttachment(attachment);
+		header.attachment(attachment);
 		message.setHeader(header);
 		message.setBody("abcdefg-----------------------AAAAAA");
 		return message;
@@ -42,15 +42,15 @@ public class TestCodeC {
     public Message getUserMessage() {
 		Message message = new Message();
 		Header header = new Header();
-		header.setLength(123);
-		header.setSessionID(99999);
-		header.setStatusCode(121);
-		header.setType((byte) 1);
-		header.setPriority((byte) 7);
+		header.length(123);
+		header.sessionID(99999);
+		header.statusCode(121);
+		header.type((byte) 1);
+		header.priority((byte) 7);
 		Map<String, Object> attachment = new HashMap<String, Object>();
 		attachment.put("from", "god");
 		attachment.put("to", "bigboy");
-		header.setAttachment(attachment);
+		header.attachment(attachment);
 		message.setHeader(header);
 		message.setBody(new User("bigboy","pwd"));
 		return message;
@@ -58,18 +58,18 @@ public class TestCodeC {
 
     public ByteBuf encode(Message msg) throws Exception {
 		ByteBuf sendBuf = Unpooled.buffer();
-		sendBuf.writeInt((msg.getHeader().getVersion()));
-		sendBuf.writeInt((msg.getHeader().getLength()));
-		sendBuf.writeLong((msg.getHeader().getSessionID()));
-		sendBuf.writeInt((msg.getHeader().getStatusCode()));
-		sendBuf.writeByte((msg.getHeader().getType()));
-		sendBuf.writeByte((msg.getHeader().getPriority()));
-		sendBuf.writeInt((msg.getHeader().getAttachment().size()));
+		sendBuf.writeInt((msg.getHeader().version()));
+		sendBuf.writeInt((msg.getHeader().length()));
+		sendBuf.writeLong((msg.getHeader().sessionID()));
+		sendBuf.writeInt((msg.getHeader().statusCode()));
+		sendBuf.writeByte((msg.getHeader().type()));
+		sendBuf.writeByte((msg.getHeader().priority()));
+		sendBuf.writeInt((msg.getHeader().attachment().size()));
 		String key = null;
 		byte[] keyArray = null;
 		Object value = null;
 	
-		for (Map.Entry<String, Object> param : msg.getHeader().getAttachment()
+		for (Map.Entry<String, Object> param : msg.getHeader().attachment()
 			.entrySet()) {
 		    key = param.getKey();
 		    keyArray = key.getBytes("UTF-8");
@@ -92,12 +92,12 @@ public class TestCodeC {
     public Message decode(ByteBuf in) throws Exception {
 		Message message = new Message();
 		Header header = new Header();
-		header.setVersion(in.readInt());
-		header.setLength(in.readInt());
-		header.setSessionID(in.readLong());
-		header.setStatusCode(in.readInt());
-		header.setType(in.readByte());
-		header.setPriority(in.readByte());
+		header.version(in.readInt());
+		header.length(in.readInt());
+		header.sessionID(in.readLong());
+		header.statusCode(in.readInt());
+		header.type(in.readByte());
+		header.priority(in.readByte());
 	
 		int size = in.readInt();
 		if (size > 0) {
@@ -114,7 +114,7 @@ public class TestCodeC {
 		    }
 		    keyArray = null;
 		    key = null;
-		    header.setAttachment(attch);
+		    header.attachment(attch);
 		}
 		if (in.readableBytes() > 4) {
 		    message.setBody(marshallingDecoder.decode(in));

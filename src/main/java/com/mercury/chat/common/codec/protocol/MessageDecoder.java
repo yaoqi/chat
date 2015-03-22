@@ -29,13 +29,13 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 	
 		Message message = new Message();
 		Header header = new Header();
-		header.setVersion(frame.readInt());
-		header.setLength(frame.readInt());
-		header.setSessionID(frame.readLong());
-		header.setStatusCode(frame.readInt());
-		header.setType(frame.readByte());
-		header.setPriority(frame.readByte());
-	
+		header.version(frame.readInt());
+		header.length(frame.readInt());
+		header.sessionID(frame.readLong());
+		header.statusCode(frame.readInt());
+		header.type(frame.readByte());
+		header.priority(frame.readByte());
+		header.requestId(frame.readLong());
 		int size = frame.readInt();
 		if (size > 0) {
 		    Map<String, Object> attch = new HashMap<String, Object>(size);
@@ -51,7 +51,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 		    }
 		    keyArray = null;
 		    key = null;
-		    header.setAttachment(attch);
+		    header.attachment(attch);
 		}
 		if (frame.readableBytes() > 4) {
 		    message.setBody(marshallingDecoder.decode(frame));

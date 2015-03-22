@@ -45,7 +45,7 @@ public enum MessageType {
     }
     
     public boolean $(IMessage message){
-    	return value == message.getHeader().getMessageType();
+    	return value == message.getHeader().messageType();
     }
     
 }

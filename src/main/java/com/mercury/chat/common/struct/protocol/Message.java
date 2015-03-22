@@ -43,12 +43,12 @@ public final class Message implements IMessage{
 
 	@Override
 	public String getFrom() {
-		return (String) header.getAttachment().get("from");
+		return (String) header.attachment().get("from");
 	}
 
 	@Override
 	public String getTo() {
-		return (String) header.getAttachment().get("to");
+		return (String) header.attachment().get("to");
 	}
 
 	@Override

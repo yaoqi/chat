@@ -44,7 +44,7 @@ public class UserServiceTest {
 		List<IMessage> messages = Lists.newArrayList();
 		Message msg = new Message();
 		Header header = new Header();
-		header.setType(MessageType.CHAT.value());
+		header.type(MessageType.CHAT.value());
 		header.setFrom("google@google.com");
 		header.setTo("baidu@baidu.com");
 		msg.setHeader(header);

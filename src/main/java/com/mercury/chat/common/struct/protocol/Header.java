@@ -20,53 +20,60 @@ public final class Header implements IHeader{
 
     private byte priority;// message priority
     
+    private long requestId;
+    
     private Map<String, Object> attachment = new HashMap<String, Object>(); // other information
 
-    public int getVersion() {
+    public Header requestId(long requestId){
+    	this.requestId = requestId;
+    	return this;
+    }
+    
+    public long requestId(){
+    	return requestId;
+    }
+    
+    public int version() {
 		return version;
 	}
     
-	public void setVersion(int version) {
-		this.version = version;
-	}
+    public void version(int version){
+    	this.version = version;
+    }
 
-	public int getLength() {
+	public int length() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void length(int length) {
 		this.length = length;
 	}
 
-	public long getSessionID() {
+	public long sessionID() {
 		return sessionID;
 	}
 
-	public void setSessionID(long sessionID) {
+	public void sessionID(long sessionID) {
 		this.sessionID = sessionID;
 	}
 
-	public byte getType() {
+	public byte type() {
 		return type;
 	}
 
-	public void setType(byte type) {
-		this.type = type;
-	}
-
-	public byte getPriority() {
+	public byte priority() {
 		return priority;
 	}
 
-	public void setPriority(byte priority) {
+	public void priority(byte priority) {
 		this.priority = priority;
 	}
 	
-	public Map<String, Object> getAttachment() {
+	public Map<String, Object> attachment() {
 		return attachment;
 	}
 
-	public void setAttachment(Map<String, Object> attachment) {
+	public void attachment(Map<String, Object> attachment) {
 		this.attachment = attachment;
 	}
 
@@ -81,16 +88,12 @@ public final class Header implements IHeader{
 	}
 	
 	@Override
-	public byte getMessageType() {
+	public byte messageType() {
 		return type;
 	}
 	
-	public int getStatusCode() {
+	public int statusCode() {
 		return statusCode;
-	}
-
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
 	}
 
 	@Override
