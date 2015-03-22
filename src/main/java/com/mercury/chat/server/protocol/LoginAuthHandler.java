@@ -54,7 +54,6 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 				messageBody.append("Your session is protected by " +ctx.pipeline().get(SslHandler.class).engine().getSession().getCipherSuite() + " cipher suite.");
 				Message msg = buildMessage(HANDSHAKE,messageBody.toString());
 				ctx.writeAndFlush(msg);
-                channels.add(ctx.channel());
                 
                 ctx.channel().closeFuture().addListener(new ChannelFutureListener(){
         			@Override
@@ -88,6 +87,8 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 					ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
 		          	set(ctx.channel(), Constant.userInfo, user);
 		          	statusCode = OK;
+		          	//if login successfully,will add this channel to channel group
+		          	channels.add(ctx.channel());
 				}else{
 					statusCode = FAIL;
 				}

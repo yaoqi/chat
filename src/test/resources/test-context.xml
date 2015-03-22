@@ -40,4 +40,9 @@
 	</bean>
 	
 	<bean id="jedisPoolUtils" class="com.mercury.chat.user.service.storer.redis.JedisPoolUtils"/>
+	
+	<bean id="loginAuthHandler" class = "com.mercury.chat.server.protocol.LoginAuthHandler"></bean>
+	
+	<bean id = "historicalMessageHandler" class = "com.mercury.chat.server.protocol.HistoricalMessageHandler"/>
+	
 </beans>
