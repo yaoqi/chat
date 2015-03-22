@@ -39,6 +39,12 @@ import com.mercury.chat.user.service.UserService;
 
 public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 
+	private final UserService userService;
+	
+	public LoginAuthHandler(UserService userService){
+		this.userService = userService;
+	}
+	
 	static final Logger logger = LogManager.getLogger(LoginAuthHandler.class);
 	
 	@Override

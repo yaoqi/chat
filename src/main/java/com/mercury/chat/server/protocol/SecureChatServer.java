@@ -61,7 +61,7 @@ public final class SecureChatServer {
              .option(ChannelOption.SO_BACKLOG, 100)
              .channel(NioServerSocketChannel.class)
              .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new SecureChatServerInitializer(sslCtx));
+             .childHandler(new SecureChatServerInitializer(sslCtx,userService));
 
             channel = b.bind(port).sync().channel();
 			channel.closeFuture().sync();

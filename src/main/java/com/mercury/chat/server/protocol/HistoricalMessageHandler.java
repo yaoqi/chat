@@ -17,7 +17,13 @@ import com.mercury.chat.user.service.UserService;
 
 public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Message> {
 
-	static final Logger logger = LogManager.getLogger(UserListHandler.class);
+	 static final Logger logger = LogManager.getLogger(UserListHandler.class);
+	
+	 private final UserService userService;
+	 
+	 public HistoricalMessageHandler(UserService userService){
+		 this.userService = userService;
+	 }
 	
 	@Override
 	 public void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {

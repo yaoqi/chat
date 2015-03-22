@@ -9,6 +9,7 @@ import io.netty.handler.ssl.SslContext;
 import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
+import com.mercury.chat.user.service.UserService;
 
 /**
  * Creates a newly configured {@link ChannelPipeline} for a new channel.
@@ -16,9 +17,12 @@ import com.mercury.chat.common.codec.protocol.MessageEncoder;
 public class SecureChatServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private final SslContext sslCtx;
+    
+    private final UserService userService;
 
-    public SecureChatServerInitializer(SslContext sslCtx) {
+    public SecureChatServerInitializer(SslContext sslCtx, UserService userService) {
         this.sslCtx = sslCtx;
+        this.userService = userService;
     }
 
     @Override
@@ -31,9 +35,9 @@ public class SecureChatServerInitializer extends ChannelInitializer<SocketChanne
 		pipeline.addLast("MessageEncoder", new MessageEncoder());
 		pipeline.addLast("ExceptionHandler", new ExceptionHandler());
 		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(500));
-		pipeline.addLast(businessGroup, "LoginAuthHandler",new LoginAuthHandler());
+		pipeline.addLast(businessGroup, "LoginAuthHandler",new LoginAuthHandler(userService));
 		pipeline.addLast("HeartBeatHandler", new HeartBeatHandler());
-		pipeline.addLast(businessGroup, "HistoricalMessageHandler",new HistoricalMessageHandler());
+		pipeline.addLast(businessGroup, "HistoricalMessageHandler",new HistoricalMessageHandler(userService));
 
         // and then business logic.
         pipeline.addLast("ChatHandler", new SecureChatServerHandler());
