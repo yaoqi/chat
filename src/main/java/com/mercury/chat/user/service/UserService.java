@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
-import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.struct.IMessage;
+import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 
 public interface UserService {

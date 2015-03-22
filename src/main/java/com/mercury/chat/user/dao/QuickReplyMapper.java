@@ -18,6 +18,14 @@ import org.apache.ibatis.type.JdbcType;
 
 public interface QuickReplyMapper {
 	
+    @SelectProvider(type=QuickReplySqlProvider.class, method="selectByExampleWithBLOBs")
+    @Results({
+        @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="SALEID", property="saleid", jdbcType=JdbcType.BIGINT),
+        @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
+    })
+    List<QuickReply> select(QuickReplyTemplate example);
+	
     @SelectProvider(type=QuickReplySqlProvider.class, method="countByExample")
     int countByExample(QuickReplyTemplate example);
 
@@ -40,14 +48,6 @@ public interface QuickReplyMapper {
 
     @InsertProvider(type=QuickReplySqlProvider.class, method="insertSelective")
     int insertSelective(QuickReply record);
-
-    @SelectProvider(type=QuickReplySqlProvider.class, method="selectByExampleWithBLOBs")
-    @Results({
-        @Result(column="UUID", property="uuid", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="SALEID", property="saleid", jdbcType=JdbcType.BIGINT),
-        @Result(column="MESSAGE", property="message", jdbcType=JdbcType.CLOB)
-    })
-    List<QuickReply> selectByExampleWithBLOBs(QuickReplyTemplate example);
 
     @SelectProvider(type=QuickReplySqlProvider.class, method="selectByExample")
     @Results({

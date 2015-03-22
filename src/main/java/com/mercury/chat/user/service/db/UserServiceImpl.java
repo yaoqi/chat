@@ -12,11 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
-import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.dao.MessageMapper;
+import com.mercury.chat.user.dao.QuickReplyMapper;
 import com.mercury.chat.user.dao.UserMapper;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.QuickReply;
+import com.mercury.chat.user.entity.QuickReplyTemplate;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -29,6 +31,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MessageMapper messageMapper;
+	
+	@Autowired
+	private QuickReplyMapper quickReplyMapper;
 	
 	@Override
 	public boolean login(String userId, String passWord) {
@@ -66,17 +71,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<QuickReply> loadQuickReply(long saleId) {
-		return null;
+		QuickReplyTemplate example = new QuickReplyTemplate();
+		example.createCriteria().andSaleidEqualTo(saleId);
+		return quickReplyMapper.select(example );
 	}
 
 	@Override
 	public void updateQuickReply(long saleId, QuickReply quickReply) {
-		
+		QuickReplyTemplate example = new QuickReplyTemplate();
+		example.createCriteria().andSaleidEqualTo(saleId);
+		quickReplyMapper.updateByExampleSelective(quickReply, example);
 	}
 
 	@Override
 	public void deleteReply(long saleId, QuickReply quickReply) {
-		
+		QuickReplyTemplate example = new QuickReplyTemplate();
+		example.createCriteria().andSaleidEqualTo(saleId).andUuidEqualTo(quickReply.getUuid());
+		quickReplyMapper.deleteByExample(example);
 	}
 
 }

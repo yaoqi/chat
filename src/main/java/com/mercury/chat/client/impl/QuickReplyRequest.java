@@ -2,7 +2,7 @@ package com.mercury.chat.client.impl;
 
 import java.io.Serializable;
 
-import com.mercury.chat.common.QuickReply;
+import com.mercury.chat.user.entity.QuickReply;
 
 public class QuickReplyRequest implements Serializable{
 	
