@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateQuickReply(long saleId, QuickReply quickReply) {
 		QuickReplyTemplate example = new QuickReplyTemplate();
-		example.createCriteria().andSaleidEqualTo(saleId);
+		example.createCriteria().andSaleidEqualTo(saleId).andUuidEqualTo(quickReply.getUuid());
 		quickReplyMapper.updateByExampleSelective(quickReply, example);
 	}
 

@@ -21,6 +21,7 @@ import com.mercury.chat.common.test.DataPrepare2;
 import com.mercury.chat.common.test.DbType;
 import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
@@ -74,5 +75,29 @@ public class UserServiceTest {
 		assertEquals(5, messages.size());
 	}
 	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoadQuickReply(){
+		List<QuickReply> qrs = userService.loadQuickReply(1);
+		assertEquals(2, qrs.size());
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testUpdateQuickReply(){
+		QuickReply quickReply = new QuickReply();
+		quickReply.setUuid(1L);
+		quickReply.setMessage("XXXXX");
+		userService.updateQuickReply(1, quickReply );
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testDeleteQuickReply(){
+		QuickReply quickReply = new QuickReply();
+		quickReply.setUuid(1L);
+		quickReply.setMessage("XXXXX");
+		userService.deleteReply(1, quickReply);
+	}
 	
 }

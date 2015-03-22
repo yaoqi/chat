@@ -30,12 +30,12 @@ import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
-import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.handler.ListenbleHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 
 public class ChatClientImpl implements ChatClient {

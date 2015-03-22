@@ -100,13 +100,13 @@ public class QuickReplySqlProvider {
         BEGIN();
         UPDATE("QUICK_REPLY");
         
-        if (record.getUuid() != null) {
-            SET("UUID = #{record.uuid,jdbcType=BIGINT}");
-        }
+//        if (record.getUuid() != null) {
+//            SET("UUID = #{record.uuid,jdbcType=BIGINT}");
+//        }
         
-        if (record.getSaleid() != null) {
-            SET("SALEID = #{record.saleid,jdbcType=BIGINT}");
-        }
+//        if (record.getSaleid() != null) {
+//            SET("SALEID = #{record.saleid,jdbcType=BIGINT}");
+//        }
         
         if (record.getMessage() != null) {
             SET("MESSAGE = #{record.message,jdbcType=CLOB}");
