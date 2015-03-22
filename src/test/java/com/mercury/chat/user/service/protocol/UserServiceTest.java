@@ -16,7 +16,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.storer.redis.UserServiceImpl;
+import com.mercury.chat.user.service.redis.UserServiceImpl;
 
 
 @Ignore //ignore these test cases based on redis

@@ -1,4 +1,4 @@
-package com.mercury.chat.user.service.storer.redis;
+package com.mercury.chat.user.service.redis;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
