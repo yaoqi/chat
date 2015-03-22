@@ -145,7 +145,9 @@ public class ChatClientImpl implements ChatClient {
 		//FIXME need to implement this logic
 		ListenbleHandler listenbleHandler = getListenbleHandler(channel, HANDSHAKE);
 		if(listenbleHandler!= null){
-			listenbleHandler.addMessageListener(connectionListener);
+			//need to refactor this logic because connection listener is an instance of 
+			//message listener
+			//listenbleHandler.addMessageListener(connectionListener);
 		}
 	}
 
