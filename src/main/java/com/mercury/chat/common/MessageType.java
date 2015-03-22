@@ -20,7 +20,7 @@ public enum MessageType {
 	CHAT((byte) 3, "ChatHandler"),
     USER_LIST((byte) 4, "UserListHandler"),
     HEARTBEAT((byte) 5, "HeartBeatHandler"),
-	HISTORICAL_MESSAGE((byte) 6, "HeartBeatHandler");
+	HISTORICAL_MESSAGE((byte) 6, "HistoricalMessageHandler");
     
     private byte value;
     
