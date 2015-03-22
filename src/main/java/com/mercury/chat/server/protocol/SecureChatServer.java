@@ -4,7 +4,14 @@ import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import com.mercury.chat.common.exception.ChatException;
+import com.mercury.chat.user.service.UserService;
+
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -22,6 +29,24 @@ public final class SecureChatServer {
     public static void main(String[] args) throws Exception {
         new SecureChatServer().startUp(PORT);
     }
+    
+    private int port;
+    
+    //inject the user service then pass this instance to handler?
+	@Autowired
+	private UserService userService; 
+	
+	private volatile Channel channel;
+    
+    public SecureChatServer(){
+    	super();
+    }
+    
+	public SecureChatServer(int port) {
+		super();
+		this.port = port;
+		//FIXME start up the server?
+	}
 
 	public void startUp(int port) throws CertificateException, SSLException, InterruptedException {
 		
@@ -38,10 +63,29 @@ public final class SecureChatServer {
              .handler(new LoggingHandler(LogLevel.INFO))
              .childHandler(new SecureChatServerInitializer(sslCtx));
 
-            b.bind(port).sync().channel().closeFuture().sync();
+            channel = b.bind(port).sync().channel();
+			channel.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
 	}
+	
+	public void close(){
+		checkNotNull(channel, "Server Unavailable");
+		try {
+			channel.close().sync();
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
+	}
+	
+	public int getPort() {
+		return port;
+	}
+	
+	public void setPort(int port) {
+		this.port = port;
+	}
+	
 }
