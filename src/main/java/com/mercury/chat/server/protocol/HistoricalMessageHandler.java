@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
 import com.mercury.chat.client.impl.HistoricalMsgRequest;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.service.MockUserService;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.storer.MockUserService;
 
 public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Message> {
 

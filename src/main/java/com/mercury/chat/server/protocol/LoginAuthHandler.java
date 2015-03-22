@@ -34,8 +34,8 @@ import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
+import com.mercury.chat.user.service.MockUserService;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.storer.MockUserService;
 
 public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 

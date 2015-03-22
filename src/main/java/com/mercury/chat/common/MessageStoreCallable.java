@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import com.mercury.chat.common.struct.IMessage;
+import com.mercury.chat.user.service.MockUserService;
 import com.mercury.chat.user.service.UserService;
-import com.mercury.chat.user.service.storer.MockUserService;
 
 public class MessageStoreCallable implements Callable<Integer>{
 	
