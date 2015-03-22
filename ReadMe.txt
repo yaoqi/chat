@@ -46,7 +46,10 @@ void updateQuickReply(long saleId, QuickReply quickReply);
 //service & client server 都需要实现及测试	
 void deleteReply(long saleId, QuickReply quickReply);
 
+udp研究
 openfire login研究
 openfire session维护研究
 openfire 集群研究
+chat如何集群 研究
+socket集群研究
  	
