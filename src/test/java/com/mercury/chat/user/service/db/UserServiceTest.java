@@ -1,4 +1,4 @@
-package com.mercury.chat.user.service.protocol.db;
+package com.mercury.chat.user.service.db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

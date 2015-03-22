@@ -3,6 +3,7 @@ TODO:
 1.spring bean化所有会调用后台的类
 	a)server 服务化,bean化
 	b)SessionManager bean化
+	c)MessageStoreCallable bean化
 
 2.实现连接的监听
 
