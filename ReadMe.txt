@@ -26,4 +26,23 @@ TODO:
   	3)聊天对象根本就不存在
   	
 7.error code/status code具体化 
+
+
+//仅实现了service, 需要实现client调用及测试
+List<ChatMessage> loadHisChatMessage(long shopId, String userId, int offset, int batchSize);
+
+//service & client server 都需要实现及测试	
+ProductSummary loadProductSummary(long productId);
+
+//service & client server 都需要实现及测试
+OrderSummary loadOrderSummary(long orderId);
+
+//service & client server 都需要实现及测试	
+List<QuickReply> loadQuickReply(long saleId);
+
+//service & client server 都需要实现及测试	
+void updateQuickReply(long saleId, QuickReply quickReply);
+
+//service & client server 都需要实现及测试	
+void deleteReply(long saleId, QuickReply quickReply);
  	
