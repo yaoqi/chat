@@ -1,13 +1,10 @@
 package com.mercury.chat.server.protocol;
 
+import static com.mercury.chat.common.TaskExecutor.businessGroup;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
-import io.netty.channel.DefaultEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
-import io.netty.util.concurrent.EventExecutorGroup;
-
-import java.util.concurrent.Executors;
 
 import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
@@ -18,8 +15,6 @@ import com.mercury.chat.common.codec.protocol.MessageEncoder;
  */
 public class SecureChatServerInitializer extends ChannelInitializer<SocketChannel> {
 
-	final static EventExecutorGroup businessGroup = new DefaultEventLoopGroup(50, Executors.newFixedThreadPool(50));
-	
     private final SslContext sslCtx;
 
     public SecureChatServerInitializer(SslContext sslCtx) {

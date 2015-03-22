@@ -1,6 +1,7 @@
 package com.mercury.chat.server.protocol;
 
 import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.TaskExecutor.taskExecutor;
 import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Messages.buildMessage;
@@ -10,7 +11,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelMatcher;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.MessageStoreCallable;
-import com.mercury.chat.common.TaskExecutor;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.matcher.UserMatcher;
 import com.mercury.chat.common.struct.IMessage;
@@ -46,7 +45,6 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 		channels.writeAndFlush(msg, matcher);
 		
 		//submit store message to thread pool.
-		ExecutorService taskExecutor = TaskExecutor.getInstance().taskExecutor;
 		taskExecutor.submit(new MessageStoreCallable(Lists.<IMessage>newArrayList(msg)));
     }
     
