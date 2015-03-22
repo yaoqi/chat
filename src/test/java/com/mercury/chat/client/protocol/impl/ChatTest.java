@@ -64,36 +64,49 @@ public class ChatTest{
 	public void testLogin() {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);
+		Session session = connection.login("google@gmail.com", "welcome1");
+		assertNotNull(session);
+		connection.close();
+	}
+	
+	@Test(expected = ChatException.class)
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoginFailed1() {
+		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection);
 		Session session = connection.login("google@google.com", "welcome1");
 		assertNotNull(session);
 		connection.close();
 	}
 	
 	@Test(expected = ChatException.class)
-	public void testLoginFailed() {
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoginFailed2() {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);
-		Session session = connection.login("google@google.com", "welcome1");
-		session = connection.login("google@google.com", "welcome1");
+		Session session = connection.login("google@gmail.com", "welcome1");
+		session = connection.login("google@gmail.com", "welcome1");
 		assertNotNull(session);
 		connection.close();
 	}
 	
 	@Test
-	public void testLoginOff() {
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLogout() {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);
-		Session session = connection.login("google@google.com", "welcome1");
+		Session session = connection.login("google@gmail.com", "welcome1");
 		assertNotNull(session);
 		assertTrue(session.logoff());
 		connection.close();
 	}
 	
 	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testSendMessage() throws InterruptedException {
 		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
 		assertNotNull(connection);
-		Session session = connection.login("google@google.com", "welcome1");
+		Session session = connection.login("google@gmail.com", "welcome1");
 		assertNotNull(session);
 		
 		Connection connection2 = SecureChatClient.connect("127.0.0.1", 8992);
