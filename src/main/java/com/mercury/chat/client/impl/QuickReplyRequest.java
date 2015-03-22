@@ -10,24 +10,35 @@ public class QuickReplyRequest implements Serializable{
 	
 	private long saleId;
 	
+	private byte operation;
+	
 	private QuickReply quickReply;
+
+	public QuickReplyRequest saleId(long saleId){
+		this.saleId = saleId;
+		return this;
+	}
+	
+	public QuickReplyRequest operation(byte operation){
+		this.operation = operation;
+		return this;
+	}
+	
+	public QuickReplyRequest quickReply(QuickReply quickReply){
+		this.quickReply = quickReply;
+		return this;
+	}
 
 	public long getSaleId() {
 		return saleId;
 	}
 
-	public void setSaleId(long saleId) {
-		this.saleId = saleId;
+	public byte getOperation() {
+		return operation;
 	}
 
 	public QuickReply getQuickReply() {
 		return quickReply;
 	}
-
-	public void setQuickReply(QuickReply quickReply) {
-		this.quickReply = quickReply;
-	}
-	
-	
 	
 }
