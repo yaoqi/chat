@@ -1,6 +1,7 @@
 package com.mercury.chat.client.impl;
 
 import static com.mercury.chat.common.MessageType.CHAT;
+import static com.mercury.chat.common.MessageType.CRUD;
 import static com.mercury.chat.common.MessageType.HANDSHAKE;
 import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
 import static com.mercury.chat.common.MessageType.LOGIN;
@@ -22,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.client.ChatClient;
 import com.mercury.chat.client.Connection;
+import com.mercury.chat.client.protocol.CommonCRUDHandler;
 import com.mercury.chat.client.protocol.HistoricalMessageHandler;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.client.protocol.SecureChatClient;
@@ -30,6 +32,7 @@ import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.constant.Operation;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.handler.ListenbleHandler;
@@ -208,17 +211,44 @@ public class ChatClientImpl implements ChatClient {
 
 	@Override
 	public List<QuickReply> loadQuickReply(long saleId) {
-		return null;
+		validate();
+		checkAllNotNull(saleId);
+		QuickReplyRequest request = new QuickReplyRequest().saleId(saleId).operation(Operation.LOAD);
+		try {
+			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
+			MessageBox messageBox = channel.pipeline().get(CommonCRUDHandler.class).messageBox();
+			Message responseMsg = messageBox.get();
+			
+			@SuppressWarnings("unchecked")
+			List<QuickReply> quickReplies = (List<QuickReply>) responseMsg.getBody();
+			return quickReplies;
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
 	}
 
 	@Override
 	public void updateQuickReply(long saleId, QuickReply quickReply) {
-		
+		validate();
+		checkAllNotNull(saleId);
+		QuickReplyRequest request = new QuickReplyRequest().saleId(saleId).operation(Operation.DELETE).quickReply(quickReply);
+		try {
+			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
 	}
 
 	@Override
 	public void deleteReply(long saleId, QuickReply quickReply) {
-		
+		validate();
+		checkAllNotNull(saleId);
+		QuickReplyRequest request = new QuickReplyRequest().saleId(saleId).operation(Operation.DELETE).quickReply(quickReply);
+		try {
+			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
 	}
 
 }

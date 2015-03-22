@@ -2,6 +2,7 @@ package com.mercury.chat.client.impl;
 
 import java.io.Serializable;
 
+import com.mercury.chat.common.constant.Operation;
 import com.mercury.chat.user.entity.QuickReply;
 
 public class QuickReplyRequest implements Serializable{
@@ -21,6 +22,11 @@ public class QuickReplyRequest implements Serializable{
 	
 	public QuickReplyRequest operation(byte operation){
 		this.operation = operation;
+		return this;
+	}
+	
+	public QuickReplyRequest operation(Operation operation){
+		this.operation = operation.value();
 		return this;
 	}
 	

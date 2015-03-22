@@ -12,6 +12,10 @@ public enum Operation {
 		this.value = value;
 	}
 	
+	public byte value(){
+		return value;
+	}
+	
 	public static Operation valOf(byte value){
 		Operation[] operations = Operation.class.getEnumConstants();
 		for(Operation operation:operations){
