@@ -56,31 +56,26 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ProductSummary loadProductSummary(long productId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public OrderSummary loadOrderSummary(long orderId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<QuickReply> loadQuickReply(long saleId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void updateQuickReply(long saleId, QuickReply quickReply) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void deleteReply(long saleId, QuickReply quickReply) {
-		// TODO Auto-generated method stub
 		
 	}
 
