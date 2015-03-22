@@ -16,7 +16,7 @@ public interface ChatClient {
 	
 	void login(String userName, String password, Properties properties) throws ChatException;
 	
-	void logout();
+	void logout();//退出登录？退出系统？
 	
 	boolean isConnected();
 	
@@ -28,6 +28,14 @@ public interface ChatClient {
 	
 	void setConnectionListener(ConnectionListener connectionListener);
 	
+	/**
+	 * load historical chat message from db/redis/other storer
+	 * @param shopId
+	 * @param userId chat userId, not shop userId
+	 * @param offset
+	 * @param batchSize
+	 * @return
+	 */
 	List<ChatMessage> loadHisChatMessage(long shopId, String userId, int offset, int batchSize);
 	
 	ProductSummary loadProductSummary(long productId);
