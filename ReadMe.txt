@@ -45,4 +45,8 @@ void updateQuickReply(long saleId, QuickReply quickReply);
 
 //service & client server 都需要实现及测试	
 void deleteReply(long saleId, QuickReply quickReply);
+
+openfire login研究
+openfire session维护研究
+openfire 集群研究
  	

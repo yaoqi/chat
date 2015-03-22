@@ -10,6 +10,9 @@ import redis.clients.jedis.Jedis;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.mercury.chat.common.OrderSummary;
+import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.struct.IHeader;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
@@ -78,6 +81,31 @@ public class UserServiceImpl  implements UserService {
 	@Override
 	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
 		return null;
+	}
+
+	@Override
+	public ProductSummary loadProductSummary(long productId) {
+		return null;
+	}
+
+	@Override
+	public OrderSummary loadOrderSummary(long orderId) {
+		return null;
+	}
+
+	@Override
+	public List<QuickReply> loadQuickReply(long saleId) {
+		return null;
+	}
+
+	@Override
+	public void updateQuickReply(long saleId, QuickReply quickReply) {
+		
+	}
+
+	@Override
+	public void deleteReply(long saleId, QuickReply quickReply) {
+		
 	}
 	
 }

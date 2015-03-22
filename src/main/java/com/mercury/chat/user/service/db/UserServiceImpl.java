@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mercury.chat.common.OrderSummary;
+import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.dao.MessageMapper;
 import com.mercury.chat.user.dao.UserMapper;
@@ -49,6 +52,36 @@ public class UserServiceImpl implements UserService {
 			messageMapper.insert(message.convert());
 		}
 		return messages.size();
+	}
+
+	@Override
+	public ProductSummary loadProductSummary(long productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OrderSummary loadOrderSummary(long orderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<QuickReply> loadQuickReply(long saleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateQuickReply(long saleId, QuickReply quickReply) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteReply(long saleId, QuickReply quickReply) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

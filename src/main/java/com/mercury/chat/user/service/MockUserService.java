@@ -2,6 +2,9 @@ package com.mercury.chat.user.service;
 
 import java.util.List;
 
+import com.mercury.chat.common.OrderSummary;
+import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.User;
 
@@ -36,6 +39,36 @@ public class MockUserService implements UserService {
 	@Override
 	public int store(List<IMessage> messages) {
 		return messages.size();
+	}
+
+	@Override
+	public ProductSummary loadProductSummary(long productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OrderSummary loadOrderSummary(long orderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<QuickReply> loadQuickReply(long saleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateQuickReply(long saleId, QuickReply quickReply) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteReply(long saleId, QuickReply quickReply) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
