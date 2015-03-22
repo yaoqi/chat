@@ -23,7 +23,7 @@ public class CommonCRUDHandler extends SimpleMessageHandler {
 	 public void messageReceived(ChannelHandlerContext ctx, Message msg) {
 		if (_().$(msg)) {
 			logger.log(Level.INFO, "Receive server CRUD response : ---> "+ msg);
-			
+			messageBox().put(msg);
 		} else
 		    ctx.fireChannelRead(msg);
     }
