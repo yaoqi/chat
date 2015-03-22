@@ -52,4 +52,5 @@ openfire session维护研究
 openfire 集群研究
 chat如何集群 研究
 socket集群研究
+发送消息的压缩与解压
  	
