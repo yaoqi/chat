@@ -5,6 +5,8 @@ drop table if exists CHAT.USER;
 
 drop table if exists CHAT.MESSAGE;
 
+drop table if exists CHAT.QUICK_REPLY;
+
 /*==============================================================*/
 /* Table: USER                                                */
 /*==============================================================*/
@@ -30,5 +32,16 @@ CREATE TABLE CHAT.MESSAGE
    CREATE_TS            TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    MESSAGE      		CLOB,
    PRIMARY KEY (ID)
+);
+
+/*==============================================================*/
+/* Table: QUICK_REPLY                                                */
+/*==============================================================*/
+CREATE TABLE CHAT.QUICK_REPLY
+(
+   UUID         		BIGINT IDENTITY NOT NULL,
+   SALEID            	BIGINT,
+   MESSAGE      		CLOB,
+   PRIMARY KEY (UUID)
 );
 
