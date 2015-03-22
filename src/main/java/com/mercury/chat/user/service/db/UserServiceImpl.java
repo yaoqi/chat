@@ -1,4 +1,4 @@
-package com.mercury.chat.user.service.storer.db;
+package com.mercury.chat.user.service.db;
 
 import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
 import static com.mercury.chat.common.util.Messages.buildMessage;
