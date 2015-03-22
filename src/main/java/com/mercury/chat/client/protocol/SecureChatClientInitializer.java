@@ -33,6 +33,7 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
 		pipeline.addLast("HeartBeatHandler", new HeartBeatHandler());
 		pipeline.addLast("UserListHandler", new UserListHandler());
 		pipeline.addLast("HistoricalMessageHandler", new HistoricalMessageHandler());
+		pipeline.addLast("CommonCRUDHandler", new CommonCRUDHandler());
 		
         // and then business logic.
         pipeline.addLast("ChatHandler", new SecureChatClientHandler());
