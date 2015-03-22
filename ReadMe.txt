@@ -25,4 +25,5 @@ TODO:
   	2)未登录就进行各种操作
   	3)聊天对象根本就不存在
   	
-7.error code/status code具体化  	
+7.error code/status code具体化 
+ 	

@@ -30,6 +30,7 @@ import com.mercury.chat.common.MessageBox;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.handler.ListenbleHandler;
@@ -152,7 +153,7 @@ public class ChatClientImpl implements ChatClient {
 	public List<ChatMessage> loadHisChatMessage(long shopId, String userId, int offset, int batchSize) {
 		validate();
 		checkAllNotNull(shopId,userId,offset,batchSize);
-		HistoricalMsgRequest request = new HistoricalMsgRequest(userId, shopId, offset, batchSize);
+		HisMsgRequest request = new HisMsgRequest(userId, shopId, offset, batchSize);
 		try {
 			channel.writeAndFlush(buildMessage(HISTORICAL_MESSAGE, request)).sync();
 			MessageBox messageBox = channel.pipeline().get(HistoricalMessageHandler.class).messageBox();
@@ -201,6 +202,21 @@ public class ChatClientImpl implements ChatClient {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	@Override
+	public List<QuickReply> loadQuickReply(long saleId) {
+		return null;
+	}
+
+	@Override
+	public void updateQuickReply(long saleId, QuickReply quickReply) {
+		
+	}
+
+	@Override
+	public void deleteReply(long saleId, QuickReply quickReply) {
+		
 	}
 
 }

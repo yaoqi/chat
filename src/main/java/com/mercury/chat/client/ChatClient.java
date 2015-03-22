@@ -7,6 +7,7 @@ import com.mercury.chat.common.ConnectionListener;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
+import com.mercury.chat.common.QuickReply;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.ChatMessage;
@@ -16,7 +17,7 @@ public interface ChatClient {
 	
 	void login(String userName, String password, Properties properties) throws ChatException;
 	
-	void logout();//退出登录？退出系统？
+	void logout();//just logoff
 	
 	boolean isConnected();
 	
@@ -41,6 +42,28 @@ public interface ChatClient {
 	ProductSummary loadProductSummary(long productId);
 	
 	OrderSummary loadOrderSummary(long orderId);
+	
+	//below is the sales quick reply service
+	/**
+	 * Query the quick reply by saleId
+	 * @param saleId
+	 * @return
+	 */
+	List<QuickReply> loadQuickReply(long saleId);
+	
+	/**
+	 * Update the quick reply by saleId
+	 * @param saleId
+	 * @param quickReply
+	 */
+	void updateQuickReply(long saleId, QuickReply quickReply);
+	
+	/**
+	 * Delete the quick reply by saleId
+	 * @param saleId
+	 * @param quickReply
+	 */
+	void deleteReply(long saleId, QuickReply quickReply);
 	
 	Connection connect(String host, int port);
 

@@ -3,7 +3,7 @@ package com.mercury.chat.client.impl;
 import java.io.Serializable;
 
 
-public class HistoricalMsgRequest implements Serializable{
+public class HisMsgRequest implements Serializable{
 	
 	private static final long serialVersionUID = 8546783381574079889L;
 
@@ -15,7 +15,7 @@ public class HistoricalMsgRequest implements Serializable{
 	
 	private int batchSize;
 	
-	public HistoricalMsgRequest(String userId, Long shopId, int offset, int batchSize) {
+	public HisMsgRequest(String userId, Long shopId, int offset, int batchSize) {
 		super();
 		this.userId = userId;
 		this.shopId = shopId;
@@ -23,22 +23,22 @@ public class HistoricalMsgRequest implements Serializable{
 		this.batchSize = batchSize;
 	}
 
-	public HistoricalMsgRequest userId(String userId){
+	public HisMsgRequest userId(String userId){
 		this.userId = userId;
 		return this;
 	}
 	
-	public HistoricalMsgRequest shopId(Long shopId){
+	public HisMsgRequest shopId(Long shopId){
 		this.shopId = shopId;
 		return this;
 	}
 	
-	public HistoricalMsgRequest offset(int offset){
+	public HisMsgRequest offset(int offset){
 		this.offset = offset;
 		return this;
 	}
 	
-	public HistoricalMsgRequest batchSize(int batchSize){
+	public HisMsgRequest batchSize(int batchSize){
 		this.batchSize = batchSize;
 		return this;
 	}
