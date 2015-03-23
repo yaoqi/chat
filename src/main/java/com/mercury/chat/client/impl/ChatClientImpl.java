@@ -230,7 +230,7 @@ public class ChatClientImpl implements ChatClient {
 	@Override
 	public void updateQuickReply(long saleId, QuickReply quickReply) {
 		validate();
-		checkAllNotNull(saleId);
+		checkAllNotNull(saleId, quickReply);
 		QuickReplyRequest request = new QuickReplyRequest().saleId(saleId).operation(Operation.DELETE).quickReply(quickReply);
 		try {
 			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
@@ -242,7 +242,7 @@ public class ChatClientImpl implements ChatClient {
 	@Override
 	public void deleteReply(long saleId, QuickReply quickReply) {
 		validate();
-		checkAllNotNull(saleId);
+		checkAllNotNull(saleId, quickReply);
 		QuickReplyRequest request = new QuickReplyRequest().saleId(saleId).operation(Operation.DELETE).quickReply(quickReply);
 		try {
 			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
