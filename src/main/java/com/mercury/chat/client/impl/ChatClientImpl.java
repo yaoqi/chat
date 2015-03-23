@@ -54,7 +54,13 @@ public class ChatClientImpl implements ChatClient {
 	private int port;
 	
 	private boolean connected = false;
-	
+
+	public ChatClientImpl(String host, int port) {
+		super();
+		this.host = host;
+		this.port = port;
+		connect();
+	}
 
 	public void connect(){
 		channel = new SecureChatClient().connectInner(host, port);

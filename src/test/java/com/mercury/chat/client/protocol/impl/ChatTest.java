@@ -136,5 +136,41 @@ public class ChatTest{
 		assertEquals("Hello baidu.", msgs.get(0).getBody());
 		
 	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testGetHisMessage() throws InterruptedException {
+		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection);
+		Session session = connection.login("google@gmail.com", "welcome1");
+		assertNotNull(session);
+		
+		Connection connection2 = SecureChatClient.connect("127.0.0.1", 8992);
+		assertNotNull(connection2);
+		Session session2 = connection2.login("baidu@baidu.com", "welcome1");
+		assertNotNull(session2);
+		
+		final CountDownLatch cdl = new CountDownLatch(1);
+		
+		final List<Message> msgs = Lists.newArrayList();
+		
+		MessageListener messageListener = new MessageListener(){
+			@Override
+			public void onMessage(Message message) {
+				msgs.add(message);
+				cdl.countDown();
+			}
+		};
+		
+		session2.addMessageListener(MessageType.CHAT, messageListener );
+		
+		Message message = Messages.buildMessage(MessageType.CHAT, "Hello baidu.");
+		session.sendMessage("baidu@baidu.com", message );
+		
+		cdl.await();
+		
+		assertEquals("Hello baidu.", msgs.get(0).getBody());
+		
+	}
 
 }
