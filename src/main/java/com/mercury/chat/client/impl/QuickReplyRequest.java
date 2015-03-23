@@ -46,5 +46,11 @@ public class QuickReplyRequest implements Serializable{
 	public QuickReply getQuickReply() {
 		return quickReply;
 	}
+
+	@Override
+	public String toString() {
+		return "QuickReplyRequest [saleId=" + saleId + ", operation="
+				+ operation + ", quickReply=" + quickReply + "]";
+	}
 	
 }

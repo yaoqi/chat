@@ -61,4 +61,10 @@ public class QuickReply implements Serializable {
         result = prime * result + ((getMessage() == null) ? 0 : getMessage().hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "QuickReply [uuid=" + uuid + ", saleid=" + saleid + ", message="
+				+ message + "]";
+	}
 }

@@ -33,6 +33,7 @@ import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.common.util.Messages;
 import com.mercury.chat.server.protocol.SecureChatServer;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 
 public class ChatTest{
@@ -149,6 +150,40 @@ public class ChatTest{
 		List<ChatMessage> chatMsgs = chatClient.loadHisChatMessage(1l, "baidu@baidu.com", 0, 5);
 		assertEquals(5, chatMsgs.size());
 		
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoadQuickReplies() throws InterruptedException {
+		
+		ChatClient chatClient = new ChatClientImpl("127.0.0.1", 8992);
+		chatClient.login("google@gmail.com", "welcome1", null);
+		List<QuickReply> qrs = chatClient.loadQuickReply(1);
+		assertEquals(2, qrs.size());
+		
+	}
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testUpdateQuickReply() throws InterruptedException {
+		
+		ChatClient chatClient = new ChatClientImpl("127.0.0.1", 8992);
+		chatClient.login("google@gmail.com", "welcome1", null);
+		QuickReply quickReply = new QuickReply();
+		quickReply.setUuid(1L);
+		quickReply.setMessage("XXXXX");
+		chatClient.updateQuickReply(1L, quickReply);
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testDeleteQuickReply() throws InterruptedException {
+		
+		ChatClient chatClient = new ChatClientImpl("127.0.0.1", 8992);
+		chatClient.login("google@gmail.com", "welcome1", null);
+		QuickReply quickReply = new QuickReply();
+		quickReply.setUuid(1L);
+		quickReply.setMessage("XXXXX");
+		chatClient.deleteReply(1L, quickReply);
 	}
 
 }
