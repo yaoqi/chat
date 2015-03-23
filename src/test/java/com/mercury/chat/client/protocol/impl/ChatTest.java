@@ -1,8 +1,8 @@
 package com.mercury.chat.client.protocol.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.security.cert.CertificateException;
 import java.util.List;
@@ -18,8 +18,10 @@ import org.junit.rules.TestRule;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
+import com.mercury.chat.client.ChatClient;
 import com.mercury.chat.client.Connection;
 import com.mercury.chat.client.Session;
+import com.mercury.chat.client.impl.ChatClientImpl;
 import com.mercury.chat.client.protocol.SecureChatClient;
 import com.mercury.chat.common.MessageListener;
 import com.mercury.chat.common.MessageType;
@@ -30,6 +32,7 @@ import com.mercury.chat.common.test.DbType;
 import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.common.util.Messages;
 import com.mercury.chat.server.protocol.SecureChatServer;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.User;
 
 public class ChatTest{
@@ -140,36 +143,11 @@ public class ChatTest{
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testGetHisMessage() throws InterruptedException {
-		Connection connection = SecureChatClient.connect("127.0.0.1", 8992);
-		assertNotNull(connection);
-		Session session = connection.login("google@gmail.com", "welcome1");
-		assertNotNull(session);
 		
-		Connection connection2 = SecureChatClient.connect("127.0.0.1", 8992);
-		assertNotNull(connection2);
-		Session session2 = connection2.login("baidu@baidu.com", "welcome1");
-		assertNotNull(session2);
-		
-		final CountDownLatch cdl = new CountDownLatch(1);
-		
-		final List<Message> msgs = Lists.newArrayList();
-		
-		MessageListener messageListener = new MessageListener(){
-			@Override
-			public void onMessage(Message message) {
-				msgs.add(message);
-				cdl.countDown();
-			}
-		};
-		
-		session2.addMessageListener(MessageType.CHAT, messageListener );
-		
-		Message message = Messages.buildMessage(MessageType.CHAT, "Hello baidu.");
-		session.sendMessage("baidu@baidu.com", message );
-		
-		cdl.await();
-		
-		assertEquals("Hello baidu.", msgs.get(0).getBody());
+		ChatClient chatClient = new ChatClientImpl("127.0.0.1", 8992);
+		chatClient.login("google@gmail.com", "welcome1", null);
+		List<ChatMessage> chatMsgs = chatClient.loadHisChatMessage(1l, "baidu@baidu.com", 0, 5);
+		assertEquals(5, chatMsgs.size());
 		
 	}
 

@@ -28,7 +28,6 @@ public abstract class SimpleMessageHandler extends SimpleLinstenbleHandler imple
     }
 	
     protected void onMessage(ChannelHandlerContext ctx, Message msg){
-    	
     }
 
 }

@@ -1,7 +1,6 @@
 package com.mercury.chat.server.protocol;
 
 import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
-import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -16,7 +15,7 @@ import com.mercury.chat.user.service.UserService;
 
 public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Message> {
 
-	 static final Logger logger = LogManager.getLogger(UserListHandler.class);
+	 static final Logger logger = LogManager.getLogger(HistoricalMessageHandler.class);
 	
 	 private final UserService userService;
 	 
@@ -32,8 +31,7 @@ public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Messag
 
 			HisMsgRequest request = (HisMsgRequest) msg.getBody();
 			IMessage chatMessage = userService.select(request.getUserId(), request.getShopId(), request.getOffset(), request.getBatchSize());
-			
-			ctx.writeAndFlush(buildMessage(HISTORICAL_MESSAGE, chatMessage));
+			ctx.writeAndFlush(chatMessage);
 		} else
 		    ctx.fireChannelRead(msg);
     }
