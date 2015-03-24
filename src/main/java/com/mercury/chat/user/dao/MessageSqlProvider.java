@@ -13,12 +13,14 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.mercury.chat.user.entity.ChatMessage;
-import com.mercury.chat.user.entity.MessageTemplate.Criteria;
-import com.mercury.chat.user.entity.MessageTemplate.Criterion;
-import com.mercury.chat.user.entity.MessageTemplate;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
+
+import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.MessageTemplate;
+import com.mercury.chat.user.entity.MessageTemplate.Criteria;
+import com.mercury.chat.user.entity.MessageTemplate.Criterion;
 
 public class MessageSqlProvider {
 
@@ -67,6 +69,20 @@ public class MessageSqlProvider {
         
         return SQL();
     }
+    
+   public String insertAll(Map<String,List<ChatMessage>> map) {      
+       List<ChatMessage> users = map.get("list");   
+       StringBuilder sb = new StringBuilder();   
+       sb.append("INSERT INTO MESSAGE (CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) VALUES");   
+       MessageFormat messageFormat = new MessageFormat("(#'{'list[{0}].chatFrom},#'{'list[{0}].chatTo},#'{'list[{0}].shopId},#'{'list[{0}].message})");   
+       for(int i = 0 ;i<users.size();i++) {   
+           sb.append(messageFormat.format(new Object[]{i}));   
+           if (i < users.size() - 1) {     
+               sb.append(",");      
+           }   
+       }  
+       return sb.toString();   
+   } 
 
     public String selectByExampleWithBLOBs(MessageTemplate example) {
         BEGIN();

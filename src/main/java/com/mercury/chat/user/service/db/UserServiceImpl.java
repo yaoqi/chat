@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.mercury.chat.common.OrderSummary;
 import com.mercury.chat.common.ProductSummary;
 import com.mercury.chat.common.struct.IMessage;
@@ -53,10 +54,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int store(List<IMessage> messages) {
+		List<ChatMessage> msgs = Lists.newArrayList();
 		for(IMessage message : messages){
-			messageMapper.insert(message.convert());
+			msgs.add(message.convert());
 		}
-		return messages.size();
+		return messageMapper.insertAll(msgs);
 	}
 
 	@Override

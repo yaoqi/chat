@@ -54,7 +54,7 @@ public final class Message implements IMessage{
 	@Override
 	public ChatMessage convert() {
 		ChatMessage message = new ChatMessage();
-		message.from(getFrom()).to(getTo()).message((String)getBody());
+		message.from(getFrom()).to(getTo()).message((String)getBody()).shopId((Long)header.attachment().get("shopId"));
 		return message;
 	}
 }

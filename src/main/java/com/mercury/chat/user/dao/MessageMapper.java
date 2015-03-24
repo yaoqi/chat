@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -59,6 +60,10 @@ public interface MessageMapper {
         "#{message,jdbcType=CLOB})"
     })
     int insert(ChatMessage record);
+    
+    @InsertProvider(type=MessageSqlProvider.class,method="insertAll")
+    @Options
+    int insertAll(List<ChatMessage> messages);
     
     @SelectProvider(type=MessageSqlProvider.class, method="selectByExample")
     @Results({

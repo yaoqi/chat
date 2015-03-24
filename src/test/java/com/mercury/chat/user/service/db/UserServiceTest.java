@@ -59,11 +59,23 @@ public class UserServiceTest {
 		header.type(MessageType.CHAT.value());
 		header.setFrom("google@google.com");
 		header.setTo("baidu@baidu.com");
+		header.attachment().put("shopId", 1l);
 		msg.setHeader(header);
 		msg.setBody("Hello, baidu");
 		messages.add(msg);
+		msg = new Message();
+		header = new Header();
+		header.type(MessageType.CHAT.value());
+		header.setFrom("google@google.com");
+		header.setTo("baidu@baidu.com");
+		msg.setHeader(header);
+		msg.setBody("Hello, baidu 111");
+		header.attachment().put("shopId", 1l);
+		messages.add(msg);
 		int count = userService.store(messages);
-		assertEquals(1, count);
+		assertEquals(2, count);
+		IMessage msgs = userService.select("google@google.com", 1L, 0, 2);
+		assertEquals(2, ((List<ChatMessage>)msgs.getBody()).size());
 	}
 	
 	@Test
