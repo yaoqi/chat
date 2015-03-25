@@ -107,5 +107,11 @@ public class UserServiceImpl  implements UserService {
 	public void deleteReply(long saleId, QuickReply quickReply) {
 		
 	}
+
+	@Override
+	public User getUser(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

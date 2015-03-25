@@ -5,7 +5,11 @@ import static com.mercury.chat.common.util.Messages.buildMessage;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +28,7 @@ import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.service.UserService;
 
 @Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional(propagation=Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
@@ -35,6 +40,22 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private QuickReplyMapper quickReplyMapper;
+	
+	private static class SingletonHolder {
+		private static UserServiceImpl INSTANCE = null;
+	}
+
+	public UserServiceImpl() {
+	}
+
+	public static final UserServiceImpl getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
+	
+	@PostConstruct
+	private void init(){
+		SingletonHolder.INSTANCE = this;
+	}
 	
 	@Override
 	public boolean login(String userId, String passWord) {
@@ -90,6 +111,12 @@ public class UserServiceImpl implements UserService {
 		QuickReplyTemplate example = new QuickReplyTemplate();
 		example.createCriteria().andSaleidEqualTo(saleId).andUuidEqualTo(quickReply.getUuid());
 		quickReplyMapper.deleteByExample(example);
+	}
+
+	@Override
+	public User getUser(String userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
