@@ -12,9 +12,8 @@ public class ProductRequest implements Serializable {
 	
 	private long productId;
 
-	public ProductRequest(byte operation, long productId) {
+	public ProductRequest(long productId) {
 		super();
-		this.setOperation(operation);
 		this.setProductId(productId);
 	}
 

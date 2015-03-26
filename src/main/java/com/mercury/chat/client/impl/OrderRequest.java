@@ -12,7 +12,7 @@ public class OrderRequest implements Serializable {
 	
 	private long orderId;
 
-	public OrderRequest(byte operation, long orderId) {
+	public OrderRequest(long orderId) {
 		super();
 		this.setOperation(operation);
 		this.setOrderId(orderId);

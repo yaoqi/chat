@@ -181,13 +181,35 @@ public class ChatClientImpl implements ChatClient {
 	@Override
 	public ProductSummary loadProductSummary(long productId) {
 		validate();
-		return null;
+		checkAllNotNull(productId);
+		try {
+			ProductRequest request = new ProductRequest(productId);
+			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
+			MessageBox messageBox = channel.pipeline().get(CommonCRUDHandler.class).messageBox();
+			Message responseMsg = messageBox.get();
+			
+			ProductSummary product = (ProductSummary) responseMsg.getBody();
+			return product;
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
 	}
 
 	@Override
 	public OrderSummary loadOrderSummary(long orderId) {
 		validate();
-		return null;
+		checkAllNotNull(orderId);
+		try {
+			OrderRequest request = new OrderRequest(orderId);
+			channel.writeAndFlush(buildMessage(CRUD, request)).sync();
+			MessageBox messageBox = channel.pipeline().get(CommonCRUDHandler.class).messageBox();
+			Message responseMsg = messageBox.get();
+			
+			OrderSummary order = (OrderSummary) responseMsg.getBody();
+			return order;
+		} catch (InterruptedException e) {
+			throw new ChatException(e);
+		}
 	}
 
 	private void validate() {
