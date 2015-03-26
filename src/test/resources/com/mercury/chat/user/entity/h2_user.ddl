@@ -7,6 +7,12 @@ drop table if exists CHAT.MESSAGE;
 
 drop table if exists CHAT.QUICK_REPLY;
 
+drop table if exists CHAT.PRODUCT_SUMMARY;
+
+drop table if exists CHAT.ORDER_SUMMARY;
+
+drop table if exists CHAT.ORDER_ITEM;
+
 /*==============================================================*/
 /* Table: USER                                                */
 /*==============================================================*/
@@ -35,7 +41,7 @@ CREATE TABLE CHAT.MESSAGE
 );
 
 /*==============================================================*/
-/* Table: QUICK_REPLY                                                */
+/* Table: QUICK_REPLY                                           */
 /*==============================================================*/
 CREATE TABLE CHAT.QUICK_REPLY
 (
@@ -45,3 +51,40 @@ CREATE TABLE CHAT.QUICK_REPLY
    PRIMARY KEY (UUID)
 );
 
+/*==============================================================*/
+/* Table: PRODUCT_SUMMARY	                                    */
+/*==============================================================*/
+CREATE TABLE CHAT.PRODUCT_SUMMARY
+(
+   PRODUCT_ID         		BIGINT IDENTITY NOT NULL,
+   PRODUCT_CODE            	VARCHAR(12),
+   SUMMARY      			VARCHAR(64),
+   PRIMARY KEY (product_id)
+);
+
+/*==============================================================*/
+/* Table: ORDER_SUMMARY	                                        */
+/*==============================================================*/
+CREATE TABLE CHAT.ORDER_SUMMARY
+(
+   ORDER_ID         		BIGINT IDENTITY NOT NULL,
+   SUMMARY      			VARCHAR(64),
+   PRIMARY KEY (ORDER_ID)
+);
+
+/*==============================================================*/
+/* Table: ORDER_ITEM	                                        */
+/*==============================================================*/
+CREATE TABLE CHAT.ORDER_ITEM
+(
+   ITEM_ID					BIGINT IDENTITY NOT NULL,
+   ORDER_ID         		BIGINT NOT NULL,
+   PRODUCT_ID      			BIGINT NOT NULL,
+   PRIMARY KEY (ITEM_ID)
+);
+
+alter table CHAT.ORDER_ITEM add constraint FK_ORDER_ID foreign key (ORDER_ID)
+      references CHAT.ORDER_SUMMARY (ORDER_ID) on delete restrict on update restrict;
+
+alter table CHAT.ORDER_ITEM add constraint FK_PRODUCT_ID foreign key (PRODUCT_ID)
+      references CHAT.PRODUCT_SUMMARY (PRODUCT_ID) on delete restrict on update restrict;
