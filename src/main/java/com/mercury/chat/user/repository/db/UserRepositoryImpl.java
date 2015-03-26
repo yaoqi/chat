@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
-import com.mercury.chat.common.OrderSummary;
-import com.mercury.chat.common.ProductSummary;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.dao.MessageMapper;
 import com.mercury.chat.user.dao.QuickReplyMapper;
 import com.mercury.chat.user.dao.UserMapper;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.OrderSummary;
+import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.QuickReplyTemplate;
 import com.mercury.chat.user.entity.User;

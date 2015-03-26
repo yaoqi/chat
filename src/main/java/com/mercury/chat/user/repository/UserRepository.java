@@ -2,9 +2,9 @@ package com.mercury.chat.user.repository;
 
 import java.util.List;
 
-import com.mercury.chat.common.OrderSummary;
-import com.mercury.chat.common.ProductSummary;
 import com.mercury.chat.common.struct.IMessage;
+import com.mercury.chat.user.entity.OrderSummary;
+import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 

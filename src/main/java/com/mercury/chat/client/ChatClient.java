@@ -5,11 +5,11 @@ import java.util.Properties;
 
 import com.mercury.chat.common.ConnectionListener;
 import com.mercury.chat.common.MessageListener;
-import com.mercury.chat.common.OrderSummary;
-import com.mercury.chat.common.ProductSummary;
 import com.mercury.chat.common.exception.ChatException;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.OrderSummary;
+import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
 
 
