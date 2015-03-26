@@ -21,6 +21,8 @@ import com.mercury.chat.common.test.DataPrepare2;
 import com.mercury.chat.common.test.DbType;
 import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.user.entity.ChatMessage;
+import com.mercury.chat.user.entity.OrderSummary;
+import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
@@ -110,6 +112,20 @@ public class UserServiceTest {
 		quickReply.setUuid(1L);
 		quickReply.setMessage("XXXXX");
 		userService.deleteReply(1, quickReply);
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoadProductSummary(){
+		ProductSummary product = userService.loadProductSummary(1L);
+		assertNotNull(product);
+	}
+	
+	@Test
+	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
+	public void testLoadOrderSummary(){
+		OrderSummary order = userService.loadOrderSummary(1L);
+		assertEquals(2,order.getProducts().size());
 	}
 	
 }

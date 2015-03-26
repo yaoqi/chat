@@ -36,7 +36,7 @@ public interface OrderSummaryMapper {
     
     @Select({
         "select",
-        "PRODUCT_ID, PRODUCT_CODE, SUMMARY",
+        "PRODUCT_SUMMARY.PRODUCT_ID, PRODUCT_SUMMARY.PRODUCT_CODE, PRODUCT_SUMMARY.SUMMARY",
         "from PRODUCT_SUMMARY join ORDER_ITEM on PRODUCT_SUMMARY.PRODUCT_ID = ORDER_ITEM.PRODUCT_ID",
         "where ORDER_ITEM.ORDER_ID = #{orderId,jdbcType=BIGINT}"
     })
