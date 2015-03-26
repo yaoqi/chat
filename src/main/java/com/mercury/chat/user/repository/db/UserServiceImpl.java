@@ -115,8 +115,7 @@ public class UserServiceImpl implements UserRepository {
 
 	@Override
 	public User getUser(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userMapper.findByUserId(userId);
 	}
 
 }
