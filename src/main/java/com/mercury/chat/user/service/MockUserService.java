@@ -8,7 +8,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 
-public class MockUserService implements UserService {
+public class MockUserService implements UserRepository {
 
 	private static class SingletonHolder {
 		private static final MockUserService INSTANCE = new MockUserService();

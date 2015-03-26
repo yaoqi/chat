@@ -34,13 +34,13 @@ import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 
-	private final UserService userService;
+	private final UserRepository userService;
 	
-	public LoginAuthHandler(UserService userService){
+	public LoginAuthHandler(UserRepository userService){
 		this.userService = userService;
 	}
 	

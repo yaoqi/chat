@@ -8,7 +8,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 
-public interface UserService {
+public interface UserRepository {
 	
 	boolean login(String userId, String passWord);
 	

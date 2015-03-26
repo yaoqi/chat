@@ -23,7 +23,7 @@ import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 public class UserServiceTest {
 	
@@ -33,7 +33,7 @@ public class UserServiceTest {
 	public TestRule rule = new TestRuleImpl2(locations, this);
 	
 	@Autowired
-	private UserService userService;
+	private UserRepository userService;
 
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})

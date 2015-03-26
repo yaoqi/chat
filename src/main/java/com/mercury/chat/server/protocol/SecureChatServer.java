@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.mercury.chat.common.exception.ChatException;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -36,7 +36,7 @@ public final class SecureChatServer extends Thread{
     
     //inject the user service then pass this instance to handler?
 	@Autowired
-	private UserService userService; 
+	private UserRepository userService; 
 	
 	private volatile Channel channel;
     

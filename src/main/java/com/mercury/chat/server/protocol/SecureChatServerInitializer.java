@@ -10,7 +10,7 @@ import com.mercury.chat.server.protocol.CommonCRUDHandler;
 import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 /**
  * Creates a newly configured {@link ChannelPipeline} for a new channel.
@@ -19,9 +19,9 @@ public class SecureChatServerInitializer extends ChannelInitializer<SocketChanne
 
     private final SslContext sslCtx;
     
-    private final UserService userService;
+    private final UserRepository userService;
 
-    public SecureChatServerInitializer(SslContext sslCtx, UserService userService) {
+    public SecureChatServerInitializer(SslContext sslCtx, UserRepository userService) {
         this.sslCtx = sslCtx;
         this.userService = userService;
     }

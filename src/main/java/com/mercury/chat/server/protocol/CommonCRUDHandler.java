@@ -16,15 +16,15 @@ import com.mercury.chat.client.impl.QuickReplyRequest;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.Operation;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 public class CommonCRUDHandler extends SimpleChannelInboundHandler<Message> {
 
 	static final Logger logger = LogManager.getLogger(CommonCRUDHandler.class);
 	
-	private final UserService userService;
+	private final UserRepository userService;
 	
-	public CommonCRUDHandler(UserService userService){
+	public CommonCRUDHandler(UserRepository userService){
 		this.userService = userService;
 	}
 	

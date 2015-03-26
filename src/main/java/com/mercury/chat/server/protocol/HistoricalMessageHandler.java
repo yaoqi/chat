@@ -16,15 +16,15 @@ import com.mercury.chat.client.impl.HisMsgRequest;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
 public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Message> {
 
 	 static final Logger logger = LogManager.getLogger(HistoricalMessageHandler.class);
 	
-	 private final UserService userService;
+	 private final UserRepository userService;
 	 
-	 public HistoricalMessageHandler(UserService userService){
+	 public HistoricalMessageHandler(UserRepository userService){
 		 this.userService = userService;
 	 }
 	

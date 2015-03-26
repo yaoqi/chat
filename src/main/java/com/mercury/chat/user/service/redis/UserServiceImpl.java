@@ -17,9 +17,9 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserService;
+import com.mercury.chat.user.service.UserRepository;
 
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl  implements UserRepository {
 
 	private static class SingletonHolder {
 		private static final UserServiceImpl INSTANCE = new UserServiceImpl();
