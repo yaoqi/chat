@@ -1,4 +1,4 @@
-package com.mercury.chat.user.service.redis;
+package com.mercury.chat.user.repository.redis;
 
 import java.util.Date;
 import java.util.List;
