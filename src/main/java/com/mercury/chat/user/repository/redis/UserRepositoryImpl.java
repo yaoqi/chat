@@ -19,16 +19,16 @@ import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
 
-public class UserServiceImpl  implements UserRepository {
+public class UserRepositoryImpl  implements UserRepository {
 
 	private static class SingletonHolder {
-		private static final UserServiceImpl INSTANCE = new UserServiceImpl();
+		private static final UserRepositoryImpl INSTANCE = new UserRepositoryImpl();
 	}
 
-	private UserServiceImpl() {
+	private UserRepositoryImpl() {
 	}
 
-	public static final UserServiceImpl getInstance() {
+	public static final UserRepositoryImpl getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 	

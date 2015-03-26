@@ -30,7 +30,7 @@ import com.mercury.chat.user.repository.UserRepository;
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional(propagation=Propagation.REQUIRED)
-public class UserServiceImpl implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -42,13 +42,13 @@ public class UserServiceImpl implements UserRepository {
 	private QuickReplyMapper quickReplyMapper;
 	
 	private static class SingletonHolder {
-		private static UserServiceImpl INSTANCE = null;
+		private static UserRepositoryImpl INSTANCE = null;
 	}
 
-	public UserServiceImpl() {
+	public UserRepositoryImpl() {
 	}
 
-	public static final UserServiceImpl getInstance() {
+	public static final UserRepositoryImpl getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 	

@@ -16,7 +16,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.repository.UserRepository;
-import com.mercury.chat.user.repository.redis.UserServiceImpl;
+import com.mercury.chat.user.repository.redis.UserRepositoryImpl;
 
 
 @Ignore //ignore these test cases based on redis
@@ -25,14 +25,14 @@ public class UserServiceTest {
 	
 	@Test
 	public void testLoginSuccessfully(){
-		UserRepository userService = UserServiceImpl.getInstance();
+		UserRepository userService = UserRepositoryImpl.getInstance();
 		boolean login = userService.login("google@google.com", "welcome1");
 		assertTrue(login);
 	}
 	
 	@Test
 	public void testLoginFailed(){
-		UserRepository userService = UserServiceImpl.getInstance();
+		UserRepository userService = UserRepositoryImpl.getInstance();
 		boolean login = userService.login("baidu@baidu.com", "pwd");
 		assertFalse(login);
 	}
@@ -40,7 +40,7 @@ public class UserServiceTest {
 
 	@Test
 	public void testStoreMessage(){
-		UserRepository userService = UserServiceImpl.getInstance();
+		UserRepository userService = UserRepositoryImpl.getInstance();
 		List<IMessage> messages = Lists.newArrayList();
 		Message msg = new Message();
 		Header header = new Header();
@@ -56,7 +56,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void testFindMessage(){
-		UserRepository userService = UserServiceImpl.getInstance();
+		UserRepository userService = UserRepositoryImpl.getInstance();
 		String userId = null;
 		Long shopId = null;
 		int offset = 0;
