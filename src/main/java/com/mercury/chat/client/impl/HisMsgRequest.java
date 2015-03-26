@@ -2,11 +2,15 @@ package com.mercury.chat.client.impl;
 
 import java.io.Serializable;
 
+import com.mercury.chat.common.constant.Operation;
+
 
 public class HisMsgRequest implements Serializable{
 	
 	private static final long serialVersionUID = 8546783381574079889L;
 
+	private byte operation = Operation.LOAD.value();
+	
 	private String userId;
 	
 	private Long shopId; 
@@ -66,6 +70,14 @@ public class HisMsgRequest implements Serializable{
 	}
 	public void setBatchSize(int batchSize) {
 		this.batchSize = batchSize;
+	}
+
+	public byte getOperation() {
+		return operation;
+	}
+
+	public void setOperation(byte operation) {
+		this.operation = operation;
 	}
 	
 	
