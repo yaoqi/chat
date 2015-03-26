@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.dao.MessageMapper;
+import com.mercury.chat.user.dao.OrderSummaryMapper;
+import com.mercury.chat.user.dao.ProductSummaryMapper;
 import com.mercury.chat.user.dao.QuickReplyMapper;
 import com.mercury.chat.user.dao.UserMapper;
 import com.mercury.chat.user.entity.ChatMessage;
@@ -40,6 +42,12 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Autowired
 	private QuickReplyMapper quickReplyMapper;
+	
+	@Autowired
+	private ProductSummaryMapper productSummaryMapper;
+	
+	@Autowired
+	private OrderSummaryMapper orderSummaryMapper;
 	
 	private static class SingletonHolder {
 		private static UserRepositoryImpl INSTANCE = null;
@@ -84,12 +92,12 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public ProductSummary loadProductSummary(long productId) {
-		return null;
+		return productSummaryMapper.selectByPrimaryKey(productId);
 	}
 
 	@Override
 	public OrderSummary loadOrderSummary(long orderId) {
-		return null;
+		return orderSummaryMapper.selectByPrimaryKey(orderId);
 	}
 
 	@Override
