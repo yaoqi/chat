@@ -1,13 +1,17 @@
 package com.mercury.chat.user.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 public class OrderSummary implements Serializable {
-    private Long orderId;
+    
+	private static final long serialVersionUID = 6693515415901867189L;
+
+	private Long orderId;
 
     private String summary;
 
-    private static final long serialVersionUID = 1L;
+    private Collection<ProductSummary> products;
 
     public Long getOrderId() {
         return orderId;
@@ -25,7 +29,15 @@ public class OrderSummary implements Serializable {
         this.summary = summary;
     }
 
-    @Override
+    public Collection<ProductSummary> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Collection<ProductSummary> products) {
+		this.products = products;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
