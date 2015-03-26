@@ -10,7 +10,7 @@ import com.mercury.chat.server.protocol.CommonCRUDHandler;
 import com.mercury.chat.common.ReadTimeoutHandler;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 /**
  * Creates a newly configured {@link ChannelPipeline} for a new channel.

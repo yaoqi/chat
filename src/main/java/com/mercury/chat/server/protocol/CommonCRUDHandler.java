@@ -16,7 +16,7 @@ import com.mercury.chat.client.impl.QuickReplyRequest;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.Operation;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 public class CommonCRUDHandler extends SimpleChannelInboundHandler<Message> {
 

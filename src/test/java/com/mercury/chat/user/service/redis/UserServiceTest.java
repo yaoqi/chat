@@ -15,7 +15,7 @@ import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 import com.mercury.chat.user.service.redis.UserServiceImpl;
 
 

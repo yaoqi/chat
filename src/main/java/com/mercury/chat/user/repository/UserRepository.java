@@ -1,4 +1,4 @@
-package com.mercury.chat.user.service;
+package com.mercury.chat.user.repository;
 
 import java.util.List;
 

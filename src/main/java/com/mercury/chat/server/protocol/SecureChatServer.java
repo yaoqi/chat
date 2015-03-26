@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.mercury.chat.common.exception.ChatException;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;

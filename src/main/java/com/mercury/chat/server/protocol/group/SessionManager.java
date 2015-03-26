@@ -7,7 +7,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 public class SessionManager {
 	

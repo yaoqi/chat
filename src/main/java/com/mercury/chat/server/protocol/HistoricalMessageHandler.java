@@ -16,7 +16,7 @@ import com.mercury.chat.client.impl.HisMsgRequest;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 public class HistoricalMessageHandler extends SimpleChannelInboundHandler<Message> {
 

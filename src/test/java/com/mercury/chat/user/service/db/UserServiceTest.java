@@ -23,7 +23,7 @@ import com.mercury.chat.common.test.TestRuleImpl2;
 import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 public class UserServiceTest {
 	

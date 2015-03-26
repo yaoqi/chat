@@ -17,7 +17,7 @@ import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 public class UserServiceImpl  implements UserRepository {
 

@@ -25,7 +25,7 @@ import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.QuickReply;
 import com.mercury.chat.user.entity.QuickReplyTemplate;
 import com.mercury.chat.user.entity.User;
-import com.mercury.chat.user.service.UserRepository;
+import com.mercury.chat.user.repository.UserRepository;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
