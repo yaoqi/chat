@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mercury.chat.client.impl.OrderRequest;
+import com.mercury.chat.client.impl.ProductRequest;
 import com.mercury.chat.client.impl.QuickReplyRequest;
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.Operation;
@@ -60,6 +62,13 @@ public class CommonCRUDHandler extends SimpleChannelInboundHandler<Message> {
 				}
 			}else{
 				//add other handler logic.
+				if(request instanceof ProductRequest){
+					ProductRequest productRequest = (ProductRequest) request;
+					response = userService.loadProductSummary(productRequest.getProductId());
+				}else if(request instanceof OrderRequest){
+					OrderRequest orderRequest = (OrderRequest) request;
+					response = userService.loadOrderSummary(orderRequest.getOrderId());
+				}
 			}
 			
 		    //FIXME the find logic need to be implemented.
