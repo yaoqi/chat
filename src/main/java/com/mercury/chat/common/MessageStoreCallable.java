@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import com.mercury.chat.common.struct.IMessage;
-import com.mercury.chat.user.repository.MockUserRepository;
 import com.mercury.chat.user.repository.UserRepository;
+import com.mercury.chat.user.repository.db.UserRepositoryImpl;
 
 public class MessageStoreCallable implements Callable<Integer>{
 	
@@ -18,7 +18,7 @@ public class MessageStoreCallable implements Callable<Integer>{
 
 	@Override
 	public Integer call() throws Exception {
-		UserRepository userService = MockUserRepository.getInstance();
+		UserRepository userService = UserRepositoryImpl.getInstance();
 		return userService.store(messages);
 	}
 

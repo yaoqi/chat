@@ -50,7 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private OrderSummaryMapper orderSummaryMapper;
 	
 	private static class SingletonHolder {
-		private static UserRepositoryImpl INSTANCE = null;
+		private volatile static UserRepositoryImpl INSTANCE = null;
 	}
 
 	public UserRepositoryImpl() {

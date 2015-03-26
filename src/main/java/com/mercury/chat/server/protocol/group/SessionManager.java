@@ -8,6 +8,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
+import com.mercury.chat.user.repository.db.UserRepositoryImpl;
 
 public class SessionManager {
 	
@@ -22,7 +23,7 @@ public class SessionManager {
 			.build(new CacheLoader<String,User>(){
 				@Override
 				public User load(String userId) throws Exception {
-					UserRepository userService = null;
+					UserRepository userService = UserRepositoryImpl.getInstance();
 					return userService.getUser(userId);
 				}
 			});
