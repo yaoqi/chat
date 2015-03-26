@@ -18,7 +18,7 @@
         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<import resource="classpath:test-jdbc-context.xml"/>
 	<aop:aspectj-autoproxy />
-	<context:component-scan base-package="com.mercury.chat.user.service"></context:component-scan>
+	<context:component-scan base-package="com.mercury.chat.user.repository"></context:component-scan>
 	<context:component-scan base-package="com.mercury.chat.server.protocol"></context:component-scan>
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
     
@@ -40,6 +40,6 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
-	<bean id="jedisPoolUtils" class="com.mercury.chat.user.service.redis.JedisPoolUtils"/>
+	<bean id="jedisPoolUtils" class="com.mercury.chat.user.repository.redis.JedisPoolUtils"/>
 	
 </beans>
