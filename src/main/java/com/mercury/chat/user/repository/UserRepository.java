@@ -10,7 +10,7 @@ import com.mercury.chat.user.entity.User;
 
 public interface UserRepository {
 	
-	boolean login(String userId, String passWord);
+	User login(String userId, String passWord);
 	
 	List<User> getUserList(String userId);
 	

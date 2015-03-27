@@ -53,7 +53,7 @@ public class UserSqlProvider {
             VALUES("PASSWORD", "#{password,jdbcType=VARCHAR}");
         }
         
-        if (record.getSales() != null) {
+        if (record.isSales() != null) {
             VALUES("SALES", "#{sales,jdbcType=BOOLEAN}");
         }
         
@@ -104,7 +104,7 @@ public class UserSqlProvider {
             SET("PASSWORD = #{record.password,jdbcType=VARCHAR}");
         }
         
-        if (record.getSales() != null) {
+        if (record.isSales() != null) {
             SET("SALES = #{record.sales,jdbcType=BOOLEAN}");
         }
         
@@ -143,7 +143,7 @@ public class UserSqlProvider {
             SET("PASSWORD = #{password,jdbcType=VARCHAR}");
         }
         
-        if (record.getSales() != null) {
+        if (record.isSales() != null) {
             SET("SALES = #{sales,jdbcType=BOOLEAN}");
         }
         

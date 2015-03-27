@@ -66,8 +66,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
-	public boolean login(String userId, String passWord) {
-		return userMapper.select(userId, passWord) != null;
+	public User login(String userId, String passWord) {
+		return userMapper.select(userId, passWord);
 	}
 
 	@Override

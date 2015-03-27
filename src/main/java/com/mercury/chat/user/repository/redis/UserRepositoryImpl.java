@@ -62,16 +62,16 @@ public class UserRepositoryImpl  implements UserRepository {
 		return messages.size();
 	}
 
-	public boolean login(String userName, String passWord) {
+	public User login(String userName, String passWord) {
 		Jedis jedis = JedisPoolUtils.getJedis();
 		Boolean hexists = jedis.hexists("user", userName);
 		if(!hexists){
 			//user not existed.
-			return false;
+			return null;
 		}
 		String pwd = jedis.hget("user", userName);
 		//check whether password is wrong or not
-		return StringUtils.equals(passWord, pwd);
+		return null;
 	}
 
 	public List<User> getUserList(String userId) {

@@ -40,15 +40,15 @@ public class UserServiceTest {
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testLoginSuccessfully(){
-		boolean login = userService.login("google@gmail.com", "welcome1");
-		assertTrue(login);
+		User login = userService.login("google@gmail.com", "welcome1");
+		assertTrue(login!=null);
 	}
 	
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testLoginFailed(){
-		boolean login = userService.login("baidu@baidu.com", "pwd");
-		assertFalse(login);
+		User login = userService.login("baidu@baidu.com", "pwd");
+		assertFalse(login!=null);
 	}
 	
 

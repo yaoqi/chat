@@ -15,6 +15,7 @@ import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
 import com.mercury.chat.user.repository.redis.UserRepositoryImpl;
 
@@ -26,15 +27,15 @@ public class UserServiceTest {
 	@Test
 	public void testLoginSuccessfully(){
 		UserRepository userService = UserRepositoryImpl.getInstance();
-		boolean login = userService.login("google@google.com", "welcome1");
-		assertTrue(login);
+		User login = userService.login("google@google.com", "welcome1");
+		assertTrue(login!=null);
 	}
 	
 	@Test
 	public void testLoginFailed(){
 		UserRepository userService = UserRepositoryImpl.getInstance();
-		boolean login = userService.login("baidu@baidu.com", "pwd");
-		assertFalse(login);
+		User login = userService.login("baidu@baidu.com", "pwd");
+		assertFalse(login!=null);
 	}
 	
 

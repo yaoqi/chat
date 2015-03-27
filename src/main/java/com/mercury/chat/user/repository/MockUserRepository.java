@@ -22,8 +22,8 @@ public class MockUserRepository implements UserRepository {
 	}
 	
 	@Override
-	public boolean login(String userId, String passWord) {
-		return true;
+	public User login(String userId, String passWord) {
+		return null;
 	}
 
 	@Override

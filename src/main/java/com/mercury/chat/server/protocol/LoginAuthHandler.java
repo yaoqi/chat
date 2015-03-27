@@ -87,7 +87,8 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 			User user = (User) msg.getBody();
 			StatusCode statusCode = null;
 			try {
-				if(userService.login(user.getUserId(), user.getPassword())){
+				User loginUser = userService.login(user.getUserId(), user.getPassword());
+				if (loginUser != null) {
 					ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
 		          	set(ctx.channel(), Constant.userInfo, user);
 		          	statusCode = OK;
