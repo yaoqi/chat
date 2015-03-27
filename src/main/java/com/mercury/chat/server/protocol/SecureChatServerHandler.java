@@ -47,12 +47,14 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 		ChannelMatcher matcher = new UserMatcher(header.getTo());
 		
 		User currentUser = get(ctx.channel(), Constant.userInfo);
+		long shopId;
 		if(currentUser.isSales()){
-			msg.getHeader().attachment().put("shopId", currentUser.getShopId());
+			shopId = currentUser.getShopId();
 		}else{
-			User targetUser = SessionManager.uerCache.get(header.getTo());
-			msg.getHeader().attachment().put("shopId", targetUser.getShopId());
+			shopId = SessionManager.uerCache.get(header.getTo()).getShopId();
 		}
+		msg.getHeader().attachment().put("shopId", shopId);
+		
 		channels.writeAndFlush(msg, matcher);
 		
 		//submit store message to thread pool.
