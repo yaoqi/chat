@@ -14,7 +14,7 @@ public class SessionManager {
 	
 	public static final ChannelGroup channels = new ChatChannelGroup(GlobalEventExecutor.INSTANCE);
 	
-	public LoadingCache<String,User> uerCache = CacheBuilder
+	public static final LoadingCache<String,User> uerCache = CacheBuilder
 			.newBuilder()
 			.concurrencyLevel(4)
 			.initialCapacity(8)

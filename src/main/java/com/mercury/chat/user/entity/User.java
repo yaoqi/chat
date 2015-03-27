@@ -44,7 +44,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Boolean getSales() {
+    public Boolean isSales() {
         return sales;
     }
 
@@ -81,7 +81,7 @@ public class User implements Serializable {
         return (this.getUuid() == null ? other.getUuid() == null : this.getUuid().equals(other.getUuid()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getSales() == null ? other.getSales() == null : this.getSales().equals(other.getSales()))
+            && (this.isSales() == null ? other.isSales() == null : this.isSales().equals(other.isSales()))
             && (this.getShopId() == null ? other.getShopId() == null : this.getShopId().equals(other.getShopId()));
     }
 
@@ -92,7 +92,7 @@ public class User implements Serializable {
         result = prime * result + ((getUuid() == null) ? 0 : getUuid().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
-        result = prime * result + ((getSales() == null) ? 0 : getSales().hashCode());
+        result = prime * result + ((isSales() == null) ? 0 : isSales().hashCode());
         result = prime * result + ((getShopId() == null) ? 0 : getShopId().hashCode());
         return result;
     }

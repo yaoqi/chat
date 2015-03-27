@@ -3,6 +3,7 @@ package com.mercury.chat.server.protocol;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.TaskExecutor.taskExecutor;
 import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
+import static com.mercury.chat.common.util.Channels.get;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Messages.buildMessage;
 import static com.mercury.chat.server.protocol.group.SessionManager.channels;
@@ -23,6 +24,8 @@ import com.mercury.chat.common.matcher.UserMatcher;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.server.protocol.group.SessionManager;
+import com.mercury.chat.user.entity.User;
 
 /**
  * Handles a server-side channel.
@@ -42,6 +45,14 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
     	//send message to target user
     	Header header = msg.getHeader();
 		ChannelMatcher matcher = new UserMatcher(header.getTo());
+		
+		User currentUser = get(ctx.channel(), Constant.userInfo);
+		if(currentUser.isSales()){
+			msg.getHeader().attachment().put("shopId", currentUser.getShopId());
+		}else{
+			User targetUser = SessionManager.uerCache.get(header.getTo());
+			msg.getHeader().attachment().put("shopId", targetUser.getShopId());
+		}
 		channels.writeAndFlush(msg, matcher);
 		
 		//submit store message to thread pool.
