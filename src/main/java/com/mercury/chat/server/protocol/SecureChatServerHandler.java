@@ -48,10 +48,17 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 		
 		User currentUser = get(ctx.channel(), Constant.userInfo);
 		long shopId;
+		
+		//如果是客服
 		if(currentUser.isSales()){
 			shopId = currentUser.getShopId();
+			//获取目标客户
+			String toUser = (String) header.attachment().get("toUser");
 		}else{
+		//如果代理客户端	
 			shopId = SessionManager.uerCache.get(header.getTo()).getShopId();
+			//获取来源客户
+			String fromUser = (String) header.attachment().get("fromUser");
 		}
 		msg.getHeader().attachment().put("shopId", shopId);
 		
