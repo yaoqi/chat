@@ -33,6 +33,7 @@ import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.server.protocol.group.SessionManager;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
 
@@ -89,6 +90,9 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 			try {
 				User loginUser = userService.login(user.getUserId(), user.getPassword());
 				if (loginUser != null) {
+					//put the login user into cache.
+					SessionManager.uerCache.put(user.getUserId(), loginUser);
+					
 					ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
 		          	set(ctx.channel(), Constant.userInfo, user);
 		          	statusCode = OK;
