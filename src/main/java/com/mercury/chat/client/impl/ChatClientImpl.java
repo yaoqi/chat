@@ -2,6 +2,7 @@ package com.mercury.chat.client.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.mercury.chat.client.resource.ResourceManager.getMessage;
 import static com.mercury.chat.common.MessageType.CHAT;
 import static com.mercury.chat.common.MessageType.CRUD;
 import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
@@ -15,12 +16,9 @@ import static com.mercury.chat.common.exception.ErrorCode.LOGINED;
 import static com.mercury.chat.common.exception.ErrorCode.NOT_CONNECTED;
 import static com.mercury.chat.common.exception.ErrorCode.NOT_LOGINED;
 import static com.mercury.chat.common.util.Channels.getListenbleHandler;
+import static com.mercury.chat.common.util.Channels.syncSendMessage;
 import static com.mercury.chat.common.util.Preconditions.checkAllNotNull;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import static com.mercury.chat.common.util.Channels.syncSendMessage;
-import static com.mercury.chat.client.resource.ResourceManager.getMessage;
 
 import java.util.List;
 import java.util.Properties;
@@ -31,7 +29,6 @@ import org.apache.logging.log4j.Logger;
 import com.mercury.chat.client.ChatClient;
 import com.mercury.chat.client.Connection;
 import com.mercury.chat.client.protocol.CommonCRUDHandler;
-import com.mercury.chat.client.protocol.ExceptionHandler;
 import com.mercury.chat.client.protocol.HistoricalMessageHandler;
 import com.mercury.chat.client.protocol.LoginAuthHandler;
 import com.mercury.chat.client.protocol.SecureChatClient;
@@ -60,10 +57,6 @@ public class ChatClientImpl implements ChatClient {
 
 	static final Logger logger = LogManager.getLogger(ChatClientImpl.class);
 	
-	private String host;
-	
-	private int port;
-	
 	private boolean connected = false;
 	
 	private Channel channel;
@@ -72,8 +65,6 @@ public class ChatClientImpl implements ChatClient {
 
 	public ChatClientImpl(String host, int port) {
 		super();
-		this.host = host;
-		this.port = port;
 		realClient = new SecureChatClient();
 		channel = realClient.connectInner(host, port);
 		connected = true;
