@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//www.mybatis.org//DTD Config 3.0//EN"
+    "C:\Users\b2c017\git\chatservice\src\main\resources\mybatis-3-config.dtd">
+    <!-- http://192.168.58.213/dtd/mybatis-3-config.dtd -->
+
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="REUSE" />
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+</configuration>
+

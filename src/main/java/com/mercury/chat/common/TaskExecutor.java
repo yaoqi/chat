@@ -4,24 +4,21 @@ import io.netty.channel.DefaultEventLoopGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 public class TaskExecutor {
 	
-	public final static ExecutorService taskExecutor = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("Task.Executor.Size", "50")));
+	private final static int taskExecutorSize = Integer.parseInt(System.getProperty("Task.Executor.Size", "50"));
 	
-	public final static EventExecutorGroup businessGroup = new DefaultEventLoopGroup(50, Executors.newFixedThreadPool(50));
+	private final static int businessGroupSize = Integer.parseInt(System.getProperty("Biz.Group.Size", "50"));
 	
-	private static class SingletonHolder {
-		private static final TaskExecutor INSTANCE = new TaskExecutor();
-	}
-
-	private TaskExecutor() {
-	}
-
-	public static final TaskExecutor getInstance() {
-		return SingletonHolder.INSTANCE;
-	}
+	public final static ExecutorService taskExecutor = new ThreadPoolExecutor(taskExecutorSize/4, taskExecutorSize, 60L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
+	
+	public final static ExecutorService businessGroupExecutor = new ThreadPoolExecutor(businessGroupSize/4, businessGroupSize, 60L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
+	
+	public final static EventExecutorGroup businessGroup = new DefaultEventLoopGroup(businessGroupSize, businessGroupExecutor);
 	
 }

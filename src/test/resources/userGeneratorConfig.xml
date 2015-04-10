@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="C:\Users\b2c017\.m2\repository\com\h2database\h2\1.4.185\h2-1.4.185.jar" />
+	<classPathEntry location="C:\Users\klsajcmdlka\.m2\repository\com\h2database\h2\1.4.185\h2-1.4.185.jar" />
 	<context id="context1" targetRuntime="MyBatis3">
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />  
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />  
@@ -23,6 +23,9 @@
 		
 		<table  tableName="USER" domainObjectName="User" ></table>
 		<table  tableName="MESSAGE" domainObjectName="Message" ></table>
-
+		<table  tableName="QUICK_REPLY" domainObjectName="QuickReply" ></table>
+		<table  tableName="PRODUCT_SUMMARY" domainObjectName="ProductSummary" ></table>
+		<table  tableName="ORDER_SUMMARY" domainObjectName="OrderSummary" ></table>
+		<table  tableName="ORDER_ITEM" domainObjectName="OrderItem" ></table>
 	</context>
 </generatorConfiguration>

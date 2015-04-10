@@ -1,58 +1,14 @@
-TODO:
-
-1.spring bean化所有会调用后台的类
-	a)server 服务化,bean化
-	b)SessionManager bean化
-	c)MessageStoreCallable bean化
-
-2.实现连接的监听
-
-3.user的查找
-  a)用cache去实现加载
-  b)如何存储shipId
-  c)如何查找同一个shop下面的所有sales.
-
-4.test case
-
-5.属性配置化properties.
-
-6.后台各种校验
-  a)client对入口参数的校验
-  b)server对入口参数的校验
-  c)校验用户各种操作是否授权
-  d)校验用户各种操作是否有效
-  	1)重复登录
-  	2)未登录就进行各种操作
-  	3)聊天对象根本就不存在
-  	
-7.error code/status code具体化 
+//TODO
+h2 debug
+new org.h2.tools.Server().runTool(new String[] { "-web", "-webAllowOthers", "-webPort", "8090" })
 
 
-//仅实现了service, 需要实现client调用及测试
-List<ChatMessage> loadHisChatMessage(long shopId, String userId, int offset, int batchSize);
+XXX 泛型
+XXX 配置化
+XXX	bug
+XXX 去SSL
 
-//service & client server 都需要实现及测试	
-ProductSummary loadProductSummary(long productId);
-
-//service & client server 都需要实现及测试
-OrderSummary loadOrderSummary(long orderId);
-
-//service & client server 实现  未测试	
-List<QuickReply> loadQuickReply(long saleId);
-
-//service & client server 实现 未测试	
-void updateQuickReply(long saleId, QuickReply quickReply);
-
-//service & client server 实现 未测试	
-void deleteReply(long saleId, QuickReply quickReply);
-
-udp研究
-openfire login研究
-openfire session维护研究
-openfire 集群研究
-chat如何集群 研究
-socket集群研究
-发送消息的压缩与解压
-
-tip1:通过user.isSales来判断客户类型。
- 	
+XXX
+user_id问题
+ssl
+connection listener 

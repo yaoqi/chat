@@ -3,13 +3,10 @@ package com.mercury.chat.server.protocol;
 import static com.mercury.chat.common.MessageType.HANDSHAKE;
 import static com.mercury.chat.common.MessageType.LOGIN;
 import static com.mercury.chat.common.MessageType.LOGOFF;
-import static com.mercury.chat.common.MessageType.USER_LIST;
 import static com.mercury.chat.common.constant.StatusCode.FAIL;
 import static com.mercury.chat.common.constant.StatusCode.INTERNAL_SERVER_ERROR;
 import static com.mercury.chat.common.constant.StatusCode.LOGGED_IN;
 import static com.mercury.chat.common.constant.StatusCode.OK;
-import static com.mercury.chat.common.constant.StatusCode.USER_LOGIN;
-import static com.mercury.chat.common.constant.StatusCode.USER_LOGOFF;
 import static com.mercury.chat.common.util.Channels.has;
 import static com.mercury.chat.common.util.Channels.set;
 import static com.mercury.chat.common.util.Messages.buildMessage;
@@ -31,7 +28,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.common.constant.Constant;
 import com.mercury.chat.common.constant.StatusCode;
-import com.mercury.chat.common.matcher.AntiUserMatcher;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.server.protocol.group.SessionManager;
 import com.mercury.chat.user.entity.User;
@@ -66,8 +62,9 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
         			public void operationComplete(ChannelFuture future) throws Exception {
         				User user = ctx.channel().attr(Constant.userInfo).get();
         				if(user != null){
-        					Message message = buildMessage(USER_LIST, USER_LOGOFF, user);
-							channels.writeAndFlush(message , new AntiUserMatcher(user.getUserId()));
+        					//FIXME will need to discuss this logic.
+        					//Message message = buildMessage(USER_LIST, USER_LOGOFF, user);
+							//channels.writeAndFlush(message , new AntiUserMatcher(user.getUserId()));
         				}
         			}
 
@@ -81,20 +78,28 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 		if (LOGIN.$(msg)) {
 			//validate
 	    	if(has(ctx.channel(), Constant.userInfo)){
-	    		ctx.writeAndFlush(buildMessage(LOGIN, LOGGED_IN));
+	    		ctx.writeAndFlush(buildMessage(LOGIN, LOGGED_IN).requestId(msg.getRequestId()));
 	    		return;
 	    	}
 			
 			User user = (User) msg.getBody();
+			
+			if(channels.hasUser(user.getUserId())){
+				ctx.writeAndFlush(buildMessage(LOGIN, LOGGED_IN).requestId(msg.getRequestId()));
+	    		return;
+	    	}
+			
 			StatusCode statusCode = null;
+			User loginUser = null;
 			try {
-				User loginUser = userService.login(user.getUserId(), user.getPassword());
+				loginUser = userService.login(user.getUserId(), user.getPassword());
 				if (loginUser != null) {
 					//put the login user into cache.
 					SessionManager.uerCache.put(user.getUserId(), loginUser);
 					
-					ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
-		          	set(ctx.channel(), Constant.userInfo, user);
+					//FIXME will need to think how to handle this logic
+					//ctx.writeAndFlush(buildMessage(USER_LIST, USER_LOGIN, user));
+		          	set(ctx.channel(), Constant.userInfo, loginUser);
 		          	statusCode = OK;
 		          	//if login successfully,will add this channel to channel group
 		          	channels.add(ctx.channel());
@@ -103,11 +108,15 @@ public class LoginAuthHandler extends SimpleChannelInboundHandler<Message> {
 				}
 			} catch (Exception e) {
 				statusCode = INTERNAL_SERVER_ERROR;
+				logger.error("Internal Server Error", e);
 			}
-		    ctx.writeAndFlush(buildMessage(LOGIN, statusCode));
+		    ctx.writeAndFlush(buildMessage(LOGIN, statusCode, msg.getRequestId(), loginUser));
 		}else if(LOGOFF.$(msg)){
-			logger.log(Level.ERROR, msg);
-	        ctx.close();
+			logger.log(Level.INFO, msg);
+			//remove this channel from channels.
+			channels.remove(ctx.channel());
+			//reply the logoff response.
+			ctx.writeAndFlush(buildMessage(LOGOFF,OK,msg.getRequestId()));
 		}else {
 		    ctx.fireChannelRead(msg);
 		}

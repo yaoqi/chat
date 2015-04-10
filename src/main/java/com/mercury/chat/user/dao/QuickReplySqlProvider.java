@@ -25,21 +25,21 @@ public class QuickReplySqlProvider {
     public String countByExample(QuickReplyTemplate example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("QUICK_REPLY");
+        FROM("CHAT.QUICK_REPLY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(QuickReplyTemplate example) {
         BEGIN();
-        DELETE_FROM("QUICK_REPLY");
+        DELETE_FROM("CHAT.QUICK_REPLY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(QuickReply record) {
         BEGIN();
-        INSERT_INTO("QUICK_REPLY");
+        INSERT_INTO("CHAT.QUICK_REPLY");
         
         if (record.getUuid() != null) {
             VALUES("UUID", "#{uuid,jdbcType=BIGINT}");
@@ -65,7 +65,7 @@ public class QuickReplySqlProvider {
         }
         SELECT("SALEID");
         SELECT("MESSAGE");
-        FROM("QUICK_REPLY");
+        FROM("CHAT.QUICK_REPLY");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -83,7 +83,7 @@ public class QuickReplySqlProvider {
             SELECT("UUID");
         }
         SELECT("SALEID");
-        FROM("QUICK_REPLY");
+        FROM("CHAT.QUICK_REPLY");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -98,7 +98,7 @@ public class QuickReplySqlProvider {
         QuickReplyTemplate example = (QuickReplyTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("QUICK_REPLY");
+        UPDATE("CHAT.QUICK_REPLY");
         
 //        if (record.getUuid() != null) {
 //            SET("UUID = #{record.uuid,jdbcType=BIGINT}");
@@ -118,7 +118,7 @@ public class QuickReplySqlProvider {
 
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("QUICK_REPLY");
+        UPDATE("CHAT.QUICK_REPLY");
         
         SET("UUID = #{record.uuid,jdbcType=BIGINT}");
         SET("SALEID = #{record.saleid,jdbcType=BIGINT}");
@@ -131,7 +131,7 @@ public class QuickReplySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("QUICK_REPLY");
+        UPDATE("CHAT.QUICK_REPLY");
         
         SET("UUID = #{record.uuid,jdbcType=BIGINT}");
         SET("SALEID = #{record.saleid,jdbcType=BIGINT}");
@@ -143,7 +143,7 @@ public class QuickReplySqlProvider {
 
     public String updateByPrimaryKeySelective(QuickReply record) {
         BEGIN();
-        UPDATE("QUICK_REPLY");
+        UPDATE("CHAT.QUICK_REPLY");
         
         if (record.getSaleid() != null) {
             SET("SALEID = #{saleid,jdbcType=BIGINT}");

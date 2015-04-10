@@ -24,7 +24,7 @@ public interface ProductSummaryMapper {
     @Select({
         "select",
         "PRODUCT_ID, PRODUCT_CODE, SUMMARY",
-        "from PRODUCT_SUMMARY",
+        "from CHAT.PRODUCT_SUMMARY",
         "where PRODUCT_ID = #{productId,jdbcType=BIGINT}"
     })
     @Results({

@@ -15,6 +15,7 @@ import com.mercury.chat.common.MessageType;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.User;
 import com.mercury.chat.user.repository.UserRepository;
 import com.mercury.chat.user.repository.redis.UserRepositoryImpl;
@@ -62,8 +63,8 @@ public class UserServiceTest {
 		Long shopId = null;
 		int offset = 0;
 		int batchSize = 0;
-		IMessage message = userService.select(userId, shopId, offset, batchSize);
-		assertNotNull(message);
+		List<ChatMessage> msgs = userService.select(userId, shopId, offset, batchSize);
+		assertNotNull(msgs);
 	}
 	
 	

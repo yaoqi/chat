@@ -2,6 +2,7 @@ package com.mercury.chat.client.protocol;
 
 import static com.mercury.chat.common.MessageType.HEARTBEAT;
 import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.MessageType.LOGOFF;
 import static com.mercury.chat.common.constant.StatusCode.OK;
 import static com.mercury.chat.common.util.Messages.buildMessage;
 import io.netty.channel.ChannelHandlerContext;
@@ -41,8 +42,15 @@ public class HeartBeatHandler extends SimpleLinstenbleHandler {
 				listener.onMessage(msg);
 			}
 		    logger.log(Level.INFO, "Client receive server heart beat message : ---> "+ msg);
-		} else
-		    ctx.fireChannelRead(msg);
+		} else if(LOGOFF.$(msg)){
+			//if server sent the logff confirm message, will terminate the heartbeat message.
+			if (heartBeat != null) {
+			    heartBeat.cancel(true);
+			    heartBeat = null;
+			}
+		} else{
+			ctx.fireChannelRead(msg);
+		}
 	}
 
     private class HeartBeatTask implements Runnable {

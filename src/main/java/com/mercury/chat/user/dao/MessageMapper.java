@@ -37,7 +37,7 @@ public interface MessageMapper {
     @Select({
         "select",
         "ID, CHAT_FROM, CHAT_TO, SHOP_ID, CREATE_TS, MESSAGE",
-        "from MESSAGE",
+        "from CHAT.MESSAGE",
         "where (CHAT_FROM = #{userId,jdbcType=VARCHAR} or CHAT_TO = #{userId,jdbcType=VARCHAR})   and  SHOP_ID = #{shopId,jdbcType=BIGINT}",
         "limit #{batchSize} offset #{offset}"
     })
@@ -52,7 +52,7 @@ public interface MessageMapper {
     List<ChatMessage> select(@Param(value = "userId")String userId, @Param(value = "shopId")Long shopId, @Param(value = "offset")int offset, @Param(value = "batchSize")int batchSize);
 	
     @Insert({
-        "insert into MESSAGE (CHAT_FROM, ",
+        "insert into CHAT.MESSAGE (CHAT_FROM, ",
         "CHAT_TO, SHOP_ID, ",
         "MESSAGE)",
         "values (#{chatFrom,jdbcType=VARCHAR}, ",

@@ -38,7 +38,7 @@ public class LoginAuthHandler extends SimpleLinstenbleHandler {
 		    }
 		    
 		    messageBox().put(message);//put the login result to message box.
-		   
+		    messageBox().unRegister(message.getRequestId());
 		    logger.log(Level.INFO, message);
 		} else
 		    ctx.fireChannelRead(msg);
@@ -46,6 +46,7 @@ public class LoginAuthHandler extends SimpleLinstenbleHandler {
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     	logger.log(Level.ERROR, cause);
+    	cause.printStackTrace();
     	ctx.fireExceptionCaught(cause);
     }
 

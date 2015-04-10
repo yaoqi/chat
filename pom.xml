@@ -25,9 +25,90 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<argLine>${maven.surefire.argLine}</argLine>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<printSummary>true</printSummary>
+					<testFailureIgnore>true</testFailureIgnore>
+	                <useFile>true</useFile>
+	            </configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-testResources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>./target/test-classes</outputDirectory>
+							<overwrite>false</overwrite>
+							<resources>
+								<resource>
+									<directory>./../common-lib/src/test/resources</directory>
+									<includes>
+							          <include>**/*.ddl</include>
+							          <include>**/*.dml</include>
+							        </includes>
+								</resource>
+								<resource>
+									<directory>./../account-service/src/test/resources</directory>
+									<includes>
+							          <include>**/*.ddl</include>
+							          <include>**/*.dml</include>
+							        </includes>
+								</resource>
+								<resource>
+									<directory>./../order-service/src/test/resources</directory>
+									<includes>
+							          <include>**/*.ddl</include>
+							          <include>**/*.dml</include>
+							        </includes>
+								</resource>
+								<resource>
+									<directory>./../product-service/src/test/resources</directory>
+									<includes>
+							          <include>**/*.ddl</include>
+							          <include>**/*.dml</include>
+							        </includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
   <dependencies>
+  	<!--  
+  	<dependency>
+		<groupId>com.shuixing.emall</groupId>
+		<artifactId>common-lib</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.shuixing.emall</groupId>
+		<artifactId>account-service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.shuixing.emall</groupId>
+		<artifactId>order-service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.shuixing.emall</groupId>
+		<artifactId>product-service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>-->
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
@@ -235,6 +316,20 @@
 		<artifactId>aspectjweaver</artifactId>
 		<version>${org.aspectj.version}</version>
 	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.activemq</groupId>
+		<artifactId>activemq-all</artifactId>
+		<version>5.11.1</version>
+	</dependency>
+<!-- 	<dependency> -->
+<!-- 	    <groupId>org.jgroups</groupId> -->
+<!-- 	    <artifactId>jgroups</artifactId> -->
+<!-- 	    <version>3.6.3.Final</version> -->
+<!-- 	</dependency> -->
+
+	
+	
   </dependencies>
 </project>
 

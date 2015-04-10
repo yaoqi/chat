@@ -13,7 +13,7 @@ public interface UserMapper {
     @Select({
         "select",
         "UUID, USER_ID, SALES, SHOP_ID",
-        "from USER",
+        "from CHAT.USER",
         "where USER_ID = #{userId,jdbcType=VARCHAR} and  PASSWORD = #{password,jdbcType=VARCHAR}"
     })
     @Results({
@@ -28,7 +28,7 @@ public interface UserMapper {
     @Select({
         "select",
         "UUID, USER_ID, SALES, SHOP_ID",
-        "from USER",
+        "from CHAT.USER",
         "where USER_ID = #{userId,jdbcType=VARCHAR} and  PASSWORD = #{password,jdbcType=VARCHAR}"
     })
     @Results({

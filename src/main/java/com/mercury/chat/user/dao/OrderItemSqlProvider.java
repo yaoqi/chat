@@ -25,21 +25,21 @@ public class OrderItemSqlProvider {
     public String countByExample(OrderItemTemplate example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("ORDER_ITEM");
+        FROM("CHAT.ORDER_ITEM");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(OrderItemTemplate example) {
         BEGIN();
-        DELETE_FROM("ORDER_ITEM");
+        DELETE_FROM("CHAT.ORDER_ITEM");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(OrderItem record) {
         BEGIN();
-        INSERT_INTO("ORDER_ITEM");
+        INSERT_INTO("CHAT.ORDER_ITEM");
         
         if (record.getItemId() != null) {
             VALUES("ITEM_ID", "#{itemId,jdbcType=BIGINT}");
@@ -65,7 +65,7 @@ public class OrderItemSqlProvider {
         }
         SELECT("ORDER_ID");
         SELECT("PRODUCT_ID");
-        FROM("ORDER_ITEM");
+        FROM("CHAT.ORDER_ITEM");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -80,7 +80,7 @@ public class OrderItemSqlProvider {
         OrderItemTemplate example = (OrderItemTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("ORDER_ITEM");
+        UPDATE("CHAT.ORDER_ITEM");
         
         if (record.getItemId() != null) {
             SET("ITEM_ID = #{record.itemId,jdbcType=BIGINT}");
@@ -100,7 +100,7 @@ public class OrderItemSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("ORDER_ITEM");
+        UPDATE("CHAT.ORDER_ITEM");
         
         SET("ITEM_ID = #{record.itemId,jdbcType=BIGINT}");
         SET("ORDER_ID = #{record.orderId,jdbcType=BIGINT}");
@@ -113,7 +113,7 @@ public class OrderItemSqlProvider {
 
     public String updateByPrimaryKeySelective(OrderItem record) {
         BEGIN();
-        UPDATE("ORDER_ITEM");
+        UPDATE("CHAT.ORDER_ITEM");
         
         if (record.getOrderId() != null) {
             SET("ORDER_ID = #{orderId,jdbcType=BIGINT}");

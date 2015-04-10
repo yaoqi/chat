@@ -40,6 +40,15 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
+	<bean id="chatClient" class = "com.mercury.chat.client.impl.ChatClientImpl" lazy-init="true">
+		<constructor-arg index="0" value="${chat.server.ip}"></constructor-arg>
+		<constructor-arg index="1" value="${chat.server.port}"></constructor-arg>
+	</bean>
+	
+	<bean id="identifierUtils" class="com.mercury.chat.common.util.IdentifierUtils"/>
+	
+	<bean id="clientMessages" class="com.mercury.chat.client.utils.ClientMessages"/>
+	
 	<bean id="jedisPoolUtils" class="com.mercury.chat.user.repository.redis.JedisPoolUtils"/>
 	
 </beans>

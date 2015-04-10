@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import org.apache.logging.log4j.Level;
 
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.handler.impl.SimpleMessageHandler;
 
 import static com.mercury.chat.common.MessageType.CHAT;
 

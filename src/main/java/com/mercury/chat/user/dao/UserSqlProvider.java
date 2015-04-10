@@ -25,21 +25,21 @@ public class UserSqlProvider {
     public String countByExample(UserTemplate example) {
         BEGIN();
         SELECT("count (*)");
-        FROM("USER");
+        FROM("CHAT.USER");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(UserTemplate example) {
         BEGIN();
-        DELETE_FROM("USER");
+        DELETE_FROM("CHAT.USER");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(User record) {
         BEGIN();
-        INSERT_INTO("USER");
+        INSERT_INTO("CHAT.USER");
         
         if (record.getUuid() != null) {
             VALUES("UUID", "#{uuid,jdbcType=BIGINT}");
@@ -75,7 +75,7 @@ public class UserSqlProvider {
         SELECT("PASSWORD");
         SELECT("SALES");
         SELECT("SHOP_ID");
-        FROM("USER");
+        FROM("CHAT.USER");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -90,7 +90,7 @@ public class UserSqlProvider {
         UserTemplate example = (UserTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("USER");
+        UPDATE("CHAT.USER");
         
         if (record.getUuid() != null) {
             SET("UUID = #{record.uuid,jdbcType=BIGINT}");
@@ -118,7 +118,7 @@ public class UserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("USER");
+        UPDATE("CHAT.USER");
         
         SET("UUID = #{record.uuid,jdbcType=BIGINT}");
         SET("USER_ID = #{record.userId,jdbcType=VARCHAR}");
@@ -133,7 +133,7 @@ public class UserSqlProvider {
 
     public String updateByPrimaryKeySelective(User record) {
         BEGIN();
-        UPDATE("USER");
+        UPDATE("CHAT.USER");
         
         if (record.getUserId() != null) {
             SET("USER_ID = #{userId,jdbcType=VARCHAR}");

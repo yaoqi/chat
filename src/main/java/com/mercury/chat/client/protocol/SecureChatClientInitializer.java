@@ -4,8 +4,10 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
-import com.mercury.chat.common.ReadTimeoutHandler;
+import com.mercury.chat.common.ChatTimeoutHandler;
+import com.mercury.chat.common.ConnectionListener;
 import com.mercury.chat.common.codec.protocol.MessageDecoder;
 import com.mercury.chat.common.codec.protocol.MessageEncoder;
 
@@ -20,6 +22,8 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
         this.sslCtx = sslCtx;
     }
 
+    private ConnectionListener connectionListener;
+    
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
@@ -28,7 +32,9 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
 
         pipeline.addLast("MessageDecoder", new MessageDecoder(1024 * 1024, 4, 4));
 		pipeline.addLast("MessageEncoder", new MessageEncoder());
-		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(300));
+		pipeline.addLast("ExceptionHandler", new ExceptionHandler(connectionListener));
+		pipeline.addLast("ReadTimeoutHandler", new ReadTimeoutHandler(50));
+		pipeline.addLast("ChatTimeoutHandler", new ChatTimeoutHandler(300));
 		pipeline.addLast("LoginAuthHandler", new LoginAuthHandler());
 		pipeline.addLast("HeartBeatHandler", new HeartBeatHandler());
 		pipeline.addLast("UserListHandler", new UserListHandler());
@@ -38,4 +44,12 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
         // and then business logic.
         pipeline.addLast("ChatHandler", new SecureChatClientHandler());
     }
+
+	public ConnectionListener getConnectionListener() {
+		return connectionListener;
+	}
+
+	public void setConnectionListener(ConnectionListener connectionListener) {
+		this.connectionListener = connectionListener;
+	}
 }

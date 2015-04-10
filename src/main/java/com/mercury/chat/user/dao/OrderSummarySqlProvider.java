@@ -25,21 +25,21 @@ public class OrderSummarySqlProvider {
     public String countByExample(OrderSummaryTemplate example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("ORDER_SUMMARY");
+        FROM("CHAT.ORDER_SUMMARY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(OrderSummaryTemplate example) {
         BEGIN();
-        DELETE_FROM("ORDER_SUMMARY");
+        DELETE_FROM("CHAT.ORDER_SUMMARY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(OrderSummary record) {
         BEGIN();
-        INSERT_INTO("ORDER_SUMMARY");
+        INSERT_INTO("CHAT.ORDER_SUMMARY");
         
         if (record.getOrderId() != null) {
             VALUES("ORDER_ID", "#{orderId,jdbcType=BIGINT}");
@@ -60,7 +60,7 @@ public class OrderSummarySqlProvider {
             SELECT("ORDER_ID");
         }
         SELECT("SUMMARY");
-        FROM("ORDER_SUMMARY");
+        FROM("CHAT.ORDER_SUMMARY");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -75,7 +75,7 @@ public class OrderSummarySqlProvider {
         OrderSummaryTemplate example = (OrderSummaryTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("ORDER_SUMMARY");
+        UPDATE("CHAT.ORDER_SUMMARY");
         
         if (record.getOrderId() != null) {
             SET("ORDER_ID = #{record.orderId,jdbcType=BIGINT}");
@@ -91,7 +91,7 @@ public class OrderSummarySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("ORDER_SUMMARY");
+        UPDATE("CHAT.ORDER_SUMMARY");
         
         SET("ORDER_ID = #{record.orderId,jdbcType=BIGINT}");
         SET("SUMMARY = #{record.summary,jdbcType=VARCHAR}");
@@ -103,7 +103,7 @@ public class OrderSummarySqlProvider {
 
     public String updateByPrimaryKeySelective(OrderSummary record) {
         BEGIN();
-        UPDATE("ORDER_SUMMARY");
+        UPDATE("CHAT.ORDER_SUMMARY");
         
         if (record.getSummary() != null) {
             SET("SUMMARY = #{summary,jdbcType=VARCHAR}");

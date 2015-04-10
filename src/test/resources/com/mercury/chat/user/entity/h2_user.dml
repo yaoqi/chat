@@ -1,4 +1,4 @@
-insert into CHAT.USER(USER_ID,PASSWORD) values('google@gmail.com','welcome1');
+insert into CHAT.USER(USER_ID,PASSWORD,SALES,SHOP_ID) values('google@gmail.com','welcome1',true, 1);
 insert into CHAT.USER(USER_ID,PASSWORD) values('baidu@baidu.com','welcome1');
 
 insert into CHAT.MESSAGE(CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) values('baidu@baidu.com','google@gmail.com', 1, 'hello, google');

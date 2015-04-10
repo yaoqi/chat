@@ -1,6 +1,6 @@
 package com.mercury.chat.server.protocol;
 
-import static com.mercury.chat.common.MessageType.LOGIN;
+import static com.mercury.chat.common.MessageType.CHAT;
 import static com.mercury.chat.common.TaskExecutor.taskExecutor;
 import static com.mercury.chat.common.constant.StatusCode.NOT_LOGIN;
 import static com.mercury.chat.common.util.Channels.get;
@@ -10,8 +10,10 @@ import static com.mercury.chat.server.protocol.group.SessionManager.channels;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelMatcher;
+import static com.mercury.chat.common.constant.Constant.SHOP_ID;
 
 import java.io.IOException;
+import java.util.concurrent.Future;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +40,7 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
     public void messageReceived(ChannelHandlerContext ctx, Message msg) throws Exception {
     	//validate
     	if(!has(ctx.channel(), Constant.userInfo)){
-    		ctx.writeAndFlush(buildMessage(LOGIN, NOT_LOGIN));
+    		ctx.writeAndFlush(buildMessage(CHAT, NOT_LOGIN, msg.getRequestId()));
     		return;
     	}
     	
@@ -53,24 +55,29 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<Message
 		if(currentUser.isSales()){
 			shopId = currentUser.getShopId();
 			//获取目标客户
-			String toUser = (String) header.attachment().get("toUser");
+			//String toUser = msg.getToUser();
 		}else{
 		//如果代理客户端	
 			shopId = SessionManager.uerCache.get(header.getTo()).getShopId();
 			//获取来源客户
-			String fromUser = (String) header.attachment().get("fromUser");
+			//String fromUser = msg.getFromUser();
 		}
-		msg.getHeader().attachment().put("shopId", shopId);
+		msg.getHeader().attach(SHOP_ID, shopId);
 		
 		channels.writeAndFlush(msg, matcher);
 		
 		//submit store message to thread pool.
-		taskExecutor.submit(new MessageStoreCallable(Lists.<IMessage>newArrayList(msg)));
+		Future<Integer> future = taskExecutor.submit(new MessageStoreCallable(Lists.<IMessage>newArrayList(msg)));
+		boolean wait = Boolean.parseBoolean(System.getProperty("chat.server.message.saved.wait", "false"));
+		if(wait){
+			future.get();
+		}
     }
     
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         logger.log(Level.ERROR, cause);
+        cause.printStackTrace();
         if(cause instanceof IOException){
         	ctx.close();
         }

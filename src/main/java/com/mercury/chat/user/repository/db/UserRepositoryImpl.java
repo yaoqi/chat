@@ -1,8 +1,5 @@
 package com.mercury.chat.user.repository.db;
 
-import static com.mercury.chat.common.MessageType.HISTORICAL_MESSAGE;
-import static com.mercury.chat.common.util.Messages.buildMessage;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -71,14 +68,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public List<User> getUserList(String userId) {
-		return null;
-	}
-
-	@Override
-	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
-		List<ChatMessage> messages = messageMapper.select(userId, shopId, offset, batchSize);
-		return buildMessage(HISTORICAL_MESSAGE, messages);
+	public List<ChatMessage> select(String userId, Long shopId, int offset, int batchSize) {
+		return messageMapper.select(userId, shopId, offset, batchSize);
 	}
 
 	@Override

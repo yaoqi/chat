@@ -33,13 +33,13 @@ public interface QuickReplyMapper {
     int deleteByExample(QuickReplyTemplate example);
 
     @Delete({
-        "delete from QUICK_REPLY",
+        "delete from CHAT.QUICK_REPLY",
         "where UUID = #{uuid,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long uuid);
 
     @Insert({
-        "insert into QUICK_REPLY (UUID, SALEID, ",
+        "insert into CHAT.QUICK_REPLY (UUID, SALEID, ",
         "MESSAGE)",
         "values (#{uuid,jdbcType=BIGINT}, #{saleid,jdbcType=BIGINT}, ",
         "#{message,jdbcType=CLOB})"
@@ -59,7 +59,7 @@ public interface QuickReplyMapper {
     @Select({
         "select",
         "UUID, SALEID, MESSAGE",
-        "from QUICK_REPLY",
+        "from CHAT.QUICK_REPLY",
         "where UUID = #{uuid,jdbcType=BIGINT}"
     })
     @Results({
@@ -82,7 +82,7 @@ public interface QuickReplyMapper {
     int updateByPrimaryKeySelective(QuickReply record);
 
     @Update({
-        "update QUICK_REPLY",
+        "update CHAT.QUICK_REPLY",
         "set SALEID = #{saleid,jdbcType=BIGINT},",
           "MESSAGE = #{message,jdbcType=CLOB}",
         "where UUID = #{uuid,jdbcType=BIGINT}"
@@ -90,7 +90,7 @@ public interface QuickReplyMapper {
     int updateByPrimaryKeyWithBLOBs(QuickReply record);
 
     @Update({
-        "update QUICK_REPLY",
+        "update CHAT.QUICK_REPLY",
         "set SALEID = #{saleid,jdbcType=BIGINT}",
         "where UUID = #{uuid,jdbcType=BIGINT}"
     })

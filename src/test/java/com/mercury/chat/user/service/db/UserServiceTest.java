@@ -76,16 +76,15 @@ public class UserServiceTest {
 		messages.add(msg);
 		int count = userService.store(messages);
 		assertEquals(2, count);
-		IMessage msgs = userService.select("google@google.com", 1L, 0, 2);
-		assertEquals(2, ((List<ChatMessage>)msgs.getBody()).size());
+		List<ChatMessage> msgs = userService.select("google@google.com", 1L, 0, 2);
+		assertEquals(2, msgs);
 	}
 	
 	@Test
 	@DataPrepare2(dbTypes = {DbType.H2}, schema = "CHAT", domainClasses = {User.class})
 	public void testFindMessage(){
-		IMessage message = userService.select("baidu@baidu.com", 1L, 0, 5);
-		List<ChatMessage> messages = (List<ChatMessage>) message.getBody();
-		assertNotNull(message);
+		List<ChatMessage> messages = userService.select("baidu@baidu.com", 1L, 0, 5);
+		assertNotNull(messages);
 		assertEquals(5, messages.size());
 	}
 	

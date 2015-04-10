@@ -27,21 +27,21 @@ public class MessageSqlProvider {
     public String countByExample(MessageTemplate example) {
         BEGIN();
         SELECT("count (1)");
-        FROM("MESSAGE");
+        FROM("CHAT.MESSAGE");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(MessageTemplate example) {
         BEGIN();
-        DELETE_FROM("MESSAGE");
+        DELETE_FROM("CHAT.MESSAGE");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(ChatMessage record) {
         BEGIN();
-        INSERT_INTO("MESSAGE");
+        INSERT_INTO("CHAT.MESSAGE");
         
         if (record.getId() != null) {
             VALUES("ID", "#{id,jdbcType=BIGINT}");
@@ -73,7 +73,7 @@ public class MessageSqlProvider {
    public String insertAll(Map<String,List<ChatMessage>> map) {      
        List<ChatMessage> users = map.get("list");   
        StringBuilder sb = new StringBuilder();   
-       sb.append("INSERT INTO MESSAGE (CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) VALUES");   
+       sb.append("INSERT INTO CHAT.MESSAGE (CHAT_FROM,CHAT_TO,SHOP_ID,MESSAGE) VALUES");   
        MessageFormat messageFormat = new MessageFormat("(#'{'list[{0}].chatFrom},#'{'list[{0}].chatTo},#'{'list[{0}].shopId},#'{'list[{0}].message})");   
        for(int i = 0 ;i<users.size();i++) {   
            sb.append(messageFormat.format(new Object[]{i}));   
@@ -96,7 +96,7 @@ public class MessageSqlProvider {
         SELECT("SHOP_ID");
         SELECT("CREATE_TS");
         SELECT("MESSAGE");
-        FROM("MESSAGE");
+        FROM("CHAT.MESSAGE");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -117,7 +117,7 @@ public class MessageSqlProvider {
         SELECT("CHAT_TO");
         SELECT("SHOP_ID");
         SELECT("CREATE_TS");
-        FROM("MESSAGE");
+        FROM("CHAT.MESSAGE");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -132,7 +132,7 @@ public class MessageSqlProvider {
         MessageTemplate example = (MessageTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("MESSAGE");
+        UPDATE("CHAT.MESSAGE");
         
         if (record.getId() != null) {
             SET("ID = #{record.id,jdbcType=BIGINT}");
@@ -164,7 +164,7 @@ public class MessageSqlProvider {
 
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("MESSAGE");
+        UPDATE("CHAT.MESSAGE");
         
         SET("ID = #{record.id,jdbcType=BIGINT}");
         SET("CHAT_FROM = #{record.chatFrom,jdbcType=VARCHAR}");
@@ -180,7 +180,7 @@ public class MessageSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("MESSAGE");
+        UPDATE("CHAT.MESSAGE");
         
         SET("ID = #{record.id,jdbcType=BIGINT}");
         SET("CHAT_FROM = #{record.chatFrom,jdbcType=VARCHAR}");
@@ -195,7 +195,7 @@ public class MessageSqlProvider {
 
     public String updateByPrimaryKeySelective(ChatMessage record) {
         BEGIN();
-        UPDATE("MESSAGE");
+        UPDATE("CHAT.MESSAGE");
         
         if (record.getChatFrom() != null) {
             SET("CHAT_FROM = #{chatFrom,jdbcType=VARCHAR}");

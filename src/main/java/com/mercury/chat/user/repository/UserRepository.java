@@ -3,6 +3,7 @@ package com.mercury.chat.user.repository;
 import java.util.List;
 
 import com.mercury.chat.common.struct.IMessage;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.OrderSummary;
 import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
@@ -12,11 +13,9 @@ public interface UserRepository {
 	
 	User login(String userId, String passWord);
 	
-	List<User> getUserList(String userId);
-	
 	User getUser(String userId);
 	
-	IMessage select(String userId, Long shopId, int offset, int batchSize);
+	List<ChatMessage> select(String userId, Long shopId, int offset, int batchSize);
 	
 	int store(List<IMessage> message);
 	

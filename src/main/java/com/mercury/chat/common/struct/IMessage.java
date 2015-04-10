@@ -13,5 +13,21 @@ public interface IMessage {
 	String getTo();
 	
 	ChatMessage convert();
+
+	void from(String user);
+
+	void to(String user);
+
+	String getFromUser();
+
+	String getToUser();
+
+	void fromUser(String user);
+
+	void toUser(String user);
+	
+	long getRequestId();
+	
+	IMessage requestId(long requestId);
 	
 }

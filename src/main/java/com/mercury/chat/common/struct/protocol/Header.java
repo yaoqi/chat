@@ -2,9 +2,18 @@ package com.mercury.chat.common.struct.protocol;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.Map.Entry;
+
+import org.apache.commons.collections.MapUtils;
 
 import com.mercury.chat.common.constant.StatusCode;
 import com.mercury.chat.common.struct.IHeader;
+import static com.mercury.chat.common.constant.Constant.FROM;
+import static com.mercury.chat.common.constant.Constant.TO;
+import static com.mercury.chat.common.constant.Constant.FROM_USER;
+import static com.mercury.chat.common.constant.Constant.TO_USER;
 
 public final class Header implements IHeader{
 
@@ -98,30 +107,70 @@ public final class Header implements IHeader{
 
 	@Override
 	public String getTo() {
-		return (String) attachment.get("to");
+		return (String) attachment.get(TO);
 	}
 
 	@Override
 	public String getFrom() {
-		return (String) attachment.get("from");
+		return (String) attachment.get(FROM);
 	}
 	
 	public Header to(String to){
-		attachment.put("to", to);
+		attachment.put(TO, to);
 		return this;
 	}
 	
 	public Header from(String from){
-		attachment.put("from", from);
+		attachment.put(FROM, from);
 		return this;
 	}
 	
 	public void setTo(String to){
-		attachment.put("to", to);
+		attachment.put(TO, to);
 	}
 	
 	public void setFrom(String from){
-		attachment.put("from", from);
+		attachment.put(FROM, from);
+	}
+	
+	public void attach(Properties properties){
+		if(MapUtils.isNotEmpty(properties)){
+			Set<Entry<Object, Object>> entrySet = properties.entrySet();
+			for(Entry<Object, Object> entry : entrySet){
+				attachment().put((String)entry.getKey(), entry.getValue());
+			}
+		}
+	}
+	
+	public void attach(String key, Object value){
+		attachment().put(key, value);
+	}
+	
+	public Object getAttachment(String key){
+		return attachment().get(key);
+	}
+	
+	public boolean hasAttachment(String key){
+		return attachment().get(key) != null;
+	}
+	
+	public void reverse(){
+		Object from = attachment().remove(FROM);
+		Object to = attachment().remove(TO);
+		if(from!=null){
+			attach(TO, from);
+		}
+		if(to!=null){
+			attach(FROM, to);
+		}
+		Object fromUser = attachment().remove(FROM_USER);
+		if(fromUser!=null){
+			attach(TO_USER, fromUser);
+		}
+		Object toUser = attachment().remove(TO_USER);
+		if(toUser!=null){
+			attach(FROM_USER, toUser);
+		}
 	}
 
 	@Override
@@ -130,6 +179,22 @@ public final class Header implements IHeader{
 				+ ", sessionID=" + sessionID + ", statusCode=" + statusCode
 				+ ", type=" + type + ", priority=" + priority + ", attachment="
 				+ attachment+ "]";
+	}
+
+	public String getFromUser() {
+		return (String) attachment.get(FROM_USER);
+	}
+
+	public String getToUser() {
+		return (String) attachment.get(TO_USER);
+	}
+
+	public void setFromUser(String user) {
+		attachment.put(FROM_USER, user);
+	}
+
+	public void setToUser(String user) {
+		attachment.put(TO_USER, user);
 	}
 
 }

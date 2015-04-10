@@ -25,21 +25,21 @@ public class ProductSummarySqlProvider {
     public String countByExample(ProductSummaryTemplate example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("PRODUCT_SUMMARY");
+        FROM("CHAT.PRODUCT_SUMMARY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(ProductSummaryTemplate example) {
         BEGIN();
-        DELETE_FROM("PRODUCT_SUMMARY");
+        DELETE_FROM("CHAT.PRODUCT_SUMMARY");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(ProductSummary record) {
         BEGIN();
-        INSERT_INTO("PRODUCT_SUMMARY");
+        INSERT_INTO("CHAT.PRODUCT_SUMMARY");
         
         if (record.getProductId() != null) {
             VALUES("PRODUCT_ID", "#{productId,jdbcType=BIGINT}");
@@ -65,7 +65,7 @@ public class ProductSummarySqlProvider {
         }
         SELECT("PRODUCT_CODE");
         SELECT("SUMMARY");
-        FROM("PRODUCT_SUMMARY");
+        FROM("CHAT.PRODUCT_SUMMARY");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -80,7 +80,7 @@ public class ProductSummarySqlProvider {
         ProductSummaryTemplate example = (ProductSummaryTemplate) parameter.get("example");
         
         BEGIN();
-        UPDATE("PRODUCT_SUMMARY");
+        UPDATE("CHAT.PRODUCT_SUMMARY");
         
         if (record.getProductId() != null) {
             SET("PRODUCT_ID = #{record.productId,jdbcType=BIGINT}");
@@ -100,7 +100,7 @@ public class ProductSummarySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("PRODUCT_SUMMARY");
+        UPDATE("CHAT.PRODUCT_SUMMARY");
         
         SET("PRODUCT_ID = #{record.productId,jdbcType=BIGINT}");
         SET("PRODUCT_CODE = #{record.productCode,jdbcType=VARCHAR}");
@@ -113,7 +113,7 @@ public class ProductSummarySqlProvider {
 
     public String updateByPrimaryKeySelective(ProductSummary record) {
         BEGIN();
-        UPDATE("PRODUCT_SUMMARY");
+        UPDATE("CHAT.PRODUCT_SUMMARY");
         
         if (record.getProductCode() != null) {
             SET("PRODUCT_CODE = #{productCode,jdbcType=VARCHAR}");

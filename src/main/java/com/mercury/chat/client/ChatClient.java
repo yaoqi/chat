@@ -11,15 +11,18 @@ import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.OrderSummary;
 import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
+import com.mercury.chat.user.entity.User;
 
 
 public interface ChatClient {
 	
 	void login(String userName, String password, Properties properties) throws ChatException;
 	
-	void logout();//just logoff
+	void logout();
 	
 	boolean isConnected();
+	
+	List<User> getOnlineUsers(long shopId);
 	
 	void sendMessage(Message message) throws ChatException;
 	
@@ -30,7 +33,7 @@ public interface ChatClient {
 	void setConnectionListener(ConnectionListener connectionListener);
 	
 	/**
-	 * load historical chat message from db/redis/other storer
+	 * load historical chat messages from database
 	 * @param shopId
 	 * @param userId chat userId, not shop userId
 	 * @param offset
@@ -43,26 +46,10 @@ public interface ChatClient {
 	
 	OrderSummary loadOrderSummary(long orderId);
 	
-	//below is the sales quick reply service
-	/**
-	 * Query the quick reply by saleId
-	 * @param saleId
-	 * @return
-	 */
 	List<QuickReply> loadQuickReply(long saleId);
 	
-	/**
-	 * Update the quick reply by saleId
-	 * @param saleId
-	 * @param quickReply
-	 */
 	void updateQuickReply(long saleId, QuickReply quickReply);
 	
-	/**
-	 * Delete the quick reply by saleId
-	 * @param saleId
-	 * @param quickReply
-	 */
 	void deleteReply(long saleId, QuickReply quickReply);
 	
 	Connection connect(String host, int port);

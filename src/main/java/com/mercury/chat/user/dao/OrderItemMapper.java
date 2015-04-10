@@ -24,13 +24,13 @@ public interface OrderItemMapper {
     int deleteByExample(OrderItemTemplate example);
 
     @Delete({
-        "delete from ORDER_ITEM",
+        "delete from CHAT.ORDER_ITEM",
         "where ITEM_ID = #{itemId,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long itemId);
 
     @Insert({
-        "insert into ORDER_ITEM (ITEM_ID, ORDER_ID, ",
+        "insert into CHAT.ORDER_ITEM (ITEM_ID, ORDER_ID, ",
         "PRODUCT_ID)",
         "values (#{itemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, ",
         "#{productId,jdbcType=BIGINT})"
@@ -51,7 +51,7 @@ public interface OrderItemMapper {
     @Select({
         "select",
         "ITEM_ID, ORDER_ID, PRODUCT_ID",
-        "from ORDER_ITEM",
+        "from CHAT.ORDER_ITEM",
         "where ITEM_ID = #{itemId,jdbcType=BIGINT}"
     })
     @Results({
@@ -71,7 +71,7 @@ public interface OrderItemMapper {
     int updateByPrimaryKeySelective(OrderItem record);
 
     @Update({
-        "update ORDER_ITEM",
+        "update CHAT.ORDER_ITEM",
         "set ORDER_ID = #{orderId,jdbcType=BIGINT},",
           "PRODUCT_ID = #{productId,jdbcType=BIGINT}",
         "where ITEM_ID = #{itemId,jdbcType=BIGINT}"

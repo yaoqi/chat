@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mercury.chat.common.MessageType;
+import com.mercury.chat.common.handler.impl.SimpleMessageHandler;
 import com.mercury.chat.common.struct.protocol.Message;
 
 public class CommonCRUDHandler extends SimpleMessageHandler {
@@ -24,6 +25,7 @@ public class CommonCRUDHandler extends SimpleMessageHandler {
 		if (_().$(msg)) {
 			logger.log(Level.INFO, "Receive server CRUD response : ---> "+ msg);
 			messageBox().put(msg);
+			messageBox().unRegister(msg.getRequestId());
 		} else
 		    ctx.fireChannelRead(msg);
     }

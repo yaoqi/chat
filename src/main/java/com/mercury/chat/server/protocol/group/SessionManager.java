@@ -1,6 +1,5 @@
 package com.mercury.chat.server.protocol.group;
 
-import io.netty.channel.group.ChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 import com.google.common.cache.CacheBuilder;
@@ -12,7 +11,7 @@ import com.mercury.chat.user.repository.db.UserRepositoryImpl;
 
 public class SessionManager {
 	
-	public static final ChannelGroup channels = new ChatChannelGroup(GlobalEventExecutor.INSTANCE);
+	public static final ChatChannelGroup channels = new ChatChannelGroup(GlobalEventExecutor.INSTANCE);
 	
 	public static final LoadingCache<String,User> uerCache = CacheBuilder
 			.newBuilder()

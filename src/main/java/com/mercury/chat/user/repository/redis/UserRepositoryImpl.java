@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
 import redis.clients.jedis.Jedis;
 
 import com.google.common.base.Function;
@@ -13,6 +11,7 @@ import com.google.common.collect.Lists;
 import com.mercury.chat.common.struct.IHeader;
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.common.struct.protocol.Message;
+import com.mercury.chat.user.entity.ChatMessage;
 import com.mercury.chat.user.entity.OrderSummary;
 import com.mercury.chat.user.entity.ProductSummary;
 import com.mercury.chat.user.entity.QuickReply;
@@ -79,7 +78,7 @@ public class UserRepositoryImpl  implements UserRepository {
 	}
 
 	@Override
-	public IMessage select(String userId, Long shopId, int offset, int batchSize) {
+	public List<ChatMessage> select(String userId, Long shopId, int offset, int batchSize) {
 		return null;
 	}
 

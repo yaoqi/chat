@@ -10,6 +10,8 @@ import java.util.Map;
 import com.mercury.chat.common.struct.protocol.Header;
 import com.mercury.chat.common.struct.protocol.Message;
 import com.mercury.chat.user.entity.User;
+import static com.mercury.chat.common.constant.Constant.FROM;
+import static com.mercury.chat.common.constant.Constant.TO;
 
 public class TestCodeC {
 
@@ -48,8 +50,8 @@ public class TestCodeC {
 		header.type((byte) 1);
 		header.priority((byte) 7);
 		Map<String, Object> attachment = new HashMap<String, Object>();
-		attachment.put("from", "god");
-		attachment.put("to", "bigboy");
+		attachment.put(FROM, "god");
+		attachment.put(TO, "bigboy");
 		header.attachment(attachment);
 		message.setHeader(header);
 		message.setBody(new User("bigboy","pwd"));
@@ -69,8 +71,7 @@ public class TestCodeC {
 		byte[] keyArray = null;
 		Object value = null;
 	
-		for (Map.Entry<String, Object> param : msg.getHeader().attachment()
-			.entrySet()) {
+		for (Map.Entry<String, Object> param : msg.getHeader().attachment().entrySet()) {
 		    key = param.getKey();
 		    keyArray = key.getBytes("UTF-8");
 		    sendBuf.writeInt(keyArray.length);

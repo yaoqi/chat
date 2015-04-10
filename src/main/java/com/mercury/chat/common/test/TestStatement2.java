@@ -93,7 +93,7 @@ public class TestStatement2 extends Statement {
 
 	private void executeH2Scripts() throws URISyntaxException, FileNotFoundException, SQLException {
 //		startServer();
-		DataSource basicDataSource = (BasicDataSource)this.context.getBean("dataSource");
+		DataSource basicDataSource = (DataSource)this.context.getBean("dataSource");
 		DataPrepare2 dataPrepare = this.getDescription().getAnnotation(DataPrepare2.class);
 		URL url = null;
 		for (Class clazz : dataPrepare.domainClasses()) {

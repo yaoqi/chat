@@ -1,5 +1,7 @@
 package com.mercury.chat.common.struct.protocol;
 
+import java.util.Properties;
+
 import com.mercury.chat.common.struct.IMessage;
 import com.mercury.chat.user.entity.ChatMessage;
 
@@ -43,18 +45,63 @@ public final class Message implements IMessage{
 
 	@Override
 	public String getFrom() {
-		return (String) header.attachment().get("from");
+		return (String) header.getFrom();
 	}
 
 	@Override
 	public String getTo() {
-		return (String) header.attachment().get("to");
+		return (String) header.getTo();
+	}
+	
+	@Override
+	public void from(String user) {
+		header.setFrom(user);
+	}
+
+	@Override
+	public void to(String user) {
+		header.setFrom(user);
+	}
+	
+	@Override
+	public String getFromUser(){
+		return header.getFromUser();
+	}
+	
+	@Override
+	public String getToUser(){
+		return header.getToUser();
+	}
+	
+	@Override
+	public void fromUser(String user) {
+		header.setFromUser(user);
+	}
+
+	@Override
+	public void toUser(String user) {
+		header.setToUser(user);
 	}
 
 	@Override
 	public ChatMessage convert() {
 		ChatMessage message = new ChatMessage();
-		message.from(getFrom()).to(getTo()).message((String)getBody()).shopId((Long)header.attachment().get("shopId"));
+		message.from(getFrom()).to(getTo()).message((String)getBody()).shopId((Long)header.getAttachment("shopId"));
 		return message;
+	}
+
+	@Override
+	public long getRequestId() {
+		return header.requestId();
+	}
+
+	@Override
+	public Message requestId(long requestId) {
+		header.requestId(requestId);
+		return this;
+	}
+
+	public void attach(Properties properties) {
+		header.attach(properties);
 	}
 }

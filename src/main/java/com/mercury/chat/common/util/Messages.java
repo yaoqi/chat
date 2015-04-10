@@ -23,4 +23,12 @@ public class Messages {
 		return new Message().header(new Header().type(messageType.value())).body(body);
 	}
 	
+	public static Message buildMessage(MessageType messageType,long requestId, Object body) {
+		return new Message().header(new Header().type(messageType.value()).requestId(requestId)).body(body);
+	}
+	
+	public static Message buildMessage(MessageType messageType, StatusCode statusCode, long requestId, Object body) {
+		return new Message().header(new Header().type(messageType.value()).statusCode(statusCode.key()).requestId(requestId)).body(body);
+	}
+	
 }
