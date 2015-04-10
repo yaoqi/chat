@@ -12,3 +12,4 @@ XXX
 user_id问题
 ssl
 connection listener 
+add response to every client methods.
